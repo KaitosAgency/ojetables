@@ -1,0 +1,968 @@
+[
+  {
+    "id": "vaisselle-jetable",
+    "label": "Vaisselle jetable",
+    "href": "/vaisselle-jetable-petit-prix",
+    "groups": [
+      {
+        "title": "Assiette Jetable",
+        "items": [
+          {
+            "label": "Compostable",
+            "href": "/vaisselle-jetable-petit-prix/assiette-jetable/assiette-biodegradable-et-compostable"
+          },
+          {
+            "label": "Carton",
+            "href": "/vaisselle-jetable-petit-prix/assiette-jetable/assiette-carton-biodegradable"
+          },
+          {
+            "label": "Plastique Réutilisable",
+            "href": "/vaisselle-jetable-petit-prix/assiette-jetable/assiette-plastique-jetable",
+            "children": [
+              {
+                "label": "Assiette pas cher réutilisable",
+                "href": "/vaisselle-jetable-petit-prix/assiette-jetable/assiette-plastique-jetable/assiette-pas-cher"
+              },
+              {
+                "label": "Carré",
+                "href": "/vaisselle-jetable-petit-prix/assiette-jetable/assiette-plastique-jetable/assiette-carre-en-plastique-rigide-et-reutilisable"
+              },
+              {
+                "label": "Vaisselle Design Pro",
+                "href": "/vaisselle-jetable-petit-prix/assiette-jetable/assiette-plastique-jetable/assiettes-design"
+              }
+            ]
+          },
+          {
+            "label": "Bol et creuse",
+            "href": "/vaisselle-jetable-petit-prix/assiette-jetable/des-assiettes-creuse-et-bol-pour-soupe-ou-aliments-liquide"
+          }
+        ]
+      },
+      {
+        "title": "Couvert de table",
+        "items": [
+          {
+            "label": "Couverts en Bois Jetables",
+            "href": "/vaisselle-jetable-petit-prix/couverts-jetables/couverts-bois-bambou"
+          },
+          {
+            "label": "Kit sachets couverts",
+            "href": "/vaisselle-jetable-petit-prix/couverts-jetables/kit-sachets-couverts"
+          },
+          {
+            "label": "Couverts Plastique Réutilisable",
+            "href": "/vaisselle-jetable-petit-prix/couverts-jetables/couverts-plastique-reutilisable"
+          },
+          {
+            "label": "Couverts Mariage & Réception",
+            "href": "/vaisselle-jetable-petit-prix/couverts-jetables/couverts-jetables-inox"
+          },
+          {
+            "label": "Couleur - couverts réutilisables",
+            "href": "/vaisselle-jetable-petit-prix/couverts-jetables/couverts-jetables-couleur"
+          },
+          {
+            "label": "Mini Couverts Jetables",
+            "href": "/vaisselle-jetable-petit-prix/couverts-jetables/couverts-jetables-mini"
+          },
+          {
+            "label": "Pochette & Étui Couverts Jetables",
+            "href": "/vaisselle-jetable-petit-prix/couverts-jetables/pochette-etui-couverts"
+          }
+        ]
+      },
+      {
+        "title": "Bol à salade",
+        "items": [
+          {
+            "label": "Biodégradable",
+            "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/biodegradable"
+          },
+          {
+            "label": "Saladier en carton",
+            "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/carton"
+          },
+          {
+            "label": "Plastique",
+            "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/saladier-plastique",
+            "children": [
+              {
+                "label": "Optipack",
+                "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/saladier-plastique/saladier-pas-cher"
+              },
+              {
+                "label": "Multipack",
+                "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/saladier-plastique/multipack"
+              },
+              {
+                "label": "Sekipack",
+                "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/saladier-plastique/bols-salade-cristal-a-couvercle-charniere-dechirable"
+              },
+              {
+                "label": "Boite salade",
+                "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/saladier-plastique/boite-salade"
+              },
+              {
+                "label": "Saladier ou Punch",
+                "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/saladier-plastique/grand-saladier"
+              },
+              {
+                "label": "Réutilisable",
+                "href": "/vaisselle-jetable-petit-prix/saladiers-jetables/saladier-plastique/reutilisable"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Pot et coupe dessert",
+        "items": [
+          {
+            "label": "Pot dessert / glace",
+            "href": "/vaisselle-jetable-petit-prix/pot-coupe-dessert-jetable/pot-coupe-dessert",
+            "children": [
+              {
+                "label": "Pot à glace personnalisé",
+                "href": "/vaisselle-jetable-petit-prix/pot-coupe-dessert-jetable/pot-coupe-dessert/pot-personnalise"
+              }
+            ]
+          },
+          {
+            "label": "Pot rond",
+            "href": "/vaisselle-jetable-petit-prix/pot-coupe-dessert-jetable/saladier-chaud-ou-froid"
+          },
+          {
+            "label": "Pot à sauce",
+            "href": "/vaisselle-jetable-petit-prix/pot-coupe-dessert-jetable/pot-a-sauce"
+          }
+        ]
+      },
+      {
+        "title": "Barquette jetable",
+        "items": [
+          {
+            "label": "Cocotte économique",
+            "href": "/vaisselle-jetable-petit-prix/emballage-barquette-jetable/barquette-cocotte-eco"
+          },
+          {
+            "label": "Barquette marmipack",
+            "href": "/vaisselle-jetable-petit-prix/emballage-barquette-jetable/marmipack"
+          },
+          {
+            "label": "Barquette sushi",
+            "href": "/vaisselle-jetable-petit-prix/emballage-barquette-jetable/barquette-sushis"
+          },
+          {
+            "label": "Barquette frite",
+            "href": "/vaisselle-jetable-petit-prix/emballage-barquette-jetable/barquette-charcutiere"
+          },
+          {
+            "label": "Barquette scellable",
+            "href": "/vaisselle-jetable-petit-prix/emballage-barquette-jetable/barquette-scellable",
+            "children": [
+              {
+                "label": "Barquette scellable personnalisé",
+                "href": "/vaisselle-jetable-petit-prix/emballage-barquette-jetable/barquette-scellable/barquette-scellable-personnalise"
+              }
+            ]
+          },
+          {
+            "label": "Barquette chaude",
+            "href": "/vaisselle-jetable-petit-prix/emballage-barquette-jetable/barquette-chaude"
+          }
+        ]
+      },
+      {
+        "title": "Fabricants",
+        "items": [
+          {
+            "label": "Comatec",
+            "href": "/vaisselle-jetable-petit-prix/fabricant-solia-comatec/comatec-vaisselle-design"
+          },
+          {
+            "label": "Vaisselle Solia",
+            "href": "/vaisselle-jetable-petit-prix/fabricant-solia-comatec/vaisselle-solia",
+            "children": [
+              {
+                "label": "Cocktail Solia",
+                "href": "/vaisselle-jetable-petit-prix/fabricant-solia-comatec/vaisselle-solia/cocktail-solia"
+              },
+              {
+                "label": "Indispensables de Solia",
+                "href": "/vaisselle-jetable-petit-prix/fabricant-solia-comatec/vaisselle-solia/indispensables-de-solia"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "title": "Vente à emporter",
+        "items": [
+          {
+            "label": "Vente à emporter",
+            "href": "/vaisselle-jetable-petit-prix/vente-a-emporter"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "verrine",
+    "label": "Verrine",
+    "href": "/verrine-a-usage-unique-economique",
+    "groups": [
+      {
+        "title": "Verrine par couleur",
+        "items": [
+          {
+            "label": "Verrine plastique transparente",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-couleur/verrine-plastique-transparente"
+          },
+          {
+            "label": "Verrine plastique blanche",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-couleur/verrine-cocktail-jetable"
+          },
+          {
+            "label": "Verrine plastique noire",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-couleur/mises-en-bouche-jetable"
+          },
+          {
+            "label": "Verrine biodégradable",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-couleur/verrine-biodegradable"
+          },
+          {
+            "label": "Mise en bouche argentée",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-couleur/mise-en-bouche-argentee"
+          }
+        ]
+      },
+      {
+        "title": "Verrine par taille",
+        "items": [
+          {
+            "label": "Mini verrine",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-taille/mini-verrine"
+          },
+          {
+            "label": "Grande verrine jetable",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-taille/grande-verrine-jetable"
+          },
+          {
+            "label": "Coupe dessert",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-taille/coupe-dessert"
+          },
+          {
+            "label": "Verrine originale",
+            "href": "/verrine-a-usage-unique-economique/verrine-par-taille/verrine-originale"
+          }
+        ]
+      },
+      {
+        "title": "Pique cocktail",
+        "items": [
+          {
+            "label": "Pique cocktail",
+            "href": "/verrine-a-usage-unique-economique/pique-cocktail"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bio-ecolo",
+    "label": "Bio/Ecolo",
+    "href": "/emballage-biodegradable",
+    "groups": [
+      {
+        "title": "Art de la table bio",
+        "items": [
+          {
+            "label": "Assiettes Ronde Bio",
+            "href": "/emballage-biodegradable/art-de-la-table-bio/assiettes-ronde-biodegradable"
+          },
+          {
+            "label": "Assiettes Carré Bio",
+            "href": "/emballage-biodegradable/art-de-la-table-bio/assiettes-carre-bio"
+          },
+          {
+            "label": "Couverts Biodégradable",
+            "href": "/emballage-biodegradable/art-de-la-table-bio/couverts-biodegradable"
+          },
+          {
+            "label": "Gobelets / Bols Bio",
+            "href": "/emballage-biodegradable/art-de-la-table-bio/gobelet-biodegradable"
+          }
+        ]
+      },
+      {
+        "title": "Saladier biodégradable",
+        "items": [
+          {
+            "label": "Saladier biodégradable",
+            "href": "/emballage-biodegradable/saladier"
+          }
+        ]
+      },
+      {
+        "title": "Boite lunch biodegradable",
+        "items": [
+          {
+            "label": "Boite lunch biodegradable",
+            "href": "/emballage-biodegradable/boite-lunch"
+          }
+        ]
+      },
+      {
+        "title": "Saladier Luxifood",
+        "items": [
+          {
+            "label": "Saladier Luxifood Personnalisé",
+            "href": "/emballage-biodegradable/boite-luxifood/saladier-luxifood-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Ravier biodégradable",
+        "items": [
+          {
+            "label": "Ravier biodégradable",
+            "href": "/emballage-biodegradable/raviers-biodegradable"
+          }
+        ]
+      },
+      {
+        "title": "Bol carton / boite repas",
+        "items": [
+          {
+            "label": "Boite repas",
+            "href": "/emballage-biodegradable/boite-repas-carton/boite-repas"
+          },
+          {
+            "label": "Bols en carton personnalisé",
+            "href": "/emballage-biodegradable/boite-repas-carton/bols-en-carton-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Pot carton/bambou bio",
+        "items": [
+          {
+            "label": "Pot carton personnalisé",
+            "href": "/emballage-biodegradable/pots-carton-ou-fibre-100-bio/pot-carton-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Barquette écologique",
+        "items": [
+          {
+            "label": "Barquette écologique",
+            "href": "/emballage-biodegradable/barquettes-bois"
+          }
+        ]
+      },
+      {
+        "title": "Pique en bois",
+        "items": [
+          {
+            "label": "Pique en bois",
+            "href": "/emballage-biodegradable/pique-bambou-bio"
+          }
+        ]
+      },
+      {
+        "title": "Verrine bio",
+        "items": [
+          {
+            "label": "Verrine bio",
+            "href": "/emballage-biodegradable/verrine-biodegradable"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "snack",
+    "label": "SNACK",
+    "href": "/snack",
+    "groups": [
+      {
+        "title": "Emballage carton / bagasse",
+        "items": [
+          {
+            "label": "Emballage carton / bagasse",
+            "href": "/snack/boite-burger-personnalisable"
+          }
+        ]
+      },
+      {
+        "title": "Boite à emporter",
+        "items": [
+          {
+            "label": "Boite à emporter",
+            "href": "/snack/boite-a-emporter"
+          }
+        ]
+      },
+      {
+        "title": "Papier ingraissable",
+        "items": [
+          {
+            "label": "Papier ingraissable personnalisé",
+            "href": "/snack/papier-ingraissable/papier-ingraissable-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Support snak sucré / salé",
+        "items": [
+          {
+            "label": "Support snak sucré / salé",
+            "href": "/snack/support-snak-sucre-sale"
+          }
+        ]
+      },
+      {
+        "title": "Emballage papier",
+        "items": [
+          {
+            "label": "Emballage papier",
+            "href": "/snack/emballage-papier"
+          }
+        ]
+      },
+      {
+        "title": "Réutilisable",
+        "items": [
+          {
+            "label": "Réutilisable",
+            "href": "/snack/reutilisable"
+          }
+        ]
+      },
+      {
+        "title": "Emballages personnalisés",
+        "items": [
+          {
+            "label": "Emballages personnalisés",
+            "href": "/snack/emballage-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Étiquette pour personnaliser son emballage",
+        "items": [
+          {
+            "label": "Étiquette pour personnaliser son emballage",
+            "href": "/snack/etiquette-pour-personnaliser-son-emballage"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sac",
+    "label": "Sac",
+    "href": "/sac-papier-kraft",
+    "groups": [
+      {
+        "title": "Sac tissu réutilisable",
+        "items": [
+          {
+            "label": "Sacs personnalisés",
+            "href": "/sac-papier-kraft/sac-tissu-reutilisable/sacs-personnalises"
+          },
+          {
+            "label": "Sacs neutres",
+            "href": "/sac-papier-kraft/sac-tissu-reutilisable/sacs-sans-personnalisation"
+          }
+        ]
+      },
+      {
+        "title": "Sac papier",
+        "items": [
+          {
+            "label": "Sac-papier Personnalisé",
+            "href": "/sac-papier-kraft/sac-papier/sac-papier-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Sac plastique",
+        "items": [
+          {
+            "label": "Sac plastique",
+            "href": "/sac-papier-kraft/sac-plastique"
+          }
+        ]
+      },
+      {
+        "title": "Sac poulet",
+        "items": [
+          {
+            "label": "Sac poulet",
+            "href": "/sac-papier-kraft/sac-poulet"
+          }
+        ]
+      },
+      {
+        "title": "Sac viennoiserie/ sachet",
+        "items": [
+          {
+            "label": "Sac viennoiserie/ sachet",
+            "href": "/sac-papier-kraft/sachets"
+          }
+        ]
+      },
+      {
+        "title": "Sac sandwich",
+        "items": [
+          {
+            "label": "Sac sandwich",
+            "href": "/sac-papier-kraft/sac-sandwich"
+          }
+        ]
+      },
+      {
+        "title": "Sac fruits & légumes",
+        "items": [
+          {
+            "label": "Sac fruits & légumes",
+            "href": "/sac-papier-kraft/sac-fruits-legumes"
+          }
+        ]
+      },
+      {
+        "title": "Sac à pain",
+        "items": [
+          {
+            "label": "Sac à pain",
+            "href": "/sac-papier-kraft/a-pain"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gobelet-verre",
+    "label": "Gobelet / Verre",
+    "href": "/gobelet-verre-flute",
+    "groups": [
+      {
+        "title": "Gobelet plastique",
+        "items": [
+          {
+            "label": "Gobelet plastique & réutilisable",
+            "href": "/gobelet-verre-flute/gobelet-plastique/gobelets-jetables",
+            "children": [
+              {
+                "label": "Gobelet plastique personnalisé",
+                "href": "/gobelet-verre-flute/gobelet-plastique/gobelets-jetables/gobelet-plastique-personnalise"
+              }
+            ]
+          },
+          {
+            "label": "Gobelet smoothie",
+            "href": "/gobelet-verre-flute/gobelet-plastique/gobelet-plastique-smoothie"
+          },
+          {
+            "label": "Gobelet de couleur",
+            "href": "/gobelet-verre-flute/gobelet-plastique/gobelet-de-couleur"
+          }
+        ]
+      },
+      {
+        "title": "Gobelet carton",
+        "items": [
+          {
+            "label": "Gobelet carton personnalisé",
+            "href": "/gobelet-verre-flute/gobelet-carton/gobelet-personnalise"
+          },
+          {
+            "label": "Bague anti chaleur personnalisée",
+            "href": "/gobelet-verre-flute/gobelet-carton/bague-anti-chaleur-personnalisee"
+          }
+        ]
+      },
+      {
+        "title": "Flute en plastique",
+        "items": [
+          {
+            "label": "Flute en plastique",
+            "href": "/gobelet-verre-flute/flute-en-plastique"
+          }
+        ]
+      },
+      {
+        "title": "Paille / Carafes / Gourdes",
+        "items": [
+          {
+            "label": "Pailles, carafes et gourdes personnalisées",
+            "href": "/gobelet-verre-flute/carafe-paille/pailles-carafes-personnalisees"
+          },
+          {
+            "label": "Pailles et carafe non personnalisées",
+            "href": "/gobelet-verre-flute/carafe-paille/pailles-et-carafe-non-personnalisees"
+          }
+        ]
+      },
+      {
+        "title": "Verre ultra rigide et incassable",
+        "items": [
+          {
+            "label": "Verre Incassable personnalisé",
+            "href": "/gobelet-verre-flute/verre-ultra-rigide-et-incassable/verre-incassable-personnalise"
+          },
+          {
+            "label": "Verres en Tritan / San",
+            "href": "/gobelet-verre-flute/verre-ultra-rigide-et-incassable/verre-en-tritan"
+          },
+          {
+            "label": "Verres en PP",
+            "href": "/gobelet-verre-flute/verre-ultra-rigide-et-incassable/verres-en-pp"
+          }
+        ]
+      },
+      {
+        "title": "Verre plastique",
+        "items": [
+          {
+            "label": "Verre traiteur",
+            "href": "/gobelet-verre-flute/verre-plastique/verre-traiteur"
+          },
+          {
+            "label": "Verre à vin plastique",
+            "href": "/gobelet-verre-flute/verre-plastique/verre-a-vin-plastique"
+          }
+        ]
+      },
+      {
+        "title": "Seaux et vasques pour bouteilles",
+        "items": [
+          {
+            "label": "Seaux et vasques pour bouteilles",
+            "href": "/gobelet-verre-flute/seaux-et-vasques-pour-bouteilles"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plateau-boite",
+    "label": "Plateau / boite",
+    "href": "/plateau-jetable",
+    "groups": [
+      {
+        "title": "Plateau repas jetable",
+        "items": [
+          {
+            "label": "Plateau repas personnalisé",
+            "href": "/plateau-jetable/plateau-repas-jetable/plateau-repas-personnalise"
+          },
+          {
+            "label": "Plateau repas écologique &quot;Bio&quot;",
+            "href": "/plateau-jetable/plateau-repas-jetable/plateau-repas-ecologique-bio"
+          },
+          {
+            "label": "Plateau repas recyclable &quot;Eco&quot;",
+            "href": "/plateau-jetable/plateau-repas-jetable/plateau-repas-recyclable-eco"
+          },
+          {
+            "label": "Kit assiettes pour plateaux repas",
+            "href": "/plateau-jetable/plateau-repas-jetable/kit-pour-plateaux-repas"
+          }
+        ]
+      },
+      {
+        "title": "Plateau/Planche en bois",
+        "items": [
+          {
+            "label": "Plateau/Planche en bois",
+            "href": "/plateau-jetable/plateau-bois"
+          }
+        ]
+      },
+      {
+        "title": "Boîtes en bois",
+        "items": [
+          {
+            "label": "Boîtes en bois",
+            "href": "/plateau-jetable/boites-en-bois"
+          }
+        ]
+      },
+      {
+        "title": "Plateau repas Solia",
+        "items": [
+          {
+            "label": "Plateau repas Solia",
+            "href": "/plateau-jetable/plateaux-repas-solia"
+          }
+        ]
+      },
+      {
+        "title": "Coffret/Box à emporter",
+        "items": [
+          {
+            "label": "Coffret/Box à emporter",
+            "href": "/plateau-jetable/coffret-box-a-emporter"
+          }
+        ]
+      },
+      {
+        "title": "Plateau traiteur",
+        "items": [
+          {
+            "label": "Plateau traiteur",
+            "href": "/plateau-jetable/plateau-traiteur-jetable"
+          }
+        ]
+      },
+      {
+        "title": "Plateau fruit de mer",
+        "items": [
+          {
+            "label": "Plateau fruit de mer",
+            "href": "/plateau-jetable/plateau-fruit-de-mer"
+          }
+        ]
+      },
+      {
+        "title": "Boîte / support pâtisserie",
+        "items": [
+          {
+            "label": "Support pâtisserie",
+            "href": "/plateau-jetable/boite-patissiere/support-gateau"
+          },
+          {
+            "label": "Boîtes pâtissières",
+            "href": "/plateau-jetable/boite-patissiere/boites-patissieres"
+          },
+          {
+            "label": "Boite personnalisée",
+            "href": "/plateau-jetable/boite-patissiere/boite-personnalisee"
+          }
+        ]
+      },
+      {
+        "title": "Boîte pizza",
+        "items": [
+          {
+            "label": "Boîte pizza",
+            "href": "/plateau-jetable/boite-pizza"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nappe-serviette",
+    "label": "Nappe - serviette",
+    "href": "/nappe-et-serviette",
+    "groups": [
+      {
+        "title": "Serviette",
+        "items": [
+          {
+            "label": "Serviette papier cocktail",
+            "href": "/nappe-et-serviette/serviette-papier/serviette-cocktail"
+          },
+          {
+            "label": "Serviette personnalisée",
+            "href": "/nappe-et-serviette/serviette-papier/serviette-personnalisee"
+          },
+          {
+            "label": "Serviette papier ouaté",
+            "href": "/nappe-et-serviette/serviette-papier/serviettes"
+          },
+          {
+            "label": "Serviette double point",
+            "href": "/nappe-et-serviette/serviette-papier/serviette-point-a-point-ouate-unie"
+          },
+          {
+            "label": "Serviette non tissée",
+            "href": "/nappe-et-serviette/serviette-papier/serviettes-non-tissee-pas-cher"
+          },
+          {
+            "label": "Pochette & Étui Couverts Jetables",
+            "href": "/nappe-et-serviette/serviette-papier/pochette-etui-couverts-jetables"
+          }
+        ]
+      },
+      {
+        "title": "Nappage",
+        "items": [
+          {
+            "label": "Nappe en coton",
+            "href": "/nappe-et-serviette/nappage-papier/nappage-en-coton"
+          },
+          {
+            "label": "Nappe spunbond",
+            "href": "/nappe-et-serviette/nappage-papier/nappes-spunbond"
+          },
+          {
+            "label": "Nappe en intissé x10m",
+            "href": "/nappe-et-serviette/nappage-papier/nappe-non-tisse-1m20x10m"
+          },
+          {
+            "label": "Nappe en intissé x25m",
+            "href": "/nappe-et-serviette/nappage-papier/nappe-non-tisse-1m20x25m"
+          },
+          {
+            "label": "Nappe en intissé x50m",
+            "href": "/nappe-et-serviette/nappage-papier/nappe-non-tisse-1m20x50m"
+          },
+          {
+            "label": "Nappe damassée",
+            "href": "/nappe-et-serviette/nappage-papier/nappes-jetables"
+          },
+          {
+            "label": "Nappe ronde 2.40m",
+            "href": "/nappe-et-serviette/nappage-papier/nappe-ronde-2-40m"
+          }
+        ]
+      },
+      {
+        "title": "Sets de table en papier",
+        "items": [
+          {
+            "label": "Set table personnalisé",
+            "href": "/nappe-et-serviette/set-de-table-a-bord-droit-30x40/set-table-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Chemin de table intissé",
+        "items": [
+          {
+            "label": "Chemin de table intissé",
+            "href": "/nappe-et-serviette/chemin-de-table-24-metres"
+          }
+        ]
+      },
+      {
+        "title": "Nappe format",
+        "items": [
+          {
+            "label": "Nappe papier 60x60cm",
+            "href": "/nappe-et-serviette/nappe-format/nappe-en-format"
+          },
+          {
+            "label": "Nappe papier 70x70cm",
+            "href": "/nappe-et-serviette/nappe-format/nappes-format-70x70cm"
+          },
+          {
+            "label": "Nappe papier 70x110cm",
+            "href": "/nappe-et-serviette/nappe-format/nappes-format-70x110cm"
+          },
+          {
+            "label": "Nappe papier 80x80cm",
+            "href": "/nappe-et-serviette/nappe-format/nappes-format-80x80cm"
+          },
+          {
+            "label": "Nappe papier 80x120cm",
+            "href": "/nappe-et-serviette/nappe-format/nappes-format-80x120cm"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hygiene-resto",
+    "label": "Hygiène/Resto",
+    "href": "/hygiene-et-resto",
+    "groups": [
+      {
+        "title": "Plats en aluminium",
+        "items": [
+          {
+            "label": "Godet Alu",
+            "href": "/hygiene-et-resto/aluminium/godets-jetables"
+          },
+          {
+            "label": "Plat Aluminum",
+            "href": "/hygiene-et-resto/aluminium/emballage-aluminium"
+          },
+          {
+            "label": "Barquette Aluminium",
+            "href": "/hygiene-et-resto/aluminium/barquette-aluminium"
+          },
+          {
+            "label": "Moule Aluminium",
+            "href": "/hygiene-et-resto/aluminium/moule-aluminium"
+          }
+        ]
+      },
+      {
+        "title": "Hygiène",
+        "items": [
+          {
+            "label": "Cuisine",
+            "href": "/hygiene-et-resto/hygiene/cuisine-seau-plastique"
+          },
+          {
+            "label": "Nettoyant cuisine",
+            "href": "/hygiene-et-resto/hygiene/hygiene"
+          },
+          {
+            "label": "Bavoir Jetable",
+            "href": "/hygiene-et-resto/hygiene/bavoir-jetable"
+          },
+          {
+            "label": "Essuie-mains/ Wc",
+            "href": "/hygiene-et-resto/hygiene/essuie-mains-wc"
+          },
+          {
+            "label": "Sac poubelles",
+            "href": "/hygiene-et-resto/hygiene/sac-poubelles"
+          },
+          {
+            "label": "SPECIAL COV-19",
+            "href": "/hygiene-et-resto/hygiene/special-cov-19"
+          },
+          {
+            "label": "Lingettes et rince doigts",
+            "href": "/hygiene-et-resto/hygiene/lingettes-et-rince-doigts"
+          }
+        ]
+      },
+      {
+        "title": "Encaissement",
+        "items": [
+          {
+            "label": "Encaissement",
+            "href": "/hygiene-et-resto/encaissement"
+          }
+        ]
+      },
+      {
+        "title": "Film étirable & palette",
+        "items": [
+          {
+            "label": "Film étirable & palette",
+            "href": "/hygiene-et-resto/film-etirable"
+          }
+        ]
+      },
+      {
+        "title": "Poche sous-vide (conservation et/ou cuisson)",
+        "items": [
+          {
+            "label": "Poche sous-vide (conservation et/ou cuisson)",
+            "href": "/hygiene-et-resto/poche-sous-vide"
+          }
+        ]
+      },
+      {
+        "title": "Matériel / accessoires de cuisine",
+        "items": [
+          {
+            "label": "Matériel / accessoires de cuisine",
+            "href": "/hygiene-et-resto/materiel-accessoires-cuisine"
+          }
+        ]
+      }
+    ]
+  }
+]

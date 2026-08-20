@@ -1,0 +1,386 @@
+[
+  {
+    "id": "vaisselle-jetable",
+    "label": "Vaisselle jetable",
+    "href": "/vaisselle-jetable-petit-prix",
+    "groups": [
+      {
+        "title": "Vente à emporter",
+        "items": [
+          {
+            "label": "Tout voir Vente à emporter",
+            "href": "https://www.ojetables.fr/vaisselle-jetable-petit-prix/vente-a-emporter"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "verrine",
+    "label": "Verrine",
+    "href": "/verrine-a-usage-unique-economique",
+    "groups": [
+      {
+        "title": "Pique cocktail",
+        "items": [
+          {
+            "label": "Tout voir Pique cocktail",
+            "href": "https://www.ojetables.fr/verrine-a-usage-unique-economique/pique-cocktail"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "bio-ecolo",
+    "label": "Bio/Ecolo",
+    "href": "/emballage-biodegradable",
+    "groups": [
+      {
+        "title": "Saladier biodégradable",
+        "items": [
+          {
+            "label": "Tout voir Saladier biodégradable",
+            "href": "https://www.ojetables.fr/emballage-biodegradable/saladier"
+          }
+        ]
+      },
+      {
+        "title": "Boite lunch biodegradable",
+        "items": [
+          {
+            "label": "Tout voir Boite lunch biodegradable",
+            "href": "https://www.ojetables.fr/emballage-biodegradable/boite-lunch"
+          }
+        ]
+      },
+      {
+        "title": "Ravier biodégradable",
+        "items": [
+          {
+            "label": "Tout voir Ravier biodégradable",
+            "href": "https://www.ojetables.fr/emballage-biodegradable/raviers-biodegradable"
+          }
+        ]
+      },
+      {
+        "title": "Barquette écologique",
+        "items": [
+          {
+            "label": "Tout voir Barquette écologique",
+            "href": "https://www.ojetables.fr/emballage-biodegradable/barquettes-bois"
+          }
+        ]
+      },
+      {
+        "title": "Pique en bois",
+        "items": [
+          {
+            "label": "Tout voir Pique en bois",
+            "href": "https://www.ojetables.fr/emballage-biodegradable/pique-bambou-bio"
+          }
+        ]
+      },
+      {
+        "title": "Verrine bio",
+        "items": [
+          {
+            "label": "Tout voir Verrine bio",
+            "href": "https://www.ojetables.fr/emballage-biodegradable/verrine-biodegradable"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "snack",
+    "label": "SNACK",
+    "href": "/snack",
+    "groups": [
+      {
+        "title": "Emballage carton / bagasse",
+        "items": [
+          {
+            "label": "Tout voir Emballage carton / bagasse",
+            "href": "https://www.ojetables.fr/snack/boite-burger-personnalisable"
+          }
+        ]
+      },
+      {
+        "title": "Boite à emporter",
+        "items": [
+          {
+            "label": "Tout voir Boite à emporter",
+            "href": "https://www.ojetables.fr/snack/boite-a-emporter"
+          }
+        ]
+      },
+      {
+        "title": "Support snak sucré / salé",
+        "items": [
+          {
+            "label": "Tout voir Support snak sucré / salé",
+            "href": "https://www.ojetables.fr/snack/support-snak-sucre-sale"
+          }
+        ]
+      },
+      {
+        "title": "Emballage papier",
+        "items": [
+          {
+            "label": "Tout voir Emballage papier",
+            "href": "https://www.ojetables.fr/snack/emballage-papier"
+          }
+        ]
+      },
+      {
+        "title": "Réutilisable",
+        "items": [
+          {
+            "label": "Tout voir Réutilisable",
+            "href": "https://www.ojetables.fr/snack/reutilisable"
+          }
+        ]
+      },
+      {
+        "title": "Emballages personnalisés",
+        "items": [
+          {
+            "label": "Tout voir Emballages personnalisés",
+            "href": "https://www.ojetables.fr/snack/emballage-personnalise"
+          }
+        ]
+      },
+      {
+        "title": "Étiquette pour personnaliser son emballage",
+        "items": [
+          {
+            "label": "Tout voir Étiquette pour personnaliser son emballage",
+            "href": "https://www.ojetables.fr/snack/etiquette-pour-personnaliser-son-emballage"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sac",
+    "label": "Sac",
+    "href": "/sac-papier-kraft",
+    "groups": [
+      {
+        "title": "Sac plastique",
+        "items": [
+          {
+            "label": "Tout voir Sac plastique",
+            "href": "https://www.ojetables.fr/sac-papier-kraft/sac-plastique"
+          }
+        ]
+      },
+      {
+        "title": "Sac poulet",
+        "items": [
+          {
+            "label": "Tout voir Sac poulet",
+            "href": "https://www.ojetables.fr/sac-papier-kraft/sac-poulet"
+          }
+        ]
+      },
+      {
+        "title": "Sac viennoiserie/ sachet",
+        "items": [
+          {
+            "label": "Tout voir Sac viennoiserie/ sachet",
+            "href": "https://www.ojetables.fr/sac-papier-kraft/sachets"
+          }
+        ]
+      },
+      {
+        "title": "Sac sandwich",
+        "items": [
+          {
+            "label": "Tout voir Sac sandwich",
+            "href": "https://www.ojetables.fr/sac-papier-kraft/sac-sandwich"
+          }
+        ]
+      },
+      {
+        "title": "Sac fruits & légumes",
+        "items": [
+          {
+            "label": "Tout voir Sac fruits & légumes",
+            "href": "https://www.ojetables.fr/sac-papier-kraft/sac-fruits-legumes"
+          }
+        ]
+      },
+      {
+        "title": "Sac à pain",
+        "items": [
+          {
+            "label": "Tout voir Sac à pain",
+            "href": "https://www.ojetables.fr/sac-papier-kraft/a-pain"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gobelet-verre",
+    "label": "Gobelet / Verre",
+    "href": "/gobelet-verre-flute",
+    "groups": [
+      {
+        "title": "Flute en plastique",
+        "items": [
+          {
+            "label": "Tout voir Flute en plastique",
+            "href": "https://www.ojetables.fr/gobelet-verre-flute/flute-en-plastique"
+          }
+        ]
+      },
+      {
+        "title": "Seaux et vasques pour bouteilles",
+        "items": [
+          {
+            "label": "Tout voir Seaux et vasques pour bouteilles",
+            "href": "https://www.ojetables.fr/gobelet-verre-flute/seaux-et-vasques-pour-bouteilles"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "plateau-boite",
+    "label": "Plateau / boite",
+    "href": "/plateau-jetable",
+    "groups": [
+      {
+        "title": "Plateau/Planche en bois",
+        "items": [
+          {
+            "label": "Tout voir Plateau/Planche en bois",
+            "href": "https://www.ojetables.fr/plateau-jetable/plateau-bois"
+          }
+        ]
+      },
+      {
+        "title": "Boîtes en bois",
+        "items": [
+          {
+            "label": "Tout voir Boîtes en bois",
+            "href": "https://www.ojetables.fr/plateau-jetable/boites-en-bois"
+          }
+        ]
+      },
+      {
+        "title": "Plateau repas Solia",
+        "items": [
+          {
+            "label": "Tout voir Plateau repas Solia",
+            "href": "https://www.ojetables.fr/plateau-jetable/plateaux-repas-solia"
+          }
+        ]
+      },
+      {
+        "title": "Coffret/Box à emporter",
+        "items": [
+          {
+            "label": "Tout voir Coffret/Box à emporter",
+            "href": "https://www.ojetables.fr/plateau-jetable/coffret-box-a-emporter"
+          }
+        ]
+      },
+      {
+        "title": "Plateau traiteur",
+        "items": [
+          {
+            "label": "Tout voir Plateau traiteur",
+            "href": "https://www.ojetables.fr/plateau-jetable/plateau-traiteur-jetable"
+          }
+        ]
+      },
+      {
+        "title": "Plateau fruit de mer",
+        "items": [
+          {
+            "label": "Tout voir Plateau fruit de mer",
+            "href": "https://www.ojetables.fr/plateau-jetable/plateau-fruit-de-mer"
+          }
+        ]
+      },
+      {
+        "title": "Boîte pizza",
+        "items": [
+          {
+            "label": "Tout voir Boîte pizza",
+            "href": "https://www.ojetables.fr/plateau-jetable/boite-pizza"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nappe-serviette",
+    "label": "Nappe - serviette",
+    "href": "/nappe-et-serviette",
+    "groups": [
+      {
+        "title": "Chemin de table intissé",
+        "items": [
+          {
+            "label": "Tout voir Chemin de table intissé",
+            "href": "https://www.ojetables.fr/nappe-et-serviette/chemin-de-table-24-metres"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hygiene-resto",
+    "label": "Hygiène/Resto",
+    "href": "/hygiene-et-resto",
+    "groups": [
+      {
+        "title": "Encaissement",
+        "items": [
+          {
+            "label": "Tout voir Encaissement",
+            "href": "https://www.ojetables.fr/hygiene-et-resto/encaissement"
+          }
+        ]
+      },
+      {
+        "title": "Film étirable & palette",
+        "items": [
+          {
+            "label": "Tout voir Film étirable & palette",
+            "href": "https://www.ojetables.fr/hygiene-et-resto/film-etirable"
+          }
+        ]
+      },
+      {
+        "title": "Poche sous-vide (conservation et/ou cuisson)",
+        "items": [
+          {
+            "label": "Tout voir Poche sous-vide (conservation et/ou cuisson)",
+            "href": "https://www.ojetables.fr/hygiene-et-resto/poche-sous-vide"
+          }
+        ]
+      },
+      {
+        "title": "Matériel / accessoires de cuisine",
+        "items": [
+          {
+            "label": "Tout voir Matériel / accessoires de cuisine",
+            "href": "https://www.ojetables.fr/hygiene-et-resto/materiel-accessoires-cuisine"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "garcia-de-pou",
+    "label": "Garcia de Pou",
+    "href": "/garcia-de-pou",
+    "items": []
+  }
+]
