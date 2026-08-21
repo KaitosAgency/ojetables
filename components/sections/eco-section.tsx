@@ -3,7 +3,7 @@ import { SectionHeader } from "./section-header";
 
 export function EcoSection() {
   return (
-    <section id="eco" className="section-padding bg-brand-beige/40">
+    <section id="eco" className="section-after-band-arc bg-brand-beige/40">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeader
           label="Engagements"

@@ -1,4 +1,4 @@
-import { site, getSiteUrl, type FaqItem } from "@/lib/site";
+import { site, getSiteUrl, type CatalogFamily, type FaqItem } from "@/lib/site";
 import type { Product } from "@/lib/products";
 
 type JsonLdProps = {
@@ -54,6 +54,28 @@ export function websiteJsonLd() {
       "@id": `${getSiteUrl()}/#organization`,
     },
     inLanguage: "fr-FR",
+  };
+}
+
+export function catalogItemListJsonLd(families: readonly CatalogFamily[]) {
+  const base = getSiteUrl();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Catalogue vaisselle jetable Ojetables — 12 familles",
+    description:
+      "Les 12 catégories du catalogue Ojetables : vaisselle jetable, verrines, bio/écolo, snack, sacs, gobelets, plateaux, nappage, hygiène, personnalisation, destockage et Garcia de Pou.",
+    numberOfItems: families.length,
+    itemListElement: families.map((family, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: family.originalLabel ?? family.label,
+      description: family.description,
+      url: family.href.startsWith("http")
+        ? family.href
+        : `${base}${family.href.startsWith("/") || family.href.startsWith("#") ? family.href : `/${family.href}`}`,
+    })),
   };
 }
 

@@ -18,4 +18,10 @@ export const indexableRoutes: SeoRoute[] = [
     priority: 0.9,
     lastModified: "2026-08-20",
   },
+  {
+    path: routes.destockage,
+    changeFrequency: "weekly",
+    priority: 0.85,
+    lastModified: "2026-08-21",
+  },
 ];

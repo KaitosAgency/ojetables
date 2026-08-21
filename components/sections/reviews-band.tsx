@@ -1,10 +1,11 @@
-import { reviewsFallback, site } from "@/lib/site";
+import { site } from "@/lib/site";
 import { BandBottomArc } from "@/components/ui/band-bottom-arc";
 import { StarRating } from "@/components/ui/star-rating";
+import { ReviewsCarousel } from "@/components/sections/reviews-carousel";
 
 export function ReviewsBand() {
   return (
-    <section className="section-divider-top relative z-10 bg-brand-navy pb-5 md:pb-6">
+    <section className="band-arc-overlap section-divider-top relative z-10 bg-brand-navy pb-5 md:pb-6">
       <div className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
@@ -30,21 +31,9 @@ export function ReviewsBand() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-4 md:grid-cols-3">
-          {reviewsFallback.map((review) => (
-            <blockquote
-              key={review.id}
-              className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 text-sm leading-relaxed text-slate-300"
-            >
-              <p>&ldquo;{review.text}&rdquo;</p>
-              <footer className="mt-4 text-xs text-slate-500">
-                {review.author} · {review.relativeTime}
-              </footer>
-            </blockquote>
-          ))}
-        </div>
+        <ReviewsCarousel />
       </div>
-      <BandBottomArc />
+      <BandBottomArc className="text-background" />
     </section>
   );
 }

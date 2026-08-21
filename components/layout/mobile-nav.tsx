@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { LinkButton } from "@/components/ui/link-button";
+import { NavHighlightLink } from "@/components/layout/nav-highlight-link";
 import {
   catalogNavCategories,
   headerActions,
@@ -242,15 +243,11 @@ export function MobileNav({ trigger }: MobileNavProps) {
           <div className="shrink-0 space-y-2 pb-4">
             <div className="grid grid-cols-2 gap-2">
               {nav.highlights.map((item) => (
-                <LinkButton
+                <NavHighlightLink
                   key={item.href}
-                  href={item.href}
-                  variant={item.accent === "brand" ? "brandNavy" : "brandDestock"}
-                  size="ctaSm"
-                  className="h-8 px-2 text-xs"
-                >
-                  {item.label}
-                </LinkButton>
+                  item={item}
+                  className="h-8 w-full justify-center px-2 text-xs"
+                />
               ))}
             </div>
             <div className="space-y-2 border-t border-border/60 pt-3">

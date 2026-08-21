@@ -29,12 +29,12 @@ export function ClientLogosBand({ compact = false }: ClientLogosBandProps) {
               : "mt-10 flex flex-wrap items-center justify-center gap-4"
           }
         >
-          {clientLogos.map((name) => (
+          {clientLogos.map((logo) => (
             <li
-              key={name}
+              key={logo.name}
               className="inline-flex min-w-[8rem] items-center justify-center rounded-xl border border-border bg-brand-beige/50 px-5 py-3 text-sm font-semibold text-brand-navy"
             >
-              {name}
+              {logo.name}
             </li>
           ))}
         </ul>

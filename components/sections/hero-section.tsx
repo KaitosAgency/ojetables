@@ -32,7 +32,7 @@ export function HeroSection() {
           </h1>
 
           <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground md:mx-0">
-            Stock permanent de +3 000 références, livraison 24/72h partout en France et tarifs dégressifs. Du traiteur aux collectivités, de l'événement privé aux grands volumes.
+            Traiteurs, restaurateurs, collectivités : +3 000 références en stock, livraison 24/48h et tarifs dégressifs. Particuliers & événements : petites quantités disponibles.
           </p>
 
           <div className="mt-8 flex w-full flex-col items-center gap-3 sm:flex-row sm:items-stretch md:justify-start">
@@ -62,7 +62,7 @@ export function HeroSection() {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Truck className="h-3.5 w-3.5 shrink-0 text-brand-kraft" aria-hidden />
-              Livraison 24/72h
+              Livraison 24/48h
             </span>
             <span className="hidden text-border sm:inline" aria-hidden>
               ·

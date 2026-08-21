@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { legalLinks, logos, nav, previewDisclaimer, site } from "@/lib/site";
+import { catalogFamilies, legalLinks, logos, nav, previewDisclaimer, site } from "@/lib/site";
 import { Separator } from "@/components/ui/separator";
 
 export function SiteFooter() {
@@ -52,6 +52,26 @@ export function SiteFooter() {
             </li>
           </ul>
         </div>
+      </div>
+
+      <div className="mx-auto max-w-6xl px-4 pb-10 md:px-6">
+        <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">Catalogue — 12 familles</p>
+        <ul className="mt-4 columns-2 gap-x-8 text-sm text-slate-400 sm:columns-3 lg:columns-4">
+          {catalogFamilies.map((family) => {
+            const isExternal = family.href.startsWith("http");
+            return (
+              <li key={family.id} className="mb-2 break-inside-avoid">
+                <Link
+                  href={family.href}
+                  className="transition-colors hover:text-white"
+                  {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {family.label}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
       </div>
 
       <Separator className="bg-white/10" />

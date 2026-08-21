@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { LeadMagnetPopup } from "@/components/marketing/lead-magnet-popup";
 import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/components/seo/json-ld";
 import { createDefaultMetadata } from "@/lib/og-metadata";
 import { site, getSiteUrl, favicon } from "@/lib/site";
@@ -40,7 +41,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={cn("h-full", geist.variable, "font-sans")}>
-      <body className="flex min-h-full flex-col bg-background text-foreground">
+      <body className="min-h-full bg-background text-foreground">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[200] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand-navy focus:shadow-lg"
@@ -52,6 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <main id="main-content" className="flex-1">{children}</main>
         <SiteFooter />
+        <LeadMagnetPopup />
       </body>
     </html>
   );

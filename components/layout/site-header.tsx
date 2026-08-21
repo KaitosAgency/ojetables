@@ -7,10 +7,10 @@ import { Mail, Menu, Phone, ShoppingCart, Truck, UserRound } from "lucide-react"
 import { CatalogNavRow } from "@/components/layout/catalog-nav";
 import { HeaderSearch } from "@/components/layout/header-search";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { NavHighlightLink } from "@/components/layout/nav-highlight-link";
 import { Button } from "@/components/ui/button";
-import { LinkButton } from "@/components/ui/link-button";
-import { headerActions, logos, nav, site, topBar, type NavHighlight } from "@/lib/site";
-import { cn } from "@/lib/utils";
+import { headerActions, logos, nav, routes, site, topBar } from "@/lib/site";
+import { resetLeadMagnetDebug } from "@/hooks/use-scroll-trigger";
 
 function HeaderTopBar() {
   return (
@@ -47,35 +47,23 @@ function HeaderTopBar() {
   );
 }
 
-function NavHighlightLink({ item }: { item: NavHighlight }) {
-  const isBrand = item.accent === "brand";
-
-  return (
-    <LinkButton
-      href={item.href}
-      variant={isBrand ? "brandNavy" : "brandDestock"}
-      size="ctaSm"
-      className="relative h-8 shrink-0 text-xs lg:text-sm"
-    >
-      {item.label}
-    </LinkButton>
-  );
-}
-
 function HeaderIconLink({
   href,
   label,
   children,
   badge,
+  onClick,
 }: {
   href: string;
   label: string;
   children: React.ReactNode;
   badge?: number;
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 }) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className="relative inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-brand-navy transition-colors hover:bg-brand-beige/70"
       aria-label={label}
     >
@@ -91,37 +79,7 @@ function HeaderIconLink({
 
 export function SiteHeader() {
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
-  const [topBarHidden, setTopBarHidden] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
-  const lastScrollYRef = useRef(0);
-
-  useEffect(() => {
-    lastScrollYRef.current = window.scrollY;
-    let ticking = false;
-
-    function handleScroll() {
-      if (ticking) return;
-      ticking = true;
-
-      requestAnimationFrame(() => {
-        const currentY = window.scrollY;
-        const delta = currentY - lastScrollYRef.current;
-        lastScrollYRef.current = currentY;
-
-        setTopBarHidden((hidden) => {
-          if (currentY <= 24) return false;
-          if (delta > 4 && currentY > 72) return true;
-          if (delta < -4 && currentY < 160) return false;
-          return hidden;
-        });
-
-        ticking = false;
-      });
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     if (!activeCategoryId) return;
@@ -146,84 +104,91 @@ export function SiteHeader() {
   }, [activeCategoryId]);
 
   return (
-    <header
-      ref={headerRef}
-      className="site-header-cardboard sticky top-0 z-50 overflow-visible bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/90"
-      onMouseLeave={() => setActiveCategoryId(null)}
-    >
-      <div
-        className={cn(
-          "grid overflow-hidden transition-[grid-template-rows,opacity] duration-200 ease-out",
-          topBarHidden ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100",
-        )}
-        aria-hidden={topBarHidden}
-      >
-        <div className="min-h-0 overflow-hidden">
-          <HeaderTopBar />
-        </div>
-      </div>
+    <>
+      <HeaderTopBar />
 
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <div className="flex items-center gap-2 py-3 md:gap-3 lg:gap-4 lg:py-3.5">
-          <Link href="/" className="flex shrink-0 cursor-pointer items-center">
-            <Image
-              src={logos.default}
-              alt={logos.alt}
-              width={logos.width}
-              height={logos.height}
-              className="h-12 w-auto md:h-[3.35rem]"
-              priority
-            />
-          </Link>
+      <header ref={headerRef} className="site-header-cardboard w-full">
+        <div className="bg-white">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <div className="flex items-center gap-2 py-3 md:gap-3 lg:gap-4 lg:py-3.5">
+            <Link href="/" className="flex shrink-0 cursor-pointer items-center">
+              <Image
+                src={logos.default}
+                alt={logos.alt}
+                width={logos.width}
+                height={logos.height}
+                className="h-12 w-auto md:h-[3.35rem]"
+                priority
+              />
+            </Link>
 
-          <div className="hidden min-w-0 flex-1 items-center gap-2 lg:flex xl:gap-3">
-            <HeaderSearch className="min-w-0 w-full max-w-[17rem] shrink-0 lg:max-w-xs xl:max-w-sm" />
-            <div className="flex shrink-0 items-center gap-2">
-              {nav.highlights.map((item) => (
-                <NavHighlightLink key={item.href} item={item} />
-              ))}
+            <div className="hidden min-w-0 flex-1 items-center gap-2 lg:flex xl:gap-3">
+              <HeaderSearch className="min-w-0 w-full max-w-[17rem] shrink-0 lg:max-w-xs xl:max-w-sm" />
+              <div className="flex shrink-0 items-center gap-2">
+                {nav.highlights.map((item) => (
+                  <NavHighlightLink key={item.href} item={item} />
+                ))}
+              </div>
+            </div>
+
+            <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
+              <HeaderIconLink
+                href={routes.proAccount}
+                label="Mon compte"
+                onClick={(event) => {
+                  event.preventDefault();
+                  resetLeadMagnetDebug();
+                }}
+              >
+                <UserRound className="h-5 w-5" strokeWidth={1.75} />
+              </HeaderIconLink>
+              <HeaderIconLink href="#" label="Panier" badge={headerActions.cartCount}>
+                <ShoppingCart className="h-5 w-5" strokeWidth={1.75} />
+              </HeaderIconLink>
+              <MobileNav
+                trigger={
+                  <Button variant="outline" size="icon" className="size-8 lg:hidden" aria-label="Ouvrir le menu">
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                }
+              />
             </div>
           </div>
+        </div>
+        </div>
 
-          <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
-            <HeaderIconLink href="#compte-pro" label="Mon compte">
-              <UserRound className="h-5 w-5" strokeWidth={1.75} />
-            </HeaderIconLink>
-            <HeaderIconLink href="#" label="Panier" badge={headerActions.cartCount}>
-              <ShoppingCart className="h-5 w-5" strokeWidth={1.75} />
-            </HeaderIconLink>
-            <MobileNav
-              trigger={
-                <Button variant="outline" size="icon" className="size-8 lg:hidden" aria-label="Ouvrir le menu">
-                  <Menu className="h-5 w-5" />
-                </Button>
-              }
-            />
+        <div className="header-catalog-divider relative bg-white lg:hidden">
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <div className="pt-3 pb-1">
+              <HeaderSearch compact />
+            </div>
+          </div>
+          <div className="header-cardboard-edge-clip" aria-hidden>
+            <div className="header-cardboard-edge">
+              <div className="header-cardboard-edge-shape" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="header-catalog-divider relative bg-white lg:hidden">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <div className="pt-3 pb-1">
-            <HeaderSearch compact />
+        <div
+          className="header-catalog-divider relative hidden bg-white lg:block"
+          onMouseLeave={() => setActiveCategoryId(null)}
+        >
+          <div className="mx-auto max-w-6xl px-4 md:px-6">
+            <div className="pt-2.5 pb-1">
+              <CatalogNavRow
+                activeCategoryId={activeCategoryId}
+                onActiveCategoryChange={setActiveCategoryId}
+              />
+            </div>
+          </div>
+          <div className="header-cardboard-edge-clip" aria-hidden>
+            <div className="header-cardboard-edge">
+              <div className="header-cardboard-edge-shape" />
+            </div>
           </div>
         </div>
-        <div className="header-cardboard-edge" aria-hidden />
-      </div>
-
-      {/* Ligne catalogue — catégories visibles + megamenu au survol */}
-      <div className="header-catalog-divider relative hidden bg-white lg:block">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
-          <div className="pt-2.5 pb-1">
-            <CatalogNavRow
-              activeCategoryId={activeCategoryId}
-              onActiveCategoryChange={setActiveCategoryId}
-            />
-          </div>
-        </div>
-        <div className="header-cardboard-edge" aria-hidden />
-      </div>
-    </header>
+      </header>
+    </>
   );
 }

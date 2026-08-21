@@ -1,31 +1,44 @@
-import Link from "next/link";
+import { ProductCard } from "@/components/product/product-card";
+import { LinkButton } from "@/components/ui/link-button";
 import { sectors } from "@/lib/site";
+import { cn } from "@/lib/utils";
 import { SectionHeader } from "./section-header";
 
 export function SectorsSection() {
   return (
-    <section id="produits" className="section-padding section-glow">
+    <section id="secteurs" className="section-padding section-glow">
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeader
           label="Par métier"
-          title="Best-sellers par secteur"
-          description="Des entrées claires pour vos acheteurs pro — traiteurs, CHR, collectivités et personnalisation."
+          title="Solutions par secteur"
+          description="Des entrées adaptées à votre activité — pages dédiées et exemples de références."
         />
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
           {sectors.map((sector) => (
             <article
               key={sector.title}
-              className="card-outline rounded-2xl p-6"
+              className={cn(
+                "flex flex-col rounded-2xl p-5 md:p-6",
+                "highlight" in sector && sector.highlight ? "card-outline-teal" : "card-outline",
+              )}
             >
-              <h3 className="text-xl font-bold text-brand-navy">{sector.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{sector.description}</p>
-              <Link
-                href={sector.href}
-                className="mt-5 inline-flex text-sm font-semibold text-brand-teal transition-colors hover:text-brand-teal-dim"
-              >
-                {sector.cta} →
-              </Link>
+              <div className="max-w-xl">
+                <h3 className="text-xl font-bold text-brand-navy">{sector.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{sector.description}</p>
+              </div>
+
+              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                {sector.products.map((product) => (
+                  <ProductCard key={product.name} {...product} />
+                ))}
+              </div>
+
+              <div className="mt-5 border-t border-border/70 pt-5">
+                <LinkButton href={sector.href} variant="link" className="h-auto p-0 text-brand-teal">
+                  {sector.cta} →
+                </LinkButton>
+              </div>
             </article>
           ))}
         </div>

@@ -1,9 +1,9 @@
-import { Award, Leaf, Package, Star, type LucideIcon } from "lucide-react";
+import { Award, CreditCard, Package, Star, type LucideIcon } from "lucide-react";
 import { trustPillars } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "./section-header";
 
-const trustIcons: LucideIcon[] = [Star, Package, Award, Leaf];
+const trustIcons: LucideIcon[] = [Star, Package, CreditCard, Award];
 
 function TrustCardIcon({ icon: Icon }: { icon: LucideIcon }) {
   return (
@@ -21,7 +21,7 @@ export function TrustSection() {
         <SectionHeader
           label="Pourquoi Ojetables ?"
           title="Réassurance pro, visible dès la homepage."
-          description="9,5/10 sur 2 417 avis, livraison 24/72h, tarifs dégressifs et conformité AGEC."
+          description="9,5/10 sur 2 417 avis, livraison 24/48h, paiement 30j pro et passages TV M6 & Capital."
         />
 
         <div className="trust-cards mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
