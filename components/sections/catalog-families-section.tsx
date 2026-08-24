@@ -108,8 +108,7 @@ export function CatalogFamiliesSection() {
             </div>
             <Link
               href={ecoSeo.bioCategoryHref}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...familyLinkProps(ecoSeo.bioCategoryHref)}
               className="hidden text-sm font-semibold text-brand-teal underline-offset-2 hover:underline sm:inline"
             >
               {ecoSeo.bioCategoryLabel} →
@@ -139,8 +138,7 @@ export function CatalogFamiliesSection() {
 
           <Link
             href={ecoSeo.bioCategoryHref}
-            target="_blank"
-            rel="noopener noreferrer"
+            {...familyLinkProps(ecoSeo.bioCategoryHref)}
             className="mt-4 inline-block text-sm font-semibold text-brand-teal underline-offset-2 hover:underline sm:hidden"
           >
             {ecoSeo.bioCategoryLabel} →

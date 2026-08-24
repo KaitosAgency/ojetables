@@ -1,37 +1,22 @@
-# Ojetables - Maquette interactive (preview Kaitos Agency)
+# Ojetables
 
-> Fournisseur français de vaisselle jetable et emballages éco pour traiteurs, CHR et collectivités. +3 000 références en stock, livraison 24/72h, tarifs dégressifs, devis volume.
+> Fournisseur français de vaisselle jetable et emballages éco pour traiteurs, CHR et collectivités. +3 000 références en stock, livraison 24/72h, tarifs dégressifs et devis volume.
 
-Maquette preview - non contractuelle. Contenus et visuels à titre de démonstration de la refonte homepage et parcours produit.
+Maquette preview non contractuelle. Contenus et visuels à titre de démonstration de la refonte homepage et parcours produit.
 
-## Pages indexables (maquette)
+## Pages principales
 
-- / - Homepage : hero, best-sellers, secteurs, presse TV, personnalisation, catalogue 12 familles, destockage, réassurance, avis clients certifiés, engagements éco, FAQ
-- /produit/assiette-biodegradable-15cm - Fiche produit exemple (galerie, achat, onglets, personnalisation)
-- /destockage - Promotions et fins de série
+- [Homepage](https://www.ojetables.fr/): Hero, best-sellers, secteurs, presse TV, personnalisation, catalogue 12 familles, destockage, avis clients certifiés, engagements éco, FAQ.
+- [Fiche produit exemple](https://www.ojetables.fr/produit/gobelet-carton-24cl-kraft-individuel): Gobelet carton 24 cl Kraft, galerie, achat, onglets et parcours personnalisation logo.
+- [Destockage](https://www.ojetables.fr/destockage): Promotions et fins de série à prix réduits.
 
-## Sitemap
+## Ressources
 
-- https://www.ojetables.fr/sitemap.xml (URL canonique si déployé sur le domaine production)
-- /sitemap.xml - sur l’URL de déploiement de la maquette
-
-## Points clés métier
-
-- Note clients : 9,5/10 sur 2 417 avis (Société des Avis Garantis)
-- Livraison 24/72h partout en France
-- Paiement à 30 jours pour les comptes professionnels
-- Conformité loi AGEC, gammes biodégradables et compostables
-- Personnalisation logo (gobelets, sacs, etc.)
-- 12 familles catalogue : vaisselle, verrines, éco, snack, sacs, gobelets, plateaux, nappes, hygiène, personnalisation, destockage, Garcia de Pou
-
-## Contact (site production)
-
-- Site : https://www.ojetables.fr
-- Téléphone : 09 74 06 00 74
-- E-mail : contact@ojetables.fr
-- Adresse : ZA de Saune, 1 rue Roland Garros, 31570 Sainte-Foy-d'Aigrefeuille
+- [Sitemap](https://www.ojetables.fr/sitemap.xml): Plan du site pour exploration complète.
+- [Site production](https://www.ojetables.fr): Catalogue complet et commande en ligne.
+- [Avis clients certifiés](https://www.societe-des-avis-garantis.fr/ojetables-fr/): Note 9,5/10 sur 2 417 avis vérifiés après achat.
+- [Contact](https://www.ojetables.fr/contacts/): Devis, SAV et informations livraison.
 
 ## Crédits
 
-- Maquette réalisée par : https://kaitos.agency
-- Avis certifiés : https://www.societe-des-avis-garantis.fr/ojetables-fr/
+- [Kaitos Agency](https://kaitos.agency): Maquette interactive et refonte UX/SEO.

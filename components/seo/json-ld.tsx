@@ -1,3 +1,6 @@
+import type { Category } from "@/lib/categories";
+import { categoryPath } from "@/lib/categories";
+import type { ProductCardProps } from "@/components/product/product-card";
 import { site, getSiteUrl, type CatalogFamily, type FaqItem } from "@/lib/site";
 import type { Product } from "@/lib/products";
 
@@ -144,20 +147,27 @@ export function productPageJsonLd(product: Product, path: string) {
     { name: product.shortName },
   ];
 
+  const primaryImage = product.images[0]?.src;
+  const imageUrl = primaryImage?.startsWith("http")
+    ? primaryImage
+    : `${getSiteUrl()}${primaryImage}`;
+
   const productEntity = {
     "@type": "Product",
     "@id": `${getSiteUrl()}${path}#product`,
     name: product.name,
     description: product.description,
+    image: imageUrl,
+    sku: product.slug,
     brand: {
       "@type": "Brand",
       name: site.name,
     },
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: String(site.aggregateRating.score),
-      reviewCount: String(site.aggregateRating.count),
-      bestRating: "10",
+      ratingValue: String(product.rating),
+      reviewCount: String(product.reviewCount),
+      bestRating: "5",
       worstRating: "1",
     },
     offers: {
@@ -167,6 +177,11 @@ export function productPageJsonLd(product: Product, path: string) {
       price: product.priceHt.toFixed(2),
       availability: "https://schema.org/InStock",
       itemCondition: "https://schema.org/NewCondition",
+      ...(product.priceWasHt != null && product.priceWasHt > product.priceHt
+        ? { priceValidUntil: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+            .toISOString()
+            .split("T")[0] }
+        : {}),
       shippingDetails: {
         "@type": "OfferShippingDetails",
         shippingRate: {
@@ -218,5 +233,70 @@ export function breadcrumbJsonLd(path: string, breadcrumbs: readonly BreadcrumbI
   return {
     "@context": "https://schema.org",
     ...breadcrumbEntity(path, breadcrumbs),
+  };
+}
+
+export function categoryPageJsonLd(
+  category: Category,
+  products: readonly ProductCardProps[],
+  path: string,
+) {
+  const base = getSiteUrl();
+  const breadcrumbs: BreadcrumbItem[] = [
+    { name: "Accueil", path: "/" },
+    { name: category.label },
+  ];
+
+  const collectionPage = {
+    "@type": "CollectionPage",
+    "@id": `${base}${path}#webpage`,
+    url: `${base}${path}`,
+    name: category.metaTitle,
+    description: category.metaDescription,
+    inLanguage: "fr-FR",
+    isPartOf: {
+      "@id": `${base}/#website`,
+    },
+    about: {
+      "@id": `${base}${path}#collection`,
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${base}${category.image}`,
+    },
+  };
+
+  const collection = {
+    "@type": "Collection",
+    "@id": `${base}${path}#collection`,
+    name: category.title,
+    description: category.description,
+    image: `${base}${category.image}`,
+    numberOfItems: products.length,
+  };
+
+  const itemList = {
+    "@type": "ItemList",
+    "@id": `${base}${path}#itemlist`,
+    name: `Produits ${category.label} Ojetables`,
+    numberOfItems: products.length,
+    itemListElement: products.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: product.name,
+      url: product.href.startsWith("http")
+        ? product.href
+        : `${base}${product.href.startsWith("/") ? product.href : `/${product.href}`}`,
+    })),
+  };
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      collectionPage,
+      collection,
+      itemList,
+      breadcrumbEntity(path, breadcrumbs),
+    ],
   };
 }

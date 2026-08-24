@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ClientLogosBand } from "@/components/sections/client-logos-band";
 import { FaqWithStructuredData } from "@/components/sections/faq-with-structured-data";
+import { SectionHeader } from "@/components/sections/section-header";
 import { ProductPersonalizationCallout } from "@/components/product/product-personalization-callout";
 import { ProductBreadcrumb } from "@/components/product/product-breadcrumb";
 import { ProductCrossSell } from "@/components/product/product-cross-sell";
@@ -19,7 +20,7 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return [{ slug: "assiette-biodegradable-15cm" }];
+  return [{ slug: "gobelet-carton-24cl-kraft-individuel" }];
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -60,9 +61,13 @@ export default async function ProductPage({ params }: PageProps) {
         <ProductPersonalizationCallout />
         <ProductCrossSell product={product} />
 
-        <section className="mt-16 max-w-3xl">
-          <h2 className="text-xl font-bold text-brand-navy">Questions sur ce produit</h2>
-          <FaqWithStructuredData items={product.faq} className="mt-6" />
+        <section className="mt-16">
+          <SectionHeader
+            label="Aide & SAV"
+            title="Questions sur ce produit"
+            description="Réponses aux questions fréquentes sur le gobelet carton kraft 24 cl."
+          />
+          <FaqWithStructuredData items={product.faq} className="mt-8 max-w-3xl" />
         </section>
       </div>
 

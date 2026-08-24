@@ -16,7 +16,7 @@ Preview Next.js de la refonte Ojetables.fr, réalisée par [Kaitos Agency](https
 | Route | Description |
 |-------|-------------|
 | `/` | Homepage - hero pro, logos clients, secteurs, réassurance, FAQ |
-| `/produit/assiette-biodegradable-15cm` | Fiche produit exemple - galerie, prix, tabs, JSON-LD Product |
+| `/produit/gobelet-carton-24cl-kraft-individuel` | Fiche produit exemple - Gobelet carton 24 cl Kraft, galerie, prix, tabs, JSON-LD Product |
 
 ## Démarrage local
 

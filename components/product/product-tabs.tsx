@@ -3,7 +3,6 @@
 import { useState } from "react";
 import type { Product } from "@/lib/products";
 import { cn } from "@/lib/utils";
-import { site } from "@/lib/site";
 
 const tabs = [
   { id: "description", label: "Description" },
@@ -62,8 +61,9 @@ export function ProductTabs({ product }: ProductTabsProps) {
         {activeTab === "personalization" && <p>{product.personalization}</p>}
         {activeTab === "reviews" && (
           <p>
-            {site.aggregateRating.display} sur {site.aggregateRating.count.toLocaleString("fr-FR")} avis
-            certifiés {site.aggregateRating.label}. Les avis produit seraient intégrés ici en production.
+            {product.rating.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} sur 5 sur{" "}
+            {product.reviewCount.toLocaleString("fr-FR")} avis certifiés. Les avis produit
+            Avis Garantis seraient intégrés ici en production.
           </p>
         )}
       </div>

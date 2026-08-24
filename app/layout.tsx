@@ -41,6 +41,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={cn("h-full", geist.variable, "font-sans")}>
+      <head>
+        <link rel="describedby" href={`${siteUrl}/llms.txt`} type="text/markdown" />
+      </head>
       <body className="min-h-full bg-background text-foreground">
         <a
           href="#main-content"

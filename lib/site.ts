@@ -1,6 +1,8 @@
 import catalogNavRaw from "./catalog-nav-data.json";
 
-export const featuredProductSlug = "assiette-biodegradable-15cm";
+export const featuredProductSlug = "gobelet-carton-24cl-kraft-individuel";
+export const featuredCategorySlug = "vaisselle-jetable";
+export const featuredCategoryPath = `/${featuredCategorySlug}`;
 
 export function productPath(slug: string): string {
   return `/produit/${slug}`;
@@ -24,10 +26,15 @@ export const routes = {
   mariage: ojetablesLive.mariage,
   /** Page personnalisation prod - TODO: route Next interne à l’intégration Magento. */
   personalization: "https://www.ojetables.fr/emballage-personnalise/",
-  /** Ancre homepage - TODO: remplacer par routes catégories Next (/vaisselle-jetable, etc.). */
+  /** Page catégorie maquette — toutes les familles catalogue y convergent. */
+  category: featuredCategoryPath,
+  /** Ancre homepage sections catalogue. */
   catalog: "#catalogue",
   destockage: "/destockage",
 } as const;
+
+/** Maquette : tous les liens produits pointent vers la fiche exemple unique. */
+export const maquetteProductHref = routes.product;
 
 export const site = {
   name: "Ojetables",
@@ -187,8 +194,17 @@ export type CatalogNavCategory = {
  */
 
 function maquetteCatalogHref(path: string): string {
-  if (path.includes("assiette-biodegradable-et-compostable")) {
+  if (path.includes("assiette-biodegradable-et-compostable") || path.endsWith(".html")) {
     return routes.product;
+  }
+  if (path.includes("destockage")) {
+    return routes.destockage;
+  }
+  if (path.includes("emballage-personnalise") || path.includes("personnalise")) {
+    return routes.personalization;
+  }
+  if (path.startsWith("/")) {
+    return featuredCategoryPath;
   }
   return "#";
 }
@@ -278,7 +294,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "vaisselle-jetable",
     label: "Vaisselle jetable",
-    href: "https://www.ojetables.fr/vaisselle-jetable-petit-prix",
+    href: featuredCategoryPath,
     image: "/categories/vaisselle-jetable.jpg",
     description:
       "Assiettes, couverts en bois, bols jetables : carton, pulpe de canne ou plastique réutilisable.",
@@ -287,7 +303,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "verrine",
     label: "Verrine",
-    href: "https://www.ojetables.fr/verrine-a-usage-unique-economique",
+    href: featuredCategoryPath,
     image: "/categories/verrine.jpg",
     description:
       "Verrines cocktail, mises en bouche et coupes dessert pour buffets, traiteurs et réceptions.",
@@ -296,7 +312,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "bio-ecolo",
     label: "Bio/Ecolo",
-    href: "https://www.ojetables.fr/emballage-biodegradable",
+    href: featuredCategoryPath,
     image: "/categories/bio-ecolo.jpg",
     description:
       "Vaisselle biodégradable et compostable conforme AGEC. Pulpe de canne, bagasse, bambou et palmier.",
@@ -317,7 +333,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
     id: "snack",
     label: "SNACK",
     originalLabel: "SNACK",
-    href: "https://www.ojetables.fr/snack",
+    href: featuredCategoryPath,
     image: "/categories/snack.jpg",
     description:
       "Emballages snack : boîtes burger, barquettes bagasse et supports sucré-salé pour food trucks.",
@@ -326,7 +342,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "sac",
     label: "Sac",
-    href: "https://www.ojetables.fr/sac-papier-kraft",
+    href: featuredCategoryPath,
     image: "/categories/sac.png",
     description:
       "Sacs kraft, sacs à pain, sandwich et viennoiserie. Papier de qualité, personnalisation sur devis.",
@@ -346,7 +362,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "gobelet-verre",
     label: "Gobelet / Verre",
-    href: "https://www.ojetables.fr/gobelet-verre-flute",
+    href: featuredCategoryPath,
     image: "/categories/gobelet-verre.jpg",
     description:
       "Gobelets carton, plastique réutilisable et flûtes pour boissons chaudes ou froides. Personnalisables dès 1 pièce.",
@@ -355,7 +371,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "plateau-boite",
     label: "Plateau / boite",
-    href: "https://www.ojetables.fr/plateau-jetable",
+    href: featuredCategoryPath,
     image: "/categories/plateau-boite.png",
     description:
       "Plateaux repas, wood box, boîtes pizza et coffrets à emporter pour traiteur et collectif.",
@@ -364,7 +380,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "nappe-serviette",
     label: "Nappe - serviette",
-    href: "https://www.ojetables.fr/nappe-et-serviette",
+    href: featuredCategoryPath,
     image: "/categories/nappe-serviette.png",
     description:
       "Nappes intissé, chemins de table et serviettes papier pour mariages, réceptions et CHR.",
@@ -373,7 +389,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "hygiene-resto",
     label: "Hygiène/Resto",
-    href: "https://www.ojetables.fr/hygiene-et-resto",
+    href: featuredCategoryPath,
     image: "/categories/hygiene-resto.png",
     description:
       "Consommables CHR : barquettes alu, film étirable, essuie-mains et accessoires de cuisine.",
@@ -382,7 +398,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
   {
     id: "garcia-de-pou",
     label: "Garcia de Pou",
-    href: "https://www.ojetables.fr/garcia-de-pou",
+    href: featuredCategoryPath,
     image: "/categories/garcia-de-pou.png",
     description:
       "Gamme Garcia de Pou : nappes, serviettes, sacs et emballages hôtellerie-restauration.",
@@ -446,7 +462,7 @@ export const personalizationProductTypes: PersonalizationProductType[] = [
     unitFrom: "0,82 € HT",
     delay: "2–3 sem.",
     technique: "Logo 1 à 4 couleurs · BAT obligatoire",
-    href: "#",
+    href: maquetteProductHref,
   },
   {
     id: "reusable-digital",
@@ -455,7 +471,7 @@ export const personalizationProductTypes: PersonalizationProductType[] = [
     unitFrom: "0,60 € HT",
     delay: "2–6 sem.",
     technique: "Quadrichromie photo sur toute la hauteur",
-    href: "#",
+    href: maquetteProductHref,
   },
   {
     id: "reusable-seri",
@@ -464,7 +480,7 @@ export const personalizationProductTypes: PersonalizationProductType[] = [
     unitFrom: "0,62 € HT",
     delay: "3–4 sem.",
     technique: "Sérigraphie 1 couleur · Pantone",
-    href: "#",
+    href: maquetteProductHref,
   },
   {
     id: "other",
@@ -517,7 +533,7 @@ export const destockageItems = [
     priceWas: "3,90 €",
     priceFrom: "3,20 €",
     badge: "Promo",
-    href: "https://www.ojetables.fr/gobelet-carton-24cl-emballe-individuellement-kraft-clair.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 50",
     rating: 4.9,
     reviewCount: 8,
@@ -529,7 +545,7 @@ export const destockageItems = [
     priceWas: "46,20 €",
     priceFrom: "38,20 €",
     badge: "-17 %",
-    href: "https://www.ojetables.fr/wood-box-xxl-6-litres.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 10",
     rating: 4.9,
     reviewCount: 9,
@@ -541,7 +557,7 @@ export const destockageItems = [
     priceWas: "9,99 €",
     priceFrom: "8,99 €",
     badge: "Stock limité",
-    href: "https://www.ojetables.fr/kit-couverts-6-1-bois-kraft.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 100",
     rating: 5,
     reviewCount: 4,
@@ -553,7 +569,7 @@ export const destockageItems = [
     priceWas: "5,20 €",
     priceFrom: "4,50 €",
     badge: "-13 %",
-    href: "https://www.ojetables.fr/gobelet-smoothie-8755.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 50",
     rating: 4.9,
     reviewCount: 8,
@@ -565,7 +581,7 @@ export const destockageItems = [
     priceWas: "42,00 €",
     priceFrom: "36,20 €",
     badge: "Fin de série",
-    href: "https://www.ojetables.fr/assiette-biodegradable-2088.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 200",
     rating: 4,
     reviewCount: 2,
@@ -577,7 +593,7 @@ export const destockageItems = [
     priceWas: "2,95 €",
     priceFrom: "2,35 €",
     badge: "-20 %",
-    href: "https://www.ojetables.fr/verrine-plastique-8556.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 20",
     rating: 5,
     reviewCount: 3,
@@ -589,7 +605,7 @@ export const destockageItems = [
     priceWas: "44,99 €",
     priceFrom: "37,99 €",
     badge: "-16 %",
-    href: "https://www.ojetables.fr/wood-box-1-litre-avec-caissette-couvercle.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 25",
     rating: 4.9,
     reviewCount: 9,
@@ -601,7 +617,7 @@ export const destockageItems = [
     priceWas: "52,99 €",
     priceFrom: "45,99 €",
     badge: "Promo",
-    href: "https://www.ojetables.fr/kit-couverts-6-1-bois-imbattable.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 500",
     rating: 4.8,
     reviewCount: 10,
@@ -613,7 +629,7 @@ export const destockageItems = [
     priceWas: "2,20 €",
     priceFrom: "1,80 €",
     badge: "-18 %",
-    href: "https://www.ojetables.fr/cuillere-en-bois-160mm-eco.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 100",
     rating: 4.8,
     reviewCount: 12,
@@ -625,7 +641,7 @@ export const destockageItems = [
     priceWas: "74,00 €",
     priceFrom: "65,00 €",
     badge: "Stock limité",
-    href: "https://www.ojetables.fr/plateau-repas-biodegradable-5compartiments.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 150",
     rating: 4,
     reviewCount: 2,
@@ -637,7 +653,7 @@ export const destockageItems = [
     priceWas: "10,49 €",
     priceFrom: "8,99 €",
     badge: "-14 %",
-    href: "https://www.ojetables.fr/kit-couverts-4-1-bois-kraft.html",
+    href: maquetteProductHref,
     packLabel: "Lot de 100",
     rating: 4.9,
     reviewCount: 9,
@@ -649,7 +665,7 @@ export const destockageItems = [
     priceWas: "28,90 €",
     priceFrom: "24,55 €",
     badge: "Fin de série",
-    href: "https://www.ojetables.fr/gobelet-reutilisable-personnalise-12440.html",
+    href: maquetteProductHref,
     packLabel: "Dès 1 pc",
     rating: 5,
     reviewCount: 1,
@@ -788,7 +804,7 @@ export const sectors = [
         category: "Couverts",
         image: "/products/kit-couverts-6.jpg",
         priceFrom: "9,99 €",
-        href: "https://www.ojetables.fr/kit-couverts-6-1-bois-kraft.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 100",
         rating: 5,
         reviewCount: 4,
@@ -798,7 +814,7 @@ export const sectors = [
         category: "Verrines",
         image: "/products/verrine-carre.jpg",
         priceFrom: "2,35 €",
-        href: "https://www.ojetables.fr/verrine-plastique-8556.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 20",
         rating: 5,
         reviewCount: 3,
@@ -808,7 +824,7 @@ export const sectors = [
         category: "Plateaux",
         image: "/products/wood-box.jpg",
         priceFrom: "37,99 €",
-        href: "https://www.ojetables.fr/wood-box-1-litre-avec-caissette-couvercle.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 25",
         personalizable: true,
         rating: 4.9,
@@ -828,7 +844,7 @@ export const sectors = [
         category: "Assiettes",
         image: "/products/assiette-galaxie.jpg",
         priceFrom: "36,20 €",
-        href: "https://www.ojetables.fr/assiette-biodegradable-2088.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 200",
         rating: 4,
         reviewCount: 2,
@@ -838,7 +854,7 @@ export const sectors = [
         category: "Gobelets logo",
         image: "/products/gobelet-personnalise.jpg",
         priceFrom: "24,55 €",
-        href: "https://www.ojetables.fr/gobelet-reutilisable-personnalise-12440.html",
+        href: maquetteProductHref,
         packLabel: "Dès 1 pc",
         personalizable: true,
         rating: 5,
@@ -849,7 +865,7 @@ export const sectors = [
         category: "Couverts",
         image: "/products/sachet-couverts-bois.jpg",
         priceFrom: "45,99 €",
-        href: "https://www.ojetables.fr/kit-couverts-6-1-bois-imbattable.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 500",
         rating: 4.8,
         reviewCount: 10,
@@ -868,7 +884,7 @@ export const sectors = [
         image: "/products/gobelet-carton-24cl.jpg",
         priceFrom: "3,20 €",
         priceWas: "3,90 €",
-        href: "https://www.ojetables.fr/gobelet-carton-24cl-emballe-individuellement-kraft-clair.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 50",
         personalizable: true,
         rating: 4.9,
@@ -879,7 +895,7 @@ export const sectors = [
         category: "Gobelets",
         image: "/products/gobelet-smoothie.jpg",
         priceFrom: "4,50 €",
-        href: "https://www.ojetables.fr/gobelet-smoothie-8755.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 50",
         personalizable: true,
         rating: 4.9,
@@ -890,7 +906,7 @@ export const sectors = [
         category: "Couverts",
         image: "/products/cuillere-bois.jpg",
         priceFrom: "1,80 €",
-        href: "https://www.ojetables.fr/cuillere-en-bois-160mm-eco.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 100",
         rating: 4.8,
         reviewCount: 12,
@@ -908,7 +924,7 @@ export const sectors = [
         category: "Plateaux repas",
         image: "/products/plateau-repas-5comp.jpg",
         priceFrom: "65,00 €",
-        href: "https://www.ojetables.fr/plateau-repas-biodegradable-5compartiments.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 150",
         rating: 4,
         reviewCount: 2,
@@ -919,7 +935,7 @@ export const sectors = [
         image: "/products/wood-box-xxl.jpg",
         priceFrom: "39,40 €",
         priceWas: "46,20 €",
-        href: "https://www.ojetables.fr/wood-box-xxl-6-litres.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 10",
         rating: 4.9,
         reviewCount: 9,
@@ -929,7 +945,7 @@ export const sectors = [
         category: "Couverts",
         image: "/products/kit-couverts-4.jpg",
         priceFrom: "8,99 €",
-        href: "https://www.ojetables.fr/kit-couverts-4-1-bois-kraft.html",
+        href: maquetteProductHref,
         packLabel: "Lot de 100",
         rating: 4.9,
         reviewCount: 9,
@@ -972,7 +988,7 @@ export const ecoCommitments = [
 export const ecoSeo = {
   label: "Éco-responsabilité",
   title: "Nos engagements éco-responsables",
-  bioCategoryHref: "https://www.ojetables.fr/emballage-biodegradable",
+  bioCategoryHref: routes.category,
   bioCategoryLabel: "Découvrir la gamme biodégradable",
 } as const;
 

@@ -344,16 +344,13 @@ export function ContentSlider({
       </div>
 
       {pageCount > 1 ? (
-        <div className="mt-6 flex justify-center">
-          <div className="flex items-center gap-2" role="tablist" aria-label="Pagination du carrousel">
+        <div className="mt-6 flex justify-center" aria-hidden>
+          <div className="flex items-center gap-2">
             {Array.from({ length: pageCount }).map((_, index) => (
-              <button
+              <span
                 key={index}
-                type="button"
-                role="tab"
-                aria-selected={index === activeIndex}
                 className={cn(
-                  "h-2 rounded-full transition-all duration-300",
+                  "block h-2 rounded-full transition-all duration-300",
                   index === activeIndex
                     ? isGreen
                       ? "w-8 bg-white"
@@ -361,16 +358,11 @@ export function ContentSlider({
                         ? "w-8 bg-brand-kraft-dark"
                         : "w-8 bg-brand-teal"
                     : isDark || isGreen
-                      ? "w-2 bg-white/25 hover:bg-white/40"
+                      ? "w-2 bg-white/25"
                       : isKraft
-                        ? "w-2 bg-brand-kraft/25 hover:bg-brand-kraft/40"
-                        : "w-2 bg-brand-navy/20 hover:bg-brand-navy/35",
+                        ? "w-2 bg-brand-kraft/25"
+                        : "w-2 bg-brand-navy/20",
                 )}
-                onClick={() => {
-                  pauseAutoPlay();
-                  scrollToPage(index);
-                }}
-                aria-label={`Aller à la page ${index + 1}`}
               />
             ))}
           </div>

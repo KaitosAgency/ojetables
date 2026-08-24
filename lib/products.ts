@@ -10,6 +10,16 @@ export type VolumeTier = {
   discount: string;
 };
 
+export type ProductImage = {
+  src: string;
+  alt: string;
+};
+
+export type ProductBadge = {
+  label: string;
+  title: string;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -21,11 +31,17 @@ export type Product = {
   description: string;
   longDescription: string;
   priceHt: number;
+  priceWasHt?: number;
   priceTtc: number;
   unit: string;
+  unitPriceHt?: number;
+  packLabel: string;
   stockLabel: string;
+  rating: number;
+  reviewCount: number;
   volumeTiers: VolumeTier[];
   reassurance: string[];
+  badges: ProductBadge[];
   specs: ProductSpec[];
   shipping: string;
   personalization: string;
@@ -34,81 +50,143 @@ export type Product = {
     slug: string;
     name: string;
     priceHt: number;
+    image: string;
+    category: string;
+    priceFrom: string;
+    rating: number;
+    reviewCount: number;
+    packLabel?: string;
   }[];
-  imageColors: string[];
+  images: ProductImage[];
 };
 
+const gobeletImage = "/products/gobelet-carton-24cl.jpg";
+
 export const products: Record<string, Product> = {
-  "assiette-biodegradable-15cm": {
-    slug: "assiette-biodegradable-15cm",
-    name: "Assiette biodégradable ronde 15 cm",
-    shortName: "Assiette biodégradable 15 cm",
-    metaTitle: "Assiette biodégradable ronde 15 cm - Restauration éco",
+  "gobelet-carton-24cl-kraft-individuel": {
+    slug: "gobelet-carton-24cl-kraft-individuel",
+    name: "Gobelet carton 24 cl Kraft (individuel)",
+    shortName: "Gobelet carton 24 cl Kraft",
+    metaTitle: "Gobelet carton 24 cl Kraft emballé individuellement",
     metaDescription:
-      "Assiette en pulpe de canne 15 cm, 100 % compostable. Pack de 100 dès 4,90 € HT. Livraison 24/72h, tarifs dégressifs pro. Demandez un devis volume.",
-    category: "Assiettes compostables",
-    categoryPath: "/assiettes-compostables",
+      "Gobelet carton kraft 24 cl emballé individuellement, lot de 50 dès 3,20 € HT. Boissons chaudes et froides, biodégradable. Livraison 24/72h, tarifs dégressifs pro.",
+    category: "Gobelets carton",
+    categoryPath: "/vaisselle-jetable",
     description:
-      "Assiette en pulpe de canne à sucre, 100 % compostable et certifiée contact alimentaire.",
-    longDescription: `Cette assiette biodégradable ronde 15 cm est idéale pour les **traiteurs**, **cantines** et **événements** recherchant une alternative éco-responsable au plastique à usage unique. Fabriquée en pulpe de canne à sucre, elle est **100 % compostable** en compostage industriel après usage.
+      "Gobelet carton kraft 24 cl emballé individuellement. Idéal pour cafés, thés et boissons chaudes ou froides en CHR et événementiel.",
+    longDescription: `Ces gobelets emballés individuellement sont conçus pour la consommation de boissons chaudes et froides en toute hygiène. Pratiques et confortables à l'usage, ils conviennent parfaitement aux environnements professionnels et aux usages nomades.
 
-**Conditionnement** : pack de 100 unités. Livraison **24/72h** partout en France. Tarifs dégressifs sur volumes pour les comptes professionnels.
+Adaptés à une large variété de boissons telles que le café, le thé, le lait ou le chocolat chaud, ces gobelets offrent une prise en main agréable et une bonne résistance à la chaleur comme au froid. L'emballage individuel garantit une hygiène optimale, particulièrement appréciée dans les lieux à forte fréquentation.
 
-**Usages** : restauration collective, événementiel, food trucks, mariages et réceptions.`,
-    priceHt: 4.9,
-    priceTtc: 5.88,
-    unit: "pack de 100",
+Ils sont couramment utilisés dans les hôtels, cafétérias, restaurants, food trucks et bureaux, répondant aux besoins du service à emporter comme de la consommation sur place.
+
+À noter : couvercle non inclus.`,
+    priceHt: 3.2,
+    priceWasHt: 3.9,
+    priceTtc: 3.84,
+    unit: "pack de 50",
+    unitPriceHt: 0.064,
+    packLabel: "Lot de 50",
     stockLabel: "En stock · Livraison 24/72h",
+    rating: 4.9,
+    reviewCount: 8,
     volumeTiers: [
-      { quantity: "1–9 packs", discount: "Prix catalogue" },
+      { quantity: "1–9 packs", discount: "3,20 € HT / pack" },
       { quantity: "10–49 packs", discount: "-8 %" },
       { quantity: "50+ packs", discount: "-15 % dès 500 unités" },
     ],
     reassurance: [
       "Contact alimentaire",
-      "Tarifs pro dégressifs",
-      "Compostable industriel",
-      "9,5/10 · 2 417 avis",
+      "Emballage individuel",
+      "Biodégradable",
+      "Boissons chaudes & froides",
+    ],
+    badges: [
+      { label: "Bio", title: "Biodégradable" },
+      { label: "Chaud", title: "Compatible boissons chaudes" },
     ],
     specs: [
-      { label: "Diamètre", value: "15 cm" },
-      { label: "Matière", value: "Pulpe de canne à sucre" },
-      { label: "Conditionnement", value: "100 unités / pack" },
-      { label: "Compostable", value: "Oui - compostage industriel" },
-      { label: "Certification", value: "Contact alimentaire" },
-      { label: "Couleur", value: "Naturel / beige" },
+      { label: "Contenance", value: "24 cl (8 OZ)" },
+      { label: "Matière", value: "Carton et PE" },
+      { label: "Dimensions", value: "Ø 80 mm · Hauteur 92 mm" },
+      { label: "Conditionnement", value: "50 unités / pack" },
+      { label: "Couleur", value: "Kraft clair / marron" },
+      { label: "Emballage", value: "Individuel (hygiène optimale)" },
+      { label: "Bio", value: "Oui" },
+      { label: "Micro-ondable", value: "Non" },
     ],
     shipping:
-      "Livraison 24/72h partout en France sur stock. Frais de port calculés au panier. Possibilité de livraison en palette pour les volumes importants.",
+      "Livraison 24/72h partout en France sur stock. Frais de port dès 6,90 € HT, offerts dès 250 € HT. Possibilité de livraison en palette pour les volumes importants.",
     personalization:
-      "Personnalisation non disponible sur cette référence. Consultez notre gamme gobelets et sacs personnalisables pour l'impression logo.",
+      "Cette référence n'est pas personnalisable. Pour l'impression logo sur gobelet carton, consultez notre gamme gobelets personnalisables (minimum 250 pièces, sérigraphie 1 à 4 couleurs, BAT sous 48h).",
     faq: [
       {
-        question: "Cette assiette est-elle compostable en compostage domestique ?",
+        question: "Le couvercle est-il inclus ?",
         answer:
-          "Elle est compostable en compostage industriel. Pour le compostage domestique, les délais de dégradation peuvent être plus longs selon les conditions.",
+          "Non, le couvercle n'est pas inclus avec ce gobelet. Des couvercles compatibles sont disponibles séparément dans notre catalogue gobelets carton.",
+      },
+      {
+        question: "Ces gobelets sont-ils adaptés aux boissons chaudes ?",
+        answer:
+          "Oui. Ils sont conçus pour les boissons chaudes et froides : café, thé, lait, chocolat chaud. Ils ne sont pas micro-ondables.",
+      },
+      {
+        question: "Pourquoi l'emballage individuel ?",
+        answer:
+          "Chaque gobelet est emballé individuellement pour garantir une hygiène optimale, idéal en hôtellerie, cafétérias et lieux à forte fréquentation.",
       },
       {
         question: "Y a-t-il un minimum de commande ?",
-        answer: "Non pour les particuliers et petits volumes. Les tarifs dégressifs s'appliquent à partir de 10 packs pour les comptes pro.",
+        answer:
+          "Non pour les particuliers et petits volumes. Les tarifs dégressifs s'appliquent à partir de 10 packs pour les comptes professionnels.",
       },
       {
-        question: "Livraison possible en urgence (J+1) ?",
+        question: "Peut-on personnaliser ces gobelets avec notre logo ?",
         answer:
-          "Oui sur les références en stock, selon votre zone et l'heure de commande. Contactez-nous pour les urgences événementielles.",
-      },
-      {
-        question: "Compatible micro-ondes ou four ?",
-        answer:
-          "Usage recommandé pour aliments froids ou tièdes. Éviter le micro-ondes prolongé et le four au-delà de 100 °C.",
+          "Cette référence n'est pas personnalisable. Pour un gobelet carton avec logo, consultez notre gamme personnalisation (minimum 250 pièces, BAT sous 48h).",
       },
     ],
     crossSell: [
-      { slug: "couverts-bois", name: "Couverts bois compostables", priceHt: 3.2 },
-      { slug: "serviettes-kraft", name: "Serviettes kraft 33 cm", priceHt: 2.8 },
-      { slug: "sac-kraft", name: "Sac kraft poignées", priceHt: 6.5 },
+      {
+        slug: "gobelet-carton-24cl-kraft-individuel",
+        name: "Gobelet carton 18 cl Kraft (individuel)",
+        priceHt: 2.9,
+        image: gobeletImage,
+        category: "Gobelets",
+        priceFrom: "2,90 €",
+        rating: 4.8,
+        reviewCount: 5,
+        packLabel: "Lot de 50",
+      },
+      {
+        slug: "gobelet-carton-24cl-kraft-individuel",
+        name: "Kit couverts 6 en 1 bois kraft",
+        priceHt: 8.99,
+        image: "/products/kit-couverts-6.jpg",
+        category: "Couverts",
+        priceFrom: "8,99 €",
+        rating: 5,
+        reviewCount: 4,
+        packLabel: "Lot de 100",
+      },
+      {
+        slug: "gobelet-carton-24cl-kraft-individuel",
+        name: "Gobelet smoothie 35 à 65 cl",
+        priceHt: 4.5,
+        image: "/products/gobelet-smoothie.jpg",
+        category: "Gobelets",
+        priceFrom: "4,50 €",
+        rating: 4.9,
+        reviewCount: 8,
+        packLabel: "Lot de 50",
+      },
     ],
-    imageColors: ["#d17d3c", "#9e461d", "#f0e4d6"],
+    images: [
+      {
+        src: gobeletImage,
+        alt: "Gobelet carton 24 cl Kraft emballé individuellement",
+      },
+    ],
   },
 };
 
