@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Card } from "@/components/ui/card";
+import { faqItemClassName } from "@/components/ui/interactive-card";
 import { cn } from "@/lib/utils";
 import type { FaqItem } from "@/lib/site";
-import { Plus, X } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 
 type FaqAccordionProps = {
   items: readonly FaqItem[];
@@ -23,26 +23,36 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <div className={cn("w-full space-y-3", className)}>
+    <div className={cn("w-full space-y-2", className)}>
       {items.map((item, index) => {
         const isOpen = openIndex === index;
 
         return (
-          <Card key={item.question} variant="surface" className="gap-0 rounded-2xl py-0">
+          <div key={item.question} className={faqItemClassName(isOpen)}>
             <button
               type="button"
               id={triggerId(index)}
-              className="flex w-full cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:text-brand-teal"
+              className="flex w-full cursor-pointer items-center justify-between gap-4 px-4 py-3.5 text-left transition-colors sm:px-5 sm:py-4"
               aria-expanded={isOpen}
               aria-controls={panelId(index)}
               onClick={() => setOpenIndex(isOpen ? null : index)}
             >
-              <h3 className="text-base font-semibold text-brand-navy">{item.question}</h3>
-              {isOpen ? (
-                <X className="h-5 w-5 shrink-0 text-brand-teal" aria-hidden />
-              ) : (
-                <Plus className="h-5 w-5 shrink-0 text-brand-teal" aria-hidden />
-              )}
+              <h3 className="text-sm font-semibold leading-snug text-brand-navy sm:text-base">
+                {item.question}
+              </h3>
+              <span
+                className={cn(
+                  "flex size-7 shrink-0 items-center justify-center rounded-md border border-border/90 bg-brand-beige/40 text-brand-teal transition-[border-color,background-color,box-shadow] duration-200",
+                  isOpen && "border-brand-teal/30 bg-brand-teal/10 shadow-[0_1px_0_rgb(61_44_38/0.04)]",
+                )}
+                aria-hidden
+              >
+                {isOpen ? (
+                  <ChevronDown className="size-4" strokeWidth={2.25} />
+                ) : (
+                  <Plus className="size-3.5" strokeWidth={2.25} />
+                )}
+              </span>
             </button>
             <div
               id={panelId(index)}
@@ -54,10 +64,12 @@ export function FaqAccordion({ items, className }: FaqAccordionProps) {
               )}
             >
               <div className="overflow-hidden">
-                <p className="px-6 pb-6 text-muted-foreground">{item.answer}</p>
+                <p className="border-t border-border/90 px-4 pb-4 pt-3 text-sm leading-relaxed text-muted-foreground sm:px-5 sm:pb-4 sm:pt-3.5">
+                  {item.answer}
+                </p>
               </div>
             </div>
-          </Card>
+          </div>
         );
       })}
     </div>

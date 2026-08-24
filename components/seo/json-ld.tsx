@@ -33,6 +33,14 @@ export function organizationJsonLd() {
     description: site.description,
     image: `${getSiteUrl()}/opengraph-image`,
     foundingDate: String(site.foundedYear),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.address.street,
+      addressLocality: site.address.city,
+      postalCode: site.address.postalCode,
+      addressRegion: site.address.region,
+      addressCountry: site.address.country,
+    },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: site.aggregateRating.score,
@@ -72,6 +80,7 @@ export function catalogItemListJsonLd(families: readonly CatalogFamily[]) {
       position: index + 1,
       name: family.originalLabel ?? family.label,
       description: family.description,
+      image: family.image.startsWith("http") ? family.image : `${base}${family.image}`,
       url: family.href.startsWith("http")
         ? family.href
         : `${base}${family.href.startsWith("/") || family.href.startsWith("#") ? family.href : `/${family.href}`}`,

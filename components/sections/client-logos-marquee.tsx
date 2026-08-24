@@ -11,7 +11,7 @@ export function ClientLogosMarquee() {
         {marqueeLogos.map((logo, index) => (
           <div
             key={`${logo.name}-${index}`}
-            className="client-logos-marquee__item flex h-16 shrink-0 items-center justify-center px-4 sm:h-[4.5rem] sm:px-5"
+            className="client-logos-marquee__item flex h-16 shrink-0 items-center justify-center px-8 sm:h-[4.5rem] sm:px-5"
             aria-hidden={index >= clientLogos.length}
           >
             <Image

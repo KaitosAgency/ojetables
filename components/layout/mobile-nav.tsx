@@ -194,7 +194,7 @@ export function MobileNav({ trigger }: MobileNavProps) {
         <div className="flex min-h-0 flex-1 flex-col px-4 pt-3">
           <div className="mb-3 shrink-0 space-y-2">
             <LinkButton
-              href={routes.proAccount}
+              href={routes.account}
               variant="brandNavy"
               size="ctaSm"
               className="h-8 w-full text-xs"

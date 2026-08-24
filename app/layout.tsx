@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { LeadMagnetPopup } from "@/components/marketing/lead-magnet-popup";
+import { AvisGarantisOfficialWidget } from "@/components/trust/avis-garantis-official-widget";
 import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/components/seo/json-ld";
 import { createDefaultMetadata } from "@/lib/og-metadata";
 import { site, getSiteUrl, favicon } from "@/lib/site";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content" className="flex-1">{children}</main>
         <SiteFooter />
         <LeadMagnetPopup />
+        <AvisGarantisOfficialWidget />
       </body>
     </html>
   );

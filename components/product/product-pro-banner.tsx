@@ -1,6 +1,6 @@
 export function ProductProBanner() {
   const items = [
-    "Compte pro",
+    "Un seul compte client",
     "Tarifs dégressifs",
     "Devis volume",
     "Personnalisation logo",

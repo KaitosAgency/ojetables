@@ -1,39 +1,58 @@
-import { site } from "@/lib/site";
-import { BandBottomArc } from "@/components/ui/band-bottom-arc";
+import Image from "next/image";
+
+import { avisGarantis, site } from "@/lib/site";
 import { StarRating } from "@/components/ui/star-rating";
 import { ReviewsCarousel } from "@/components/sections/reviews-carousel";
 
 export function ReviewsBand() {
   return (
-    <section className="band-arc-overlap section-divider-top relative z-10 bg-brand-navy pb-5 md:pb-6">
-      <div className="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
+    <section className="section-padding bg-brand-beige">
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="max-w-md lg:col-span-4">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-teal">Avis clients</p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight text-white md:text-4xl">
-              {site.aggregateRating.display} sur {site.aggregateRating.count.toLocaleString("fr-FR")} avis
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-brand-navy md:text-4xl">
+              Ils commandent, et ils reviennent.
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-400 md:text-base">
-              Réputation certifiée {site.aggregateRating.label} — un levier de conversion sous-exploité sur
-              le site actuel.
-            </p>
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <StarRating />
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+              Avis collectés après un achat réel, certifiés par{" "}
               <a
-                href={site.aggregateRating.reviewsUrl}
+                href={avisGarantis.reviewsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-slate-300 underline-offset-2 transition-colors hover:text-white hover:underline"
+                className="inline-flex items-center gap-1 font-medium text-brand-navy underline-offset-2 transition-colors hover:text-brand-teal-dim hover:underline"
               >
-                {site.aggregateRating.label}
+                <Image
+                  src={avisGarantis.assets.cocarde}
+                  alt=""
+                  width={16}
+                  height={16}
+                  className="inline-block size-4 shrink-0"
+                  aria-hidden
+                />
+                Société des Avis Garantis
               </a>
+              .
+            </p>
+
+            <div className="mt-6 flex items-end gap-4">
+              <p className="text-5xl font-bold leading-none tracking-tight text-brand-navy md:text-6xl">
+                {site.aggregateRating.display}
+              </p>
+              <div className="pb-1">
+                <StarRating />
+                <p className="mt-1 text-sm text-muted-foreground">
+                  sur {site.aggregateRating.count.toLocaleString("fr-FR")} avis
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <ReviewsCarousel />
+          <div className="min-w-0 lg:col-span-8">
+            <ReviewsCarousel />
+          </div>
+        </div>
       </div>
-      <BandBottomArc className="text-background" />
     </section>
   );
 }

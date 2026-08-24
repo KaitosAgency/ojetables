@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Palette } from "lucide-react";
 import { StarRating } from "@/components/ui/star-rating";
+import { interactiveCardClassName } from "@/components/ui/interactive-card";
 import { cn } from "@/lib/utils";
 
 export type ProductCardProps = {
@@ -54,10 +55,7 @@ export function ProductCard({
   return (
     <Link
       href={href}
-      className={cn(
-        "product-card group flex h-full flex-col overflow-hidden rounded-lg border border-border/90 bg-white shadow-[0_1px_0_rgb(61_44_38/0.04)] transition-all hover:border-brand-kraft/30 hover:shadow-[0_10px_28px_-14px_rgb(61_44_38/0.22)]",
-        className,
-      )}
+      className={cn("product-card", interactiveCardClassName, className)}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
     >
       <div className="relative overflow-hidden bg-white">
@@ -82,6 +80,7 @@ export function ProductCard({
             src={image}
             alt={name}
             fill
+            draggable={false}
             sizes="(max-width: 640px) 45vw, 200px"
             className="object-contain transition-transform duration-300 group-hover:scale-[1.03]"
           />

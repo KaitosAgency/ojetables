@@ -6,12 +6,22 @@ export function productPath(slug: string): string {
   return `/produit/${slug}`;
 }
 
+export const ojetablesLive = {
+  /** Compte client unique — pas de distinction « pro » / particulier côté inscription Magento. */
+  account: "https://www.ojetables.fr/customer/account/",
+  accountLogin: "https://www.ojetables.fr/customer/account/login/",
+  accountRegister: "https://www.ojetables.fr/customer/account/create/",
+  quote: "https://www.ojetables.fr/qquoteadv/index/",
+  contact: "https://www.ojetables.fr/contacts/",
+  mariage: "https://www.ojetables.fr/vaisselle-jetable-mariage/",
+} as const;
+
 export const routes = {
   home: "/",
   product: productPath(featuredProductSlug),
-  proAccount: "#compte-pro",
-  quote: "#devis",
-  events: "#evenements",
+  account: ojetablesLive.account,
+  quote: ojetablesLive.quote,
+  mariage: ojetablesLive.mariage,
   personalization: "#personnalisation",
   catalog: "#catalogue",
   destockage: "/destockage",
@@ -22,17 +32,17 @@ export const site = {
   legalName: "Ojetables",
   tagline: "Vaisselle jetable éco-responsable pour professionnels.",
   description:
-    "Fournisseur français de vaisselle jetable et emballages éco pour traiteurs, CHR et collectivités. +3 000 références en stock, livraison 24/72h, tarifs dégressifs, compte pro et devis volume.",
+    "Fournisseur français de vaisselle jetable et emballages éco pour traiteurs, CHR et collectivités. +3 000 références en stock, livraison 24/72h, tarifs dégressifs et devis volume.",
   phone: "09 74 06 00 74",
   phoneHref: "tel:+33974060074",
   email: "contact@ojetables.fr",
   address: {
-    street: "Zone industrielle",
-    city: "France",
-    postalCode: "",
-    region: "France",
+    street: "ZA de Saune — 1 rue Roland Garros",
+    city: "Sainte-Foy-d'Aigrefeuille",
+    postalCode: "31570",
+    region: "Occitanie",
     country: "FR",
-    full: "Livraison 24/72h partout en France",
+    full: "ZA de Saune — 1 rue Roland Garros, 31570 Sainte-Foy-d'Aigrefeuille",
   },
   foundedYear: 2011,
   aggregateRating: {
@@ -43,6 +53,19 @@ export const site = {
     reviewsUrl: "https://www.societe-des-avis-garantis.fr/ojetables-fr/",
   },
   social: {},
+} as const;
+
+export const avisGarantis = {
+  siteId: "11672",
+  reviewsUrl: site.aggregateRating.reviewsUrl,
+  certificateLabel: "Voir l'attestation",
+  assets: {
+    logo: "/trust/avis-garantis-logo.png",
+    cocarde: "/trust/avis-garantis-cocarde.svg",
+    icon: "/trust/avis-garantis-icon.png",
+  },
+  widgetFooterUrl:
+    "https://www.societe-des-avis-garantis.fr/wp-content/plugins/ag-core/widgetFooter.php?id=11672",
 } as const;
 
 export const topBar = {
@@ -74,7 +97,7 @@ export function getSiteUrl(): string {
 
 export const logos = {
   default: "/logo.svg",
-  light: "/logo.svg",
+  light: "/logo-kraft.svg",
   dark: "/logo.svg",
   /** Dimensions source ojetables.fr */
   width: 280,
@@ -106,7 +129,7 @@ export type NavHighlight = {
 export const nav = {
   main: [
     { label: "Catalogue", href: routes.catalog },
-    { label: "Pro / Devis", href: "#devis" },
+    { label: "Mon devis", href: routes.quote },
     { label: "Éco & Engagements", href: "#eco" },
     { label: "Contact", href: "#contact" },
   ],
@@ -207,7 +230,7 @@ export const productNavGroups: ProductNavGroup[] = [
       { label: "Traiteurs & événementiel", href: "#" },
       { label: "CHR & restauration", href: "#" },
       { label: "Collectivités & cantines", href: "#" },
-      { label: "Mariage & anniversaire", href: routes.events },
+      { label: "Mariage & anniversaire", href: routes.mariage },
     ],
   },
   {
@@ -229,182 +252,137 @@ export type CatalogFamily = {
   /** Libellé Magento ojetables.fr si différent du titre maquette. */
   originalLabel?: string;
   href: string;
+  image: string;
   description: string;
   highlights: readonly string[];
   accent?: CatalogFamilyAccent;
 };
 
-export type CatalogUniverse = {
-  id: string;
-  label: string;
-  title: string;
-  description: string;
-  families: readonly CatalogFamily[];
-};
-
 /**
- * Les 12 familles homepage Magento (« Nos catégories »), regroupées en 3 univers
- * plutôt qu'en grille plate — destockage et personnalisation restent des tuiles
- * catalogue qui pointent vers les blocs / pages dédiés.
+ * Les 12 familles homepage Magento (« Nos catégories ») — visuels d'origine ojetables.fr.
  */
-export const catalogUniverses: readonly CatalogUniverse[] = [
+export const catalogFamilies: readonly CatalogFamily[] = [
   {
-    id: "table",
-    label: "Art de la table",
-    title: "Servir, dresser, recevoir",
+    id: "vaisselle-jetable",
+    label: "Vaisselle jetable",
+    href: "https://www.ojetables.fr/vaisselle-jetable-petit-prix",
+    image: "/categories/vaisselle-jetable.jpg",
     description:
-      "Assiettes, couverts, verrines, gobelets et nappage : tout le service à table jetable, du cocktail au repas complet.",
-    families: [
-      {
-        id: "vaisselle-jetable",
-        label: "Vaisselle jetable",
-        href: "https://www.ojetables.fr/vaisselle-jetable-petit-prix",
-        description:
-          "Assiettes jetables, couverts en bois, bols et vaisselle à usage unique pour traiteurs, CHR et événements. Carton, pulpe de canne, palmier ou plastique réutilisable : la base du catalogue, livrable 24/72h.",
-        highlights: ["Assiettes", "Couverts bois", "Bols"],
-      },
-      {
-        id: "verrine",
-        label: "Verrine",
-        href: "https://www.ojetables.fr/verrine-a-usage-unique-economique",
-        description:
-          "Verrines cocktail, mises en bouche et coupes dessert jetables pour la restauration événementielle. Transparente, blanche, noire ou biodégradable, avec piques cocktail pour buffets et réceptions.",
-        highlights: ["Cocktail", "Mise en bouche", "Piques"],
-      },
-      {
-        id: "gobelet-verre",
-        label: "Gobelet / Verre",
-        href: "https://www.ojetables.fr/gobelet-verre-flute",
-        description:
-          "Gobelets carton, gobelets plastique, flûtes et verres réutilisables pour boissons chaudes ou froides. Gobelet personnalisé dès 1 pièce (digital) ou 250 pièces (carton) — la gamme la plus demandée des événements et du CHR.",
-        highlights: ["Carton", "Réutilisable", "Flûte"],
-      },
-      {
-        id: "nappe-serviette",
-        label: "Nappe - serviette",
-        href: "https://www.ojetables.fr/nappe-et-serviette",
-        description:
-          "Nappes intissé, chemins de table, serviettes papier cocktail ou ouaté, y compris serviettes personnalisées. Le nappage jetable pour mariages, réceptions et restauration : présentation soignée et volumes pro.",
-        highlights: ["Intissé", "Serviettes", "Mariage"],
-      },
-    ],
+      "Assiettes, couverts en bois, bols et vaisselle à usage unique — carton, pulpe de canne ou plastique réutilisable.",
+    highlights: ["Assiettes", "Couverts bois", "Bols"],
   },
   {
-    id: "emporter",
-    label: "Emballage & emporter",
-    title: "Emballer, transporter, emporter",
+    id: "verrine",
+    label: "Verrine",
+    href: "https://www.ojetables.fr/verrine-a-usage-unique-economique",
+    image: "/categories/verrine.jpg",
     description:
-      "Solutions éco, snack, sacs et plateaux pour la vente à emporter, le food truck et le service traiteur.",
-    families: [
-      {
-        id: "bio-ecolo",
-        label: "Bio/Ecolo",
-        href: "https://www.ojetables.fr/emballage-biodegradable",
-        description:
-          "Vaisselle biodégradable et compostable conforme à la loi AGEC : pulpe de canne, bagasse, bambou, palmier et piques en bois. L'alternative aux plastiques à usage unique pour collectivités et restauration responsable.",
-        highlights: ["Compostable", "AGEC", "Pulpe"],
-      },
-      {
-        id: "snack",
-        label: "SNACK",
-        originalLabel: "SNACK",
-        href: "https://www.ojetables.fr/snack",
-        description:
-          "Emballages snack pour food trucks, restauration rapide et vente à emporter : boîtes burger, barquettes bagasse, supports sucré-salé et papier ingraissable. Carton, personnalisable, pensé pour le service nomade.",
-        highlights: ["Burger", "Barquettes", "Food truck"],
-      },
-      {
-        id: "sac",
-        label: "Sac",
-        href: "https://www.ojetables.fr/sac-papier-kraft",
-        description:
-          "Sacs kraft, sacs à pain, sandwich, fruits et légumes ou viennoiserie. Sacs papier et sacs personnalisables pour boulangeries, commerces alimentaires et vente à emporter — marquage logo sur devis.",
-        highlights: ["Kraft", "Pain", "Logo"],
-      },
-      {
-        id: "plateau-boite",
-        label: "Plateau / boite",
-        href: "https://www.ojetables.fr/plateau-jetable",
-        description:
-          "Plateaux repas, wood box, plateaux traiteur, boîtes pizza et coffrets à emporter. Contenants jetables pour le collectif, le traiteur et la vente à emporter, y compris plateaux biodégradables à compartiments.",
-        highlights: ["Repas", "Wood box", "Pizza"],
-      },
-    ],
+      "Verrines cocktail, mises en bouche et coupes dessert pour buffets, traiteurs et réceptions.",
+    highlights: ["Cocktail", "Mise en bouche", "Piques"],
   },
   {
-    id: "pro",
-    label: "Pro, marque & offres",
-    title: "Équiper, marquer, déstocker",
+    id: "bio-ecolo",
+    label: "Bio/Ecolo",
+    href: "https://www.ojetables.fr/emballage-biodegradable",
+    image: "/categories/bio-ecolo.jpg",
     description:
-      "Hygiène CHR, personnalisation logo, destockage et marque Garcia de Pou — les familles transverses du catalogue.",
-    families: [
-      {
-        id: "hygiene-resto",
-        label: "Hygiène/Resto",
-        href: "https://www.ojetables.fr/hygiene-et-resto",
-        description:
-          "Consommables CHR : barquettes aluminium, film étirable, essuie-mains, sacs poubelle et accessoires de cuisine. L'hygiène restaurant et le matériel jetable pour les standards d'un établissement professionnel.",
-        highlights: ["Aluminium", "Film", "CHR"],
-      },
-      {
-        id: "garcia-de-pou",
-        label: "Garcia de Pou",
-        href: "https://www.ojetables.fr/garcia-de-pou",
-        description:
-          "Gamme Garcia de Pou : nappes, serviettes, sacs et emballages hôtellerie-restauration. Ojetables, revendeur de la marque pour les professionnels de l'art de la table jetable et de l'emballage alimentaire.",
-        highlights: ["Marque", "Hôtellerie", "Nappage"],
-        accent: "partner",
-      },
-      {
-        id: "personnalisation",
-        label: "Personnalisation",
-        originalLabel: "Emballages / vaisselle jetables personnalisés",
-        href: routes.personalization,
-        description:
-          "Gobelets, sacs kraft, couverts et emballages personnalisés au logo. Parcours en 4 étapes, BAT sous 48h, minimum dès 1 pièce selon le support : la vaisselle jetable personnalisée pour événements, festivals et CHR.",
-        highlights: ["Logo", "BAT 48h", "Dès 1 pc"],
-        accent: "teal",
-      },
-      {
-        id: "destockage",
-        label: "Destockage",
-        originalLabel: "DESTOCKAGE",
-        href: routes.destockage,
-        description:
-          "Promotions et fins de série sur vaisselle jetable, gobelets, nappes et emballages. Stocks limités à prix destockage pour optimiser vos achats professionnels sans compromettre la qualité.",
-        highlights: ["Promos", "Fins de série", "Stock limité"],
-        accent: "kraft",
-      },
-    ],
+      "Vaisselle biodégradable et compostable conforme AGEC — pulpe de canne, bagasse, bambou et palmier.",
+    highlights: ["Compostable", "AGEC", "Pulpe"],
+  },
+  {
+    id: "personnalisation",
+    label: "Personnalisation",
+    originalLabel: "Emballages / vaisselle jetables personnalisés",
+    href: routes.personalization,
+    image: "/categories/personnalisation.png",
+    description:
+      "Gobelets, sacs kraft et emballages au logo — BAT sous 48h, minimum dès 1 pièce selon le support.",
+    highlights: ["Logo", "BAT 48h", "Dès 1 pc"],
+    accent: "teal",
+  },
+  {
+    id: "snack",
+    label: "SNACK",
+    originalLabel: "SNACK",
+    href: "https://www.ojetables.fr/snack",
+    image: "/categories/snack.jpg",
+    description:
+      "Emballages snack : boîtes burger, barquettes bagasse et supports sucré-salé pour food trucks.",
+    highlights: ["Burger", "Barquettes", "Food truck"],
+  },
+  {
+    id: "sac",
+    label: "Sac",
+    href: "https://www.ojetables.fr/sac-papier-kraft",
+    image: "/categories/sac.png",
+    description:
+      "Sacs kraft, sacs à pain, sandwich et viennoiserie — papier et personnalisation logo sur devis.",
+    highlights: ["Kraft", "Pain", "Logo"],
+  },
+  {
+    id: "destockage",
+    label: "Destockage",
+    originalLabel: "DESTOCKAGE",
+    href: routes.destockage,
+    image: "/categories/destockage.png",
+    description:
+      "Promotions et fins de série — vaisselle jetable et emballages à prix cassés, stocks limités.",
+    highlights: ["Promos", "Fins de série", "Stock limité"],
+    accent: "kraft",
+  },
+  {
+    id: "gobelet-verre",
+    label: "Gobelet / Verre",
+    href: "https://www.ojetables.fr/gobelet-verre-flute",
+    image: "/categories/gobelet-verre.jpg",
+    description:
+      "Gobelets carton, plastique réutilisable et flûtes — chaud ou froid, personnalisable dès 1 pièce.",
+    highlights: ["Carton", "Réutilisable", "Flûte"],
+  },
+  {
+    id: "plateau-boite",
+    label: "Plateau / boite",
+    href: "https://www.ojetables.fr/plateau-jetable",
+    image: "/categories/plateau-boite.png",
+    description:
+      "Plateaux repas, wood box, boîtes pizza et coffrets à emporter pour traiteur et collectif.",
+    highlights: ["Repas", "Wood box", "Pizza"],
+  },
+  {
+    id: "nappe-serviette",
+    label: "Nappe - serviette",
+    href: "https://www.ojetables.fr/nappe-et-serviette",
+    image: "/categories/nappe-serviette.png",
+    description:
+      "Nappes intissé, chemins de table et serviettes papier pour mariages, réceptions et CHR.",
+    highlights: ["Intissé", "Serviettes", "Mariage"],
+  },
+  {
+    id: "hygiene-resto",
+    label: "Hygiène/Resto",
+    href: "https://www.ojetables.fr/hygiene-et-resto",
+    image: "/categories/hygiene-resto.png",
+    description:
+      "Consommables CHR : barquettes alu, film étirable, essuie-mains et accessoires de cuisine.",
+    highlights: ["Aluminium", "Film", "CHR"],
+  },
+  {
+    id: "garcia-de-pou",
+    label: "Garcia de Pou",
+    href: "https://www.ojetables.fr/garcia-de-pou",
+    image: "/categories/garcia-de-pou.png",
+    description:
+      "Gamme Garcia de Pou : nappes, serviettes, sacs et emballages hôtellerie-restauration.",
+    highlights: ["Marque", "Hôtellerie", "Nappage"],
+    accent: "partner",
   },
 ];
 
-export const catalogFamilies: CatalogFamily[] = catalogUniverses.flatMap((universe) => [...universe.families]);
-
 export const catalogSeo = {
   label: "Catalogue",
-  title: "12 familles de vaisselle jetable et d'emballages pro",
-  intro:
-    "Le catalogue Ojetables reprend les 12 catégories d'origine du site — plus de 3 000 références de vaisselle jetable, gobelets, couverts, verrines, sacs kraft et emballages éco, livrables 24/72h partout en France.",
-  editorial: {
-    heading: "Ojetables, fournisseur français de vaisselle jetable éco-responsable depuis 2011",
-    columns: [
-      {
-        title: "Vaisselle biodégradable, compostable et contact alimentaire",
-        paragraphs: [
-          "En activité depuis 2011, Ojetables met à disposition des professionnels et des particuliers une vaisselle jetable élégante, pratique et bio. Assiettes en pulpe de canne, couverts en bois, vaisselle en palmier ou gobelets carton : les matières naturelles remplacent le plastique à usage unique, dans le respect de la loi AGEC et des exigences contact alimentaire des collectivités et du CHR.",
-          "Formes classiques ou design, palette de couleurs pour l'événementiel : la gamme s'adapte au cocktail, au repas traiteur comme à la cantine. Plus de 3 000 références en stock, avec un rapport qualité-prix pensé pour l'achat en volume.",
-        ],
-      },
-      {
-        title: "Personnalisation logo, destockage et livraison 24/72h",
-        paragraphs: [
-          "Marquez gobelets, sacs kraft et emballages au logo de votre enseigne : devis sous 24h, bon à tirer sous 48h. Les professionnels de la restauration, les collectivités et les associations y trouvent aussi nappes, serviettes et consommables d'hygiène (gants, essuie-mains, film étirable) pour équiper l'établissement de A à Z.",
-          "Les fins de série et promotions destockage permettent d'acheter vaisselle jetable et emballages à prix cassés, stocks limités. Livraison 24/72h partout en France, tarifs dégressifs compte pro et devis volume en ligne.",
-        ],
-      },
-    ],
-  },
+  title: "Nos catégories",
+  /** Ligne courte sous le titre — mots-clés SEO sans alourdir la page. */
+  metaLine: "+3 000 références · livraison 24/72h",
 } as const;
 
 export const headerActions = {
@@ -480,7 +458,7 @@ export const personalizationProductTypes: PersonalizationProductType[] = [
     unitFrom: "Devis 24h",
     delay: "Variable",
     technique: "Marquage logo · volumes pro",
-    href: "#devis",
+    href: routes.quote,
   },
 ];
 
@@ -599,6 +577,90 @@ export const destockageItems = [
     rating: 4,
     reviewCount: 2,
   },
+  {
+    name: "Verrine plastique carrée",
+    category: "Verrines",
+    image: "/products/verrine-carre.jpg",
+    priceWas: "2,95 €",
+    priceFrom: "2,35 €",
+    badge: "-20 %",
+    href: "https://www.ojetables.fr/verrine-plastique-8556.html",
+    packLabel: "Lot de 20",
+    rating: 5,
+    reviewCount: 3,
+  },
+  {
+    name: "Wood Box 1 L avec couvercle",
+    category: "Plateaux",
+    image: "/products/wood-box.jpg",
+    priceWas: "44,99 €",
+    priceFrom: "37,99 €",
+    badge: "-16 %",
+    href: "https://www.ojetables.fr/wood-box-1-litre-avec-caissette-couvercle.html",
+    packLabel: "Lot de 25",
+    rating: 4.9,
+    reviewCount: 9,
+  },
+  {
+    name: "Sachet couverts 6 en 1 bois",
+    category: "Couverts",
+    image: "/products/sachet-couverts-bois.jpg",
+    priceWas: "52,99 €",
+    priceFrom: "45,99 €",
+    badge: "Promo",
+    href: "https://www.ojetables.fr/kit-couverts-6-1-bois-imbattable.html",
+    packLabel: "Lot de 500",
+    rating: 4.8,
+    reviewCount: 10,
+  },
+  {
+    name: "Cuillère en bois 160 mm eco",
+    category: "Couverts",
+    image: "/products/cuillere-bois.jpg",
+    priceWas: "2,20 €",
+    priceFrom: "1,80 €",
+    badge: "-18 %",
+    href: "https://www.ojetables.fr/cuillere-en-bois-160mm-eco.html",
+    packLabel: "Lot de 100",
+    rating: 4.8,
+    reviewCount: 12,
+  },
+  {
+    name: "Plateau repas biodégradable 5 compartiments",
+    category: "Plateaux repas",
+    image: "/products/plateau-repas-5comp.jpg",
+    priceWas: "74,00 €",
+    priceFrom: "65,00 €",
+    badge: "Stock limité",
+    href: "https://www.ojetables.fr/plateau-repas-biodegradable-5compartiments.html",
+    packLabel: "Lot de 150",
+    rating: 4,
+    reviewCount: 2,
+  },
+  {
+    name: "Kit couverts 4 en 1 bois kraft",
+    category: "Couverts",
+    image: "/products/kit-couverts-4.jpg",
+    priceWas: "10,49 €",
+    priceFrom: "8,99 €",
+    badge: "-14 %",
+    href: "https://www.ojetables.fr/kit-couverts-4-1-bois-kraft.html",
+    packLabel: "Lot de 100",
+    rating: 4.9,
+    reviewCount: 9,
+  },
+  {
+    name: "Gobelet plastique réutilisable personnalisé 25–33 cl",
+    category: "Gobelets logo",
+    image: "/products/gobelet-personnalise.jpg",
+    priceWas: "28,90 €",
+    priceFrom: "24,55 €",
+    badge: "Fin de série",
+    href: "https://www.ojetables.fr/gobelet-reutilisable-personnalise-12440.html",
+    packLabel: "Dès 1 pc",
+    rating: 5,
+    reviewCount: 1,
+  },
 ] as const;
 
 export type DestockageProduct = (typeof destockageItems)[number];
@@ -610,8 +672,42 @@ export const destockagePage = {
   externalCatalogUrl: "https://www.ojetables.fr/destockage-vaisselle-jetable",
 } as const;
 
+export type FooterLink = {
+  label: string;
+  href: string;
+};
+
+/** Liens footer — alignés sur ojetables.fr (maillage interne SEO). */
+export const footerNav = {
+  informations: [
+    { label: "Conditions générales de vente", href: "https://www.ojetables.fr/cgu/" },
+    { label: "Mode de paiement", href: "https://www.ojetables.fr/paiement-en-ligne/" },
+    { label: "Qui sommes-nous ?", href: "https://www.ojetables.fr/qui-sommes-nous/" },
+  ],
+  service: [
+    { label: "Livraison & frais de port", href: "https://www.ojetables.fr/livraison-vaisselle-jetable/" },
+    { label: "Code promo bienvenue -5%", href: "https://www.ojetables.fr/utiliser-le-code-promo/" },
+    { label: "Partenaires", href: "https://www.ojetables.fr/partenaire-vaisselle-jetable/" },
+    { label: "Nous contacter", href: "https://www.ojetables.fr/contacts/" },
+  ],
+  metiers: [
+    { label: "Traiteurs & événementiel", href: "https://www.ojetables.fr/vaisselle-jetable-traiteur/" },
+    { label: "Restaurants & hôtels", href: "https://www.ojetables.fr/vaisselle-jetable-restauration/" },
+    { label: "Collectivités & cantines", href: "https://www.ojetables.fr/vaisselle-jetable-collectivite/" },
+    { label: "Associations & clubs", href: "https://www.ojetables.fr/vaisselle-jetable-association/" },
+    { label: "Boulangeries", href: "https://www.ojetables.fr/vaisselle-jetable-boulangerie/" },
+    { label: "Personnalisation logo", href: "https://www.ojetables.fr/emballage-personnalise/" },
+  ],
+} as const satisfies Record<string, readonly FooterLink[]>;
+
+export const footerCatalog = {
+  title: "Catalogue vaisselle jetable",
+} as const;
+
 export const legalLinks = [
-  { label: "Maquette preview Kaitos", href: "https://kaitos.agency" },
+  { label: "CGV", href: "https://www.ojetables.fr/cgu/" },
+  { label: "Livraison", href: "https://www.ojetables.fr/livraison-vaisselle-jetable/" },
+  { label: "Contact", href: "https://www.ojetables.fr/contacts/" },
 ] as const;
 
 export const clientLogos = [
@@ -639,6 +735,46 @@ export const clientLogos = [
     name: "Newrest",
     src: "/logos/clients/Newrest_logo-01.svg",
     className: "h-9 w-auto max-w-[10.5rem] sm:h-10 sm:max-w-[11.5rem]",
+  },
+] as const;
+
+export const pressTvFeature = {
+  label: "Capital · M6",
+  title: "Vu à la télévision",
+  description: "Reportage « J'achète, je jette du grand gaspillage au grand recyclage »",
+  videoId: "x88t581",
+  videoUrl: "https://www.dailymotion.com/video/x88t581",
+  src: "/m6.jpg",
+  alt: "Capital sur M6 — J'achète, je jette du grand gaspillage au grand recyclage",
+} as const;
+
+export const pressMedia = [
+  {
+    name: "Actu.fr",
+    outlet: "Actu.fr",
+    type: "press" as const,
+    title: "Ojetables fait rimer art de la table avec biodégradable",
+    href: "https://actu.fr/occitanie/sainte-foy-d-aigrefeuille_31480/lauragais-sainte-foy-daigrefeuille-ojetables-fait-rimer-art-la-table-biodegradable_31441574.html",
+    src: "/logos/media/actu-fr-01.svg",
+    className: "h-7 w-auto max-w-[7.5rem] sm:h-8 sm:max-w-[8.5rem]",
+  },
+  {
+    name: "La Tribune",
+    outlet: "La Tribune",
+    type: "press" as const,
+    title: "Ojetables met fin au plastique dans la restauration rapide",
+    href: "https://www.latribune.fr/entreprises/2020-01-07/ojetables-met-fin-au-plastique-dans-la-restauration-rapide-835460.html",
+    src: "/logos/media/la-tribune-01.svg",
+    className: "h-5 w-auto max-w-[9.5rem] sm:h-6 sm:max-w-[11rem]",
+  },
+  {
+    name: "L'Emballage en France",
+    outlet: "L'Emballage en France",
+    type: "press" as const,
+    title: "Packaging — vaisselle bio et écologique sur le site Ojetables",
+    href: "https://france-emballage.org/packaging-de-la-vaisselle-bio-et-ecologique-sur-le-site-ojetables/",
+    src: "/logos/media/fe-01.svg",
+    className: "h-8 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem]",
   },
 ] as const;
 
@@ -829,82 +965,103 @@ export const trustPillars = [
 ] as const;
 
 export const ecoCommitments = [
-  "Conformité loi AGEC",
-  "Produits compostables & biodégradables",
-  "Fournisseurs responsables",
-  "Alternatives au plastique à usage unique",
+  { label: "Conformité loi AGEC", icon: "scale" },
+  { label: "Produits compostables & biodégradables", icon: "sprout" },
+  { label: "Fournisseurs responsables", icon: "handshake" },
+  { label: "Alternatives au plastique à usage unique", icon: "ban" },
 ] as const;
 
-export const reviewsFallback = [
+export const ecoSeo = {
+  label: "Engagements",
+  title: "Nos engagements éco",
+  bioCategoryHref: "https://www.ojetables.fr/emballage-biodegradable",
+  bioCategoryLabel: "Voir la gamme bio",
+} as const;
+
+export type ReviewItem = {
+  id: string;
+  author: string;
+  rating: number;
+  text: string;
+  relativeTime: string;
+};
+
+/** Avis réels issus de societe-des-avis-garantis.fr/ojetables-fr (juillet 2026). */
+export const reviewsFallback: ReviewItem[] = [
   {
-    id: "1",
-    author: "Cabinet Comptable B.",
+    id: "ibtissam-a",
+    author: "Ibtissam A.",
     rating: 5,
-    text: "Commande passée en fin de journée, livrée en 48h. Emballages conformes et facturation pro impeccable.",
-    relativeTime: "il y a 5 mois",
-  },
-  {
-    id: "2",
-    author: "Traiteur événementiel",
-    rating: 5,
-    text: "Livraison rapide, gamme complète et tarifs pro compétitifs. Notre fournisseur principal depuis 3 ans.",
+    text: "Parfait, comme d'habitude. Meilleur SAV jamais expérimenté jusqu'à présent.",
     relativeTime: "il y a 1 mois",
   },
   {
-    id: "3",
-    author: "Responsable cantine",
+    id: "chantal-r",
+    author: "Chantal R.",
     rating: 5,
-    text: "Plateaux repas conformes AGEC, stock fiable et devis volume traité sous 24h.",
+    text: "Vaisselle jetable de qualité, très appréciée pour notre réunion familiale.",
+    relativeTime: "il y a 1 mois",
+  },
+  {
+    id: "renaud-l",
+    author: "Renaud L.",
+    rating: 5,
+    text: "Livraison rapide et service client au top ! Je recommande.",
     relativeTime: "il y a 2 mois",
   },
   {
-    id: "4",
-    author: "Gérant CHR",
+    id: "olivia-g",
+    author: "Olivia G.",
     rating: 5,
-    text: "Gobelets carton et barquettes kraft de qualité. Service client réactif.",
-    relativeTime: "il y a 3 mois",
+    text: "Verrines commandées en urgence, délai respecté et bonne qualité.",
+    relativeTime: "il y a 2 mois",
   },
   {
-    id: "5",
-    author: "Association sportive",
+    id: "olivier-g",
+    author: "Olivier G.",
     rating: 5,
-    text: "Parfait pour nos buvettes : petites quantités, bons prix et produits solides.",
-    relativeTime: "il y a 4 mois",
+    text: "Problème logistique bien géré par l'équipe. Très satisfait des produits et du SAV.",
+    relativeTime: "il y a 2 mois",
   },
   {
-    id: "6",
-    author: "Directrice restauration collective",
+    id: "sylvie-b",
+    author: "Sylvie B.",
     rating: 5,
-    text: "Réactivité au top sur les fins de série. Nous avons économisé 18 % sur notre dernière commande.",
-    relativeTime: "il y a 6 mois",
+    text: "Très bon accueil et livraison rapide.",
+    relativeTime: "il y a 1 mois",
   },
-] as const;
+];
 
 export const homeFaq = [
   {
-    question: "Quel est le délai de livraison chez Ojetables ?",
+    question: "Quels sont vos délais et frais de livraison ?",
     answer:
-      "Livraison 24/72h partout en France sur les références en stock. Pour les commandes volume ou personnalisées, un délai précis vous est communiqué dans le devis.",
+      "Livraison 24/72h partout en France métropolitaine pour les produits en stock. Frais de port dès 6,90€ HT, gratuits dès 250€ HT. Pour les commandes personnalisées ou hors France, les délais sont précisés au devis.",
   },
   {
-    question: "Proposez-vous des tarifs dégressifs pour les professionnels ?",
+    question: "Comment fonctionnent les tarifs dégressifs ?",
     answer:
-      "Oui. Créez votre compte pro pour accéder aux tarifs dégressifs, au paiement à 30 jours et aux devis volume. Plus la quantité est importante, plus le prix unitaire baisse.",
+      "Plus vous commandez, moins vous payez à l'unité. Les remises volume sont automatiques dès la 2e tranche de quantité. Créez un compte pour voir vos tarifs personnalisés ou demandez un devis en ligne pour bénéficier du paiement à 30 jours sur les commandes importantes.",
   },
   {
-    question: "Vos produits sont-ils conformes à la loi AGEC ?",
+    question: "Vos produits sont-ils conformes pour les collectivités et restaurants ?",
     answer:
-      "Oui. Nous proposons une gamme éco-responsable : biodégradable, compostable et recyclable, avec des produits certifiés contact alimentaire adaptés aux exigences des collectivités et CHR.",
+      "Oui. Notre gamme respecte la loi AGEC (interdiction du plastique à usage unique en collectivité depuis 2022). Tous nos produits sont certifiés contact alimentaire et adaptés aux exigences sanitaires de la restauration collective et commerciale.",
   },
   {
-    question: "Puis-je personnaliser des gobelets ou des sacs avec mon logo ?",
+    question: "Puis-je commander des échantillons avant d'acheter en gros ?",
     answer:
-      "Oui. Parcours guidé en 4 étapes : choix du produit, quantité, envoi du visuel, validation du BAT. Minimum dès 1 pièce (réutilisable digital) ou 250 pièces (carton). Devis sous 24h pour les autres gammes.",
+      "Oui. Commandez à l'unité ou en petite quantité pour tester la qualité avant vos achats volume. Pour les produits personnalisés, nous fournissons un BAT (Bon À Tirer) numérique avant impression. Certains produits sont disponibles en échantillons gratuits sur demande.",
   },
   {
-    question: "Quelles catégories de vaisselle jetable propose Ojetables ?",
+    question: "Comment personnaliser mes gobelets, sacs ou emballages avec mon logo ?",
     answer:
-      "Le catalogue est organisé en 12 familles : vaisselle jetable (assiettes, couverts), verrines, bio/écolo, snack et vente à emporter, sacs kraft, gobelets et verres, plateaux et boîtes, nappes et serviettes, hygiène restaurant, personnalisation logo, destockage, et la marque Garcia de Pou. Plus de 3 000 références en stock, livraison 24/72h.",
+      "Parcours simple en 4 étapes : choix du produit, quantité souhaitée, envoi de votre logo, validation du BAT sous 48h. Minimums : dès 1 pièce pour les gobelets réutilisables en impression digitale, 250 pièces pour le carton, sur devis pour les sacs kraft. Impression 1 à 4 couleurs selon support.",
+  },
+  {
+    question: "Puis-je retourner ou échanger une commande ?",
+    answer:
+      "Les produits standard non personnalisés peuvent être retournés sous 14 jours dans leur emballage d'origine (hors frais de retour). Les produits personnalisés ne sont ni repris ni échangés, sauf défaut de fabrication. En cas de problème qualité, contactez notre SAV sous 48h après réception.",
   },
 ] as const;
 

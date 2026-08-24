@@ -5,6 +5,8 @@ type StarRatingProps = {
   size?: "sm" | "md";
   /** Note sur 5 — défaut 5 (affichage plein, ex. note boutique). */
   value?: number;
+  /** Variante pour fond sombre (footer, bandeau navy). */
+  tone?: "default" | "inverse";
 };
 
 function StarIcon({ className }: { className?: string }) {
@@ -15,9 +17,13 @@ function StarIcon({ className }: { className?: string }) {
   );
 }
 
-export function StarRating({ className, size = "md", value = 5 }: StarRatingProps) {
+export function StarRating({ className, size = "md", value = 5, tone = "default" }: StarRatingProps) {
   const starSize = size === "sm" ? "h-3 w-3" : "h-4 w-4";
   const clamped = Math.max(0, Math.min(5, value));
+  const emptyStarClass =
+    tone === "inverse"
+      ? "fill-white/15 text-white/15"
+      : "fill-muted-foreground/20 text-muted-foreground/20";
 
   return (
     <span className={cn("inline-flex gap-px", className)}>
@@ -26,7 +32,7 @@ export function StarRating({ className, size = "md", value = 5 }: StarRatingProp
 
         return (
           <span key={index} className="relative inline-flex shrink-0">
-            <StarIcon className={cn(starSize, "fill-muted-foreground/20 text-muted-foreground/20")} />
+            <StarIcon className={cn(starSize, emptyStarClass)} />
             {fill > 0 ? (
               <span
                 className="absolute inset-0 overflow-hidden"

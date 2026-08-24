@@ -2,15 +2,20 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV === "development";
 
+const agWidgetHosts = "https://www.societe-des-avis-garantis.fr https://ajax.googleapis.com";
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   isDev
-    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
-    : "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
+    ? `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${agWidgetHosts}`
+    : `script-src 'self' 'unsafe-inline' ${agWidgetHosts}`,
+  "style-src 'self' 'unsafe-inline' https://www.societe-des-avis-garantis.fr",
   "img-src 'self' data: https:",
   "font-src 'self' data: https:",
-  isDev ? "connect-src 'self' ws: wss:" : "connect-src 'self'",
+  "frame-src 'self' https://www.dailymotion.com https://geo.dailymotion.com https://*.dailymotion.com",
+  isDev
+    ? `connect-src 'self' ws: wss: https://www.societe-des-avis-garantis.fr`
+    : "connect-src 'self' https://www.societe-des-avis-garantis.fr",
 ].join("; ");
 
 const securityHeaders = [

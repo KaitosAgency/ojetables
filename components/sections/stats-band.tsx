@@ -14,7 +14,7 @@ export function StatsBand() {
       />
 
       <div className="relative mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-12">
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,13rem)_1fr] lg:gap-12 xl:grid-cols-[minmax(0,15rem)_1fr]">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,13rem)_1fr] lg:gap-12 xl:grid-cols-[minmax(0,15rem)_1fr]">
           <div>
             <span className="inline-flex rounded-full border border-brand-kraft/30 bg-brand-kraft/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-kraft">
               Ils nous choisissent

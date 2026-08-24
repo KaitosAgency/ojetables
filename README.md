@@ -2,7 +2,7 @@
 
 Preview Next.js de la refonte Ojetables.fr, réalisée par [Kaitos Agency](https://kaitos.agency) suite au [pré-audit Ojetables](https://kaitos.agency/p/preaudit-ojetables).
 
-> **Maquette preview — non contractuelle.** Placeholders visuels, pas de panier ni compte pro fonctionnel.
+> **Maquette preview — non contractuelle.** Placeholders visuels, pas de panier ni compte client fonctionnel sur la maquette.
 
 ## Stack
 

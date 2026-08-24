@@ -1,110 +1,220 @@
 import Image from "next/image";
 import Link from "next/link";
-import { catalogFamilies, legalLinks, logos, nav, previewDisclaimer, site } from "@/lib/site";
+import { Heart } from "lucide-react";
+import {
+  avisGarantis,
+  catalogFamilies,
+  footerCatalog,
+  footerNav,
+  legalLinks,
+  logos,
+  site,
+} from "@/lib/site";
 import { Separator } from "@/components/ui/separator";
+import { StarRating } from "@/components/ui/star-rating";
+
+type ExternalLinkProps = {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+  title?: string;
+};
+
+function ExternalLink({ href, children, className, title }: ExternalLinkProps) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className} title={title}>
+      {children}
+    </a>
+  );
+}
+
+type FooterNavColumnProps = {
+  title: string;
+  ariaLabel: string;
+  links: readonly { label: string; href: string }[];
+};
+
+function FooterNavColumn({ title, ariaLabel, links }: FooterNavColumnProps) {
+  return (
+    <nav aria-label={ariaLabel} className="min-w-0">
+      <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">{title}</p>
+      <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
+        {links.map((link) => (
+          <li key={link.href}>
+            <ExternalLink href={link.href} className="transition-colors hover:text-white">
+              {link.label}
+            </ExternalLink>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+function FooterContactColumn() {
+  return (
+    <div className="min-w-0 lg:text-right">
+      <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">Contact</p>
+
+      <address className="mt-4 not-italic text-sm leading-relaxed text-slate-400">
+        <span className="block">{site.address.full}</span>
+        <span className="mt-2 block">
+          <a href={site.phoneHref} className="transition-colors hover:text-white">
+            {site.phone}
+          </a>
+        </span>
+        <span className="mt-1 block">
+          <a href={`mailto:${site.email}`} className="transition-colors hover:text-white">
+            {site.email}
+          </a>
+        </span>
+      </address>
+
+      <div className="mt-6 border-t border-white/10 pt-6">
+        <a
+          href={avisGarantis.reviewsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex flex-col gap-2 lg:items-end"
+          aria-label={`${site.aggregateRating.display} sur ${site.aggregateRating.count.toLocaleString("fr-FR")} avis certifiés ${site.aggregateRating.label}`}
+        >
+          <span className="flex items-center gap-3">
+            <span className="text-left lg:text-right">
+              <span className="block text-base font-semibold text-white">{site.aggregateRating.display}</span>
+              <StarRating
+                size="sm"
+                tone="inverse"
+                value={(site.aggregateRating.score / 10) * 5}
+                className="mt-1.5 lg:ml-auto"
+              />
+            </span>
+            <Image
+              src={avisGarantis.assets.cocarde}
+              alt=""
+              width={26}
+              height={48}
+              className="h-10 w-auto shrink-0"
+              aria-hidden
+            />
+          </span>
+          <span className="text-xs text-slate-400">
+            sur {site.aggregateRating.count.toLocaleString("fr-FR")} avis · {site.aggregateRating.label}
+          </span>
+          <span className="text-xs text-slate-400 underline-offset-2 transition-colors group-hover:text-white group-hover:underline">
+            {avisGarantis.certificateLabel}
+          </span>
+        </a>
+      </div>
+    </div>
+  );
+}
 
 export function SiteFooter() {
   return (
     <footer id="contact" className="border-t border-white/10 bg-brand-navy-deep text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-4 md:px-6">
-        <div className="md:col-span-2">
-          <Link href="/" className="inline-flex">
+      <div className="mx-auto max-w-6xl px-4 py-12 md:px-6">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-10">
+          <div className="sm:col-span-2 lg:col-span-3">
+            <Link href="/" className="inline-flex">
             <Image
-              src={logos.default}
+              src={logos.light}
               alt={logos.alt}
               width={logos.width}
               height={logos.height}
-              className="h-9 w-auto"
+              className="h-11 w-auto md:h-12"
             />
-          </Link>
-          <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-400">{site.description}</p>
-          <p className="mt-4 rounded-lg border border-brand-teal/20 bg-brand-teal/5 px-3 py-2 text-xs text-brand-teal">
-            {previewDisclaimer}
-          </p>
-        </div>
+            </Link>
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">{site.description}</p>
+          </div>
 
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">Navigation</p>
-          <ul className="mt-4 space-y-2 text-sm text-slate-400">
-            {nav.main.map((item) => (
-              <li key={item.href}>
-                <Link href={item.href} className="transition-colors hover:text-white">
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <div className="lg:col-span-2">
+            <FooterNavColumn title="Informations" ariaLabel="Informations légales" links={footerNav.informations} />
+          </div>
 
-        <div>
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">Contact</p>
-          <ul className="mt-4 space-y-2 text-sm text-slate-400">
-            <li>{site.address.full}</li>
-            <li>
-              <a href={site.phoneHref} className="transition-colors hover:text-white">
-                {site.phone}
-              </a>
-            </li>
-            <li>
-              <a href={`mailto:${site.email}`} className="transition-colors hover:text-white">
-                {site.email}
-              </a>
-            </li>
-          </ul>
+          <div className="lg:col-span-2">
+            <FooterNavColumn title="Service client" ariaLabel="Service client" links={footerNav.service} />
+          </div>
+
+          <div className="lg:col-span-3">
+            <FooterNavColumn title="Par métier" ariaLabel="Vaisselle jetable par métier" links={footerNav.metiers} />
+          </div>
+
+          <div className="sm:col-span-2 lg:col-span-2">
+            <FooterContactColumn />
+          </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 pb-10 md:px-6">
-        <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">Catalogue — 12 familles</p>
-        <ul className="mt-4 columns-2 gap-x-8 text-sm text-slate-400 sm:columns-3 lg:columns-4">
-          {catalogFamilies.map((family) => {
-            const isExternal = family.href.startsWith("http");
-            return (
-              <li key={family.id} className="mb-2 break-inside-avoid">
-                <Link
-                  href={family.href}
-                  className="transition-colors hover:text-white"
-                  {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                >
-                  {family.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+      <Separator className="bg-white/10" />
+
+      <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
+        <nav aria-label={footerCatalog.title}>
+          <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-teal">
+            {footerCatalog.title}
+          </h2>
+
+          <div className="mt-5 flex flex-col gap-x-10 gap-y-2.5 sm:flex-row sm:gap-x-14 md:gap-x-16">
+            {[catalogFamilies.slice(0, 6), catalogFamilies.slice(6)].map((column, columnIndex) => (
+              <ul key={columnIndex} className="min-w-0 space-y-2.5 text-sm text-slate-400">
+                {column.map((family) => {
+                  const isExternal = family.href.startsWith("http");
+                  const label = family.originalLabel ?? family.label;
+
+                  return (
+                    <li key={family.id}>
+                      {isExternal ? (
+                        <ExternalLink
+                          href={family.href}
+                          className="block transition-colors hover:text-white"
+                          title={family.description}
+                        >
+                          {label}
+                        </ExternalLink>
+                      ) : (
+                        <Link
+                          href={family.href}
+                          className="block transition-colors hover:text-white"
+                          title={family.description}
+                        >
+                          {label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            ))}
+          </div>
+        </nav>
       </div>
 
       <Separator className="bg-white/10" />
 
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-4 text-xs text-slate-500 md:flex-row md:px-6">
         <p>
-          © {new Date().getFullYear()} {site.legalName}
+          © {new Date().getFullYear()} {site.legalName} — vaisselle jetable éco-responsable · livraison 24/72h
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <nav aria-label="Liens légaux" className="flex flex-wrap items-center justify-center gap-4">
           {legalLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="transition-colors hover:text-white"
-            >
+            <ExternalLink key={link.href} href={link.href} className="transition-colors hover:text-white">
               {link.label}
-            </a>
+            </ExternalLink>
           ))}
-        </div>
+        </nav>
       </div>
 
-      <div className="border-t border-white/5 bg-brand-navy-ink py-3 text-center text-xs text-slate-600">
-        Maquette réalisée par{" "}
-        <a
-          href="https://kaitos.agency"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-slate-500 transition-colors hover:text-white"
-        >
-          Kaitos Agency
-        </a>
+      <div className="border-t border-white/5 bg-brand-navy-ink py-2.5 text-center text-xs text-slate-500">
+        <span className="inline-flex items-center justify-center gap-1.5">
+          Fait avec
+          <Heart className="h-3 w-3 fill-brand-teal/70 text-brand-teal/70" aria-hidden />
+          par{" "}
+          <ExternalLink
+            href="https://kaitos.agency"
+            className="font-medium text-slate-400 transition-colors hover:text-white"
+          >
+            Kaitos Agency
+          </ExternalLink>
+        </span>
       </div>
     </footer>
   );

@@ -18,11 +18,11 @@ export function NavHighlightLink({ item, className }: NavHighlightLinkProps) {
         href={item.href}
         className={cn(
           buttonVariants({ variant: "brandDestock", size: "ctaSm" }),
-          "inline-flex h-8 shrink-0 items-center gap-1.5 !px-4 text-xs lg:text-sm",
+          "nav-destock-link inline-flex h-8 shrink-0 items-center gap-1.5 !px-4 text-xs lg:text-sm",
           className,
         )}
       >
-        <Flame className="size-3.5 shrink-0 text-brand-kraft" aria-hidden />
+        <Flame className="nav-destock-flame size-3.5 shrink-0 text-brand-kraft" aria-hidden />
         {item.label}
       </Link>
     );

@@ -13,6 +13,7 @@
   --brand-teal-light: #90d123;
   --brand-kraft: #d17d3c;
   --brand-kraft-dark: #9e461d;
+  --brand-garcia: #002d72;
   --brand-beige: #f5f0e8;
   --background: #faf8f5;
   --foreground: #3d2c26;
@@ -58,6 +59,7 @@
   --color-brand-teal-light: var(--brand-teal-light);
   --color-brand-kraft: var(--brand-kraft);
   --color-brand-kraft-dark: var(--brand-kraft-dark);
+  --color-brand-garcia: var(--brand-garcia);
   --color-brand-beige: var(--brand-beige);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -126,6 +128,55 @@ body {
 
 .nav-link-baseline:hover::after {
   width: 100%;
+}
+
+.nav-destock-link {
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.25s ease;
+}
+
+.nav-destock-link:hover {
+  border-color: rgb(209 125 60 / 0.55);
+  background-color: rgb(209 125 60 / 0.07);
+  box-shadow: 0 6px 16px -8px rgb(209 125 60 / 0.45);
+}
+
+.nav-destock-link .nav-destock-flame {
+  transform-origin: center bottom;
+  transition: color 0.2s ease;
+}
+
+.nav-destock-link:hover .nav-destock-flame {
+  color: var(--brand-kraft-dark);
+  animation: nav-destock-flame-flicker 0.55s ease-in-out;
+}
+
+@keyframes nav-destock-flame-flicker {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  30% {
+    transform: scale(1.18) rotate(-7deg);
+  }
+
+  55% {
+    transform: scale(1.06) rotate(5deg);
+  }
+
+  80% {
+    transform: scale(1.14) rotate(-4deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-destock-link:hover .nav-destock-flame {
+    animation: none;
+    transform: scale(1.08);
+  }
 }
 
 .btn-icon {
@@ -261,6 +312,18 @@ body {
 
 .card-outline-teal {
   border: 2px solid rgb(74 188 57 / 0.85);
+  background: var(--card-surface);
+  box-shadow: 0 12px 40px -16px rgb(61 44 38 / 0.1);
+}
+
+.card-outline-kraft {
+  border: 2px solid rgb(209 125 60 / 0.55);
+  background: var(--card-surface);
+  box-shadow: 0 12px 40px -16px rgb(61 44 38 / 0.1);
+}
+
+.card-outline-garcia {
+  border: 2px solid rgb(0 45 114 / 0.82);
   background: var(--card-surface);
   box-shadow: 0 12px 40px -16px rgb(61 44 38 / 0.1);
 }
@@ -481,12 +544,107 @@ body {
   -ms-overflow-style: none;
 }
 
+.content-slider__track:active {
+  cursor: grabbing;
+}
+
+.content-slider__track img {
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.content-slider__fade-edges {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
 .content-slider__track::-webkit-scrollbar {
   display: none;
 }
 
 .content-slider__slide {
-  scroll-snap-stop: always;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+@keyframes destockage-cta-squizz {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  20% {
+    transform: scale(1.025) rotate(-0.6deg);
+  }
+
+  40% {
+    transform: scale(0.985) rotate(0.5deg);
+  }
+
+  60% {
+    transform: scale(1.02) rotate(0.6deg);
+  }
+
+  80% {
+    transform: scale(0.99) rotate(-0.4deg);
+  }
+}
+
+@keyframes destockage-cta-flame-flicker {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.15) rotate(-8deg);
+    opacity: 0.85;
+  }
+}
+
+.destockage-cta-btn {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+  animation: destockage-cta-squizz 2.6s ease-in-out infinite;
+}
+
+.destockage-cta-btn:hover {
+  animation: none;
+  transform: scale(1.05);
+  filter: brightness(1.06);
+  box-shadow: 0 10px 28px -10px rgb(45 140 120 / 0.55);
+}
+
+.destockage-cta-btn:hover .destockage-cta-flame {
+  animation: destockage-cta-flame-flicker 0.35s ease-in-out infinite alternate;
+}
+
+.destockage-cta-btn:active {
+  transform: scale(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .destockage-cta-btn {
+    animation: none;
+  }
+
+  .destockage-cta-btn:hover .destockage-cta-flame {
+    animation: none;
+  }
 }
 
 .client-logos-marquee {
@@ -507,8 +665,39 @@ body {
   );
 }
 
+@media (max-width: 639px) {
+  .client-logos-marquee {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 6%,
+      black 94%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 6%,
+      black 94%,
+      transparent 100%
+    );
+  }
+}
+
 .client-logos-marquee__item {
-  width: 25cqw;
+  width: 52cqw;
+}
+
+@media (min-width: 640px) {
+  .client-logos-marquee__item {
+    width: 30cqw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .client-logos-marquee__item {
+    width: 25cqw;
+  }
 }
 
 .client-logos-marquee__track {
@@ -541,12 +730,16 @@ body {
   }
 
   .client-logos-marquee__item {
-    width: calc(50% - 0.5rem);
+    width: calc(50% - 1rem);
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   @media (min-width: 640px) {
     .client-logos-marquee__item {
       width: calc(25% - 0.75rem);
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 }
@@ -559,6 +752,25 @@ body {
   to {
     transform: translateX(-50%);
   }
+}
+
+/* ── Bandeau presse / médias ── */
+.press-band__logo {
+  opacity: 0.42;
+  filter: grayscale(1);
+  transition: opacity 0.25s ease, filter 0.25s ease;
+}
+
+.press-band__logo--secondary {
+  opacity: 0.36;
+  transform: scale(0.92);
+  transform-origin: center;
+}
+
+.press-band__link:hover .press-band__logo,
+.press-band__link:focus-visible .press-band__logo {
+  opacity: 1;
+  filter: grayscale(0);
 }
 
 /* ── Personnalisation — mockups animés (inspiré kaitos.agency) ── */
@@ -813,3 +1025,58 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Widget officiel Société des Avis Garantis */
+.agJsWidget.agJsWidget--maquette {
+  left: 0 !important;
+  bottom: 0 !important;
+  padding: 0.25rem !important;
+  transform: none !important;
+}
+
+.agJsWidget.agJsWidget--maquette #sag_b_cocarde {
+  transform: scale(0.72);
+  transform-origin: center center;
+  transition: transform 0.22s ease, filter 0.22s ease;
+}
+
+.agJsWidget.agJsWidget--maquette:hover #sag_b_cocarde,
+.agJsWidget.agJsWidget--maquette:focus-within #sag_b_cocarde {
+  transform: scale(0.76);
+  filter: brightness(1.05) drop-shadow(0 6px 14px rgb(61 44 38 / 0.18));
+}
+
+@media screen and (min-width: 640px) and (max-width: 900px) {
+  .agJsWidget.agJsWidget--maquette #sag_b_cocarde {
+    transform: scale(0.62);
+  }
+
+  .agJsWidget.agJsWidget--maquette:hover #sag_b_cocarde,
+  .agJsWidget.agJsWidget--maquette:focus-within #sag_b_cocarde {
+    transform: scale(0.66);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .agJsWidget.agJsWidget--maquette {
+    left: 0 !important;
+    bottom: 0 !important;
+    padding: 0.125rem !important;
+  }
+
+  .agJsWidget.agJsWidget--maquette #sag_b_cocarde {
+    transform: scale(0.52);
+  }
+
+  .agJsWidget.agJsWidget--maquette:hover #sag_b_cocarde,
+  .agJsWidget.agJsWidget--maquette:focus-within #sag_b_cocarde {
+    transform: scale(0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agJsWidget.agJsWidget--maquette #sag_b_cocarde {
+    transition: none;
+  }
+}
+

@@ -10,16 +10,21 @@ import { MobileNav } from "@/components/layout/mobile-nav";
 import { NavHighlightLink } from "@/components/layout/nav-highlight-link";
 import { Button } from "@/components/ui/button";
 import { headerActions, logos, nav, routes, site, topBar } from "@/lib/site";
-import { resetLeadMagnetDebug } from "@/hooks/use-scroll-trigger";
 
 function HeaderTopBar() {
   return (
     <div className="bg-brand-navy-deep text-white">
       <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-4 gap-y-1 px-4 py-1.5 text-center text-[11px] leading-tight md:px-6 md:text-xs lg:justify-between lg:text-left">
-        <p className="inline-flex items-center justify-center gap-1 font-medium lg:justify-start">
-          <Truck className="h-3 w-3 shrink-0 opacity-90" aria-hidden />
-          {topBar.delivery}
-        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 lg:justify-start">
+          <p className="inline-flex items-center gap-1 font-medium">
+            <Truck className="h-3 w-3 shrink-0 opacity-90" aria-hidden />
+            {topBar.delivery}
+          </p>
+          <span className="hidden opacity-50 lg:inline" aria-hidden>|</span>
+          <p className="inline-flex items-center gap-1 font-bold text-brand-teal-light">
+            Nouveaux clients : -5% avec le code BIENVENUE
+          </p>
+        </div>
         <div className="hidden flex-wrap items-center gap-x-3 gap-y-0.5 lg:flex">
           <a
             href={site.phoneHref}
@@ -132,14 +137,7 @@ export function SiteHeader() {
             </div>
 
             <div className="ml-auto flex shrink-0 items-center gap-0.5 sm:gap-1">
-              <HeaderIconLink
-                href={routes.proAccount}
-                label="Mon compte"
-                onClick={(event) => {
-                  event.preventDefault();
-                  resetLeadMagnetDebug();
-                }}
-              >
+              <HeaderIconLink href={routes.account} label="Mon compte">
                 <UserRound className="h-5 w-5" strokeWidth={1.75} />
               </HeaderIconLink>
               <HeaderIconLink href="#" label="Panier" badge={headerActions.cartCount}>
