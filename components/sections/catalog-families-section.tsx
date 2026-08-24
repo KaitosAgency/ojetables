@@ -1,16 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
-
 import { Ban, Handshake, Scale, Sprout, type LucideIcon } from "lucide-react";
 
+import { CatalogFamilyCard } from "@/components/catalog/catalog-family-card";
 import { JsonLd, catalogItemListJsonLd } from "@/components/seo/json-ld";
 import { SectionHeader } from "@/components/sections/section-header";
-import {
-  interactiveCardClassNameFor,
-  type InteractiveCardAccent,
-} from "@/components/ui/interactive-card";
+import { type InteractiveCardAccent } from "@/components/ui/interactive-card";
 import { catalogFamilies, catalogSeo, ecoCommitments, ecoSeo, type CatalogFamily } from "@/lib/site";
-import { cn } from "@/lib/utils";
 
 function familyLinkProps(href: string) {
   const isExternal = href.startsWith("http");
@@ -37,41 +32,6 @@ function catalogFamilyAccent(family: CatalogFamily): InteractiveCardAccent {
   }
 }
 
-function CatalogFamilyCard({ family }: { family: CatalogFamily }) {
-  const accent = catalogFamilyAccent(family);
-
-  return (
-    <Link
-      href={family.href}
-      {...familyLinkProps(family.href)}
-      className={cn(interactiveCardClassNameFor(accent), "catalog-family-card")}
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-brand-beige/40">
-        <Image
-          src={family.image}
-          alt={family.label}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-        />
-      </div>
-
-      <div className="flex flex-1 flex-col p-4">
-        <h3 className="text-base font-bold leading-snug text-brand-navy transition-colors group-hover:text-brand-teal-dim">
-          {family.label}
-        </h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground line-clamp-2">
-          {family.description}
-        </p>
-        <span className="mt-3 text-sm font-semibold text-brand-teal">
-          Voir la gamme
-          <span aria-hidden> →</span>
-        </span>
-      </div>
-    </Link>
-  );
-}
-
 export function CatalogFamiliesSection() {
   return (
     <section id="catalogue" className="section-padding scroll-mt-36 section-glow">
@@ -88,7 +48,13 @@ export function CatalogFamiliesSection() {
         <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
           {catalogFamilies.map((family) => (
             <li key={family.id}>
-              <CatalogFamilyCard family={family} />
+              <CatalogFamilyCard
+                label={family.label}
+                description={family.description}
+                image={family.image}
+                href={family.href}
+                accent={catalogFamilyAccent(family)}
+              />
             </li>
           ))}
         </ul>

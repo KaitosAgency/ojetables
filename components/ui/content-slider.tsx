@@ -185,9 +185,30 @@ export function ContentSlider({
       const el = trackRef.current;
       if (!el) return;
 
+      const absX = Math.abs(event.deltaX);
+      const absY = Math.abs(event.deltaY);
+
+      // Scroll vertical de la page : ne pas capturer le wheel
+      if (!event.shiftKey && absY > absX) {
+        return;
+      }
+
+      const maxScroll = getMaxScrollLeft(el);
+      if (maxScroll <= 2) return;
+
       const delta =
-        Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+        event.shiftKey && absY > absX
+          ? event.deltaY
+          : absX > 0
+            ? event.deltaX
+            : event.deltaY;
+
       if (delta === 0) return;
+
+      const canScrollFurther =
+        delta < 0 ? el.scrollLeft > 0 : el.scrollLeft < maxScroll;
+
+      if (!canScrollFurther) return;
 
       el.scrollLeft += delta;
       pauseAutoPlay();
@@ -196,7 +217,7 @@ export function ContentSlider({
 
     trackEl.addEventListener("wheel", handleWheel, { passive: false });
     return () => trackEl.removeEventListener("wheel", handleWheel);
-  }, [enableDrag, pauseAutoPlay, children]);
+  }, [enableDrag, pauseAutoPlay, getMaxScrollLeft, children]);
 
   useEffect(() => {
     if (!enableDrag) return;

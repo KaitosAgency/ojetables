@@ -7,6 +7,7 @@ Maquette preview non contractuelle. Contenus et visuels à titre de démonstrati
 ## Pages principales
 
 - [Homepage](https://www.ojetables.fr/): Hero, best-sellers, secteurs, presse TV, personnalisation, catalogue 12 familles, destockage, avis clients certifiés, engagements éco, FAQ.
+- [Vaisselle jetable](https://www.ojetables.fr/vaisselle-jetable): Catégorie catalogue — assiettes, couverts, bols et plateaux jetables. BLUF pro, gammes associées, filtres, grille produits, contenu éditorial AGEC, maillage secteurs, FAQ structurée.
 - [Fiche produit exemple](https://www.ojetables.fr/produit/gobelet-carton-24cl-kraft-individuel): Gobelet carton 24 cl Kraft, galerie, achat, onglets et parcours personnalisation logo.
 - [Destockage](https://www.ojetables.fr/destockage): Promotions et fins de série à prix réduits.
 

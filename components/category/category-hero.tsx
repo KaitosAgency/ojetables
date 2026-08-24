@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { CreditCard, Truck } from "lucide-react";
 
+import { CategoryBreadcrumb } from "@/components/category/category-breadcrumb";
 import { TrustRatingInline } from "@/components/trust/trust-rating-inline";
 import { LinkButton } from "@/components/ui/link-button";
 import type { Category } from "@/lib/categories";
@@ -12,9 +13,22 @@ type CategoryHeroProps = {
 
 export function CategoryHero({ category }: CategoryHeroProps) {
   return (
-    <section className="border-b border-brand-kraft/20 bg-gradient-to-br from-brand-kraft/15 via-brand-beige to-white">
-      <div className="mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-14">
-        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-12">
+    <section
+      className="category-hero-under-crans overflow-hidden border-b border-brand-kraft/20 bg-brand-beige text-brand-navy md:bg-gradient-to-b md:from-secondary md:via-brand-beige md:to-white"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(61,44,38,0.05),_transparent_55%)] max-md:hidden"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_90%_20%,_rgba(209,125,60,0.1),_transparent_45%)] max-md:hidden"
+        aria-hidden
+      />
+
+      <div className="relative mx-auto max-w-6xl px-4 pb-10 md:px-6 md:pb-14">
+        <CategoryBreadcrumb category={category} />
+
+        <div className="mt-4 grid items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:gap-12 lg:mt-6">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-teal">
               Catalogue
@@ -22,7 +36,10 @@ export function CategoryHero({ category }: CategoryHeroProps) {
             <h1 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-brand-navy md:text-5xl">
               {category.title}
             </h1>
-            <p className="mt-4 max-w-xl text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-4 max-w-xl text-sm font-semibold leading-relaxed text-brand-navy md:text-base">
+              {category.bluf}
+            </p>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
               {category.intro}
             </p>
 

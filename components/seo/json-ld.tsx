@@ -1,6 +1,5 @@
 import type { Category } from "@/lib/categories";
-import { categoryPath } from "@/lib/categories";
-import type { ProductCardProps } from "@/components/product/product-card";
+import { parseFrenchPrice, productCardAbsoluteUrl } from "@/lib/category-price";
 import { site, getSiteUrl, type CatalogFamily, type FaqItem } from "@/lib/site";
 import type { Product } from "@/lib/products";
 
@@ -112,9 +111,8 @@ export function homePageJsonLd() {
   };
 }
 
-export function faqJsonLd(faq: readonly FaqItem[]) {
+export function faqPageEntity(faq: readonly FaqItem[]) {
   return {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: faq.map((item) => ({
       "@type": "Question",
@@ -124,6 +122,13 @@ export function faqJsonLd(faq: readonly FaqItem[]) {
         text: item.answer,
       },
     })),
+  };
+}
+
+export function faqJsonLd(faq: readonly FaqItem[]) {
+  return {
+    "@context": "https://schema.org",
+    ...faqPageEntity(faq),
   };
 }
 
@@ -236,12 +241,9 @@ export function breadcrumbJsonLd(path: string, breadcrumbs: readonly BreadcrumbI
   };
 }
 
-export function categoryPageJsonLd(
-  category: Category,
-  products: readonly ProductCardProps[],
-  path: string,
-) {
+export function categoryPageJsonLd(category: Category, path: string) {
   const base = getSiteUrl();
+  const products = category.products;
   const breadcrumbs: BreadcrumbItem[] = [
     { name: "Accueil", path: "/" },
     { name: category.label },
@@ -256,6 +258,9 @@ export function categoryPageJsonLd(
     inLanguage: "fr-FR",
     isPartOf: {
       "@id": `${base}/#website`,
+    },
+    publisher: {
+      "@id": `${base}/#organization`,
     },
     about: {
       "@id": `${base}${path}#collection`,
@@ -275,19 +280,62 @@ export function categoryPageJsonLd(
     numberOfItems: products.length,
   };
 
-  const itemList = {
+  const productItemList = {
     "@type": "ItemList",
-    "@id": `${base}${path}#itemlist`,
+    "@id": `${base}${path}#itemlist-products`,
     name: `Produits ${category.label} Ojetables`,
     numberOfItems: products.length,
-    itemListElement: products.map((product, index) => ({
+    itemListElement: products.map((product, index) => {
+      const productUrl = productCardAbsoluteUrl(product.href, base);
+      const price = parseFrenchPrice(product.priceFrom);
+
+      const productEntity: Record<string, unknown> = {
+        "@type": "Product",
+        name: product.name,
+        url: productUrl,
+        image: product.image.startsWith("http") ? product.image : `${base}${product.image}`,
+      };
+
+      if (price !== null) {
+        productEntity.offers = {
+          "@type": "Offer",
+          url: productUrl,
+          priceCurrency: "EUR",
+          price: price.toFixed(2),
+          availability: "https://schema.org/InStock",
+          itemCondition: "https://schema.org/NewCondition",
+        };
+      }
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        name: product.name,
+        url: productUrl,
+        item: productEntity,
+      };
+    }),
+  };
+
+  const subfamilyItemList = {
+    "@type": "ItemList",
+    "@id": `${base}${path}#itemlist-subfamilies`,
+    name: `Gammes associées ${category.label}`,
+    numberOfItems: category.subfamilies.length,
+    itemListElement: category.subfamilies.map((subfamily, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: product.name,
-      url: product.href.startsWith("http")
-        ? product.href
-        : `${base}${product.href.startsWith("/") ? product.href : `/${product.href}`}`,
+      name: subfamily.label,
+      url: subfamily.href.startsWith("http")
+        ? subfamily.href
+        : `${base}${subfamily.href.startsWith("/") ? subfamily.href : `/${subfamily.href}`}`,
+      image: subfamily.image.startsWith("http") ? subfamily.image : `${base}${subfamily.image}`,
     })),
+  };
+
+  const faqEntity = {
+    "@id": `${base}${path}#faq`,
+    ...faqPageEntity(category.faq),
   };
 
   return {
@@ -295,7 +343,9 @@ export function categoryPageJsonLd(
     "@graph": [
       collectionPage,
       collection,
-      itemList,
+      productItemList,
+      subfamilyItemList,
+      faqEntity,
       breadcrumbEntity(path, breadcrumbs),
     ],
   };

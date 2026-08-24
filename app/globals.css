@@ -456,6 +456,17 @@ body {
   }
 }
 
+/* Hero catégorie : fond beige remonté sous les crans du header */
+.category-hero-under-crans {
+  --category-hero-cran-pull: calc(var(--header-crans-height, 10px) + 12px);
+  /* Espace supplémentaire pour que le breadcrumb dépasse les crans blancs du menu */
+  --category-hero-cran-clearance: calc(var(--header-crans-height, 10px) + 1rem);
+  margin-top: calc(-1 * var(--category-hero-cran-pull));
+  padding-top: calc(var(--category-hero-cran-pull) + var(--category-hero-cran-clearance));
+  position: relative;
+  z-index: 0;
+}
+
 .site-header-cardboard {
   position: sticky;
   top: 0;

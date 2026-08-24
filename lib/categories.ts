@@ -1,6 +1,6 @@
 import type { ProductCardProps } from "@/components/product/product-card";
-import type { FaqItem } from "@/lib/site";
-import { featuredProductSlug, productPath } from "@/lib/site";
+import type { FaqItem, FooterLink } from "@/lib/site";
+import { footerNav, featuredProductSlug, productPath } from "@/lib/site";
 
 const maquetteProductCardHref = productPath(featuredProductSlug);
 
@@ -8,6 +8,14 @@ export type CategorySubfamily = {
   id: string;
   label: string;
   description: string;
+  image: string;
+  href: string;
+};
+
+export type CategorySeoSection = {
+  id: string;
+  heading: string;
+  paragraphs: readonly string[];
 };
 
 export type Category = {
@@ -18,16 +26,18 @@ export type Category = {
   metaTitle: string;
   metaDescription: string;
   description: string;
+  bluf: string;
   intro: string;
   image: string;
   imageAlt: string;
   subfamilies: readonly CategorySubfamily[];
   products: readonly ProductCardProps[];
+  sectorLinks: readonly FooterLink[];
   faq: readonly FaqItem[];
-  seoContent: {
-    heading: string;
-    paragraphs: readonly string[];
-  };
+  seoHeading: string;
+  seoSections: readonly CategorySeoSection[];
+  /** Total catalogue (prod) pour libellé pagination maquette. */
+  catalogProductCount: number;
 };
 
 export function categoryPath(slug: string): string {
@@ -36,6 +46,10 @@ export function categoryPath(slug: string): string {
 
 /** Maquette : une seule catégorie démo — tous les liens catalogue y convergent. */
 export const featuredCategorySlug = "vaisselle-jetable";
+
+const vaisselleJetableSectorLinks: FooterLink[] = footerNav.metiers
+  .filter((link) => !link.label.toLowerCase().includes("personnalisation"))
+  .slice(0, 5);
 
 const vaisselleJetableProducts: ProductCardProps[] = [
   {
@@ -161,33 +175,66 @@ export const categories: Record<string, Category> = {
       "Assiettes, couverts et bols jetables pour traiteurs, CHR et collectivités. Compostable, carton ou réutilisable. +3 000 références, livraison 24/72h, tarifs dégressifs pro.",
     description:
       "Assiettes, couverts en bois, bols jetables : carton, pulpe de canne ou plastique réutilisable. Petit prix et gammes éco pour professionnels et particuliers.",
+    bluf:
+      "Ojetables est le fournisseur français de vaisselle jetable éco-responsable pour traiteurs, CHR et collectivités. +3 000 références en stock, livraison 24/72h, 9,5/10 sur 2 417 avis certifiés.",
     intro:
-      "Découvrez notre gamme complète de vaisselle jetable : assiettes compostables, couverts bois et kits traiteur, bols et plateaux repas. Stock permanent, livraison 24/72h et tarifs dégressifs dès 10 packs pour les comptes pro.",
+      "Assiettes compostables, couverts bois et kits traiteur, bols et plateaux repas : conditionnements de 50 à 500 unités, tarifs dégressifs dès 10 packs pour les comptes pro et commande en petite quantité pour les particuliers.",
     image: "/categories/vaisselle-jetable.jpg",
     imageAlt: "Vaisselle jetable professionnelle - assiettes, couverts et bols Ojetables",
+    catalogProductCount: 3000,
     subfamilies: [
       {
         id: "assiettes",
-        label: "Assiettes jetables",
-        description: "Compostable, carton biodégradable, plastique réutilisable et bols.",
+        label: "Assiette jetable",
+        description: "Compostable, carton biodégradable, plastique réutilisable et bols creux.",
+        image: "/products/assiette-galaxie.jpg",
+        href: `${categoryPath(featuredCategorySlug)}#assiettes`,
       },
       {
         id: "couverts",
-        label: "Couverts jetables",
-        description: "Bois, bambou, kits sachets et couverts réutilisables couleur.",
+        label: "Couvert de table",
+        description: "Couverts bois et bambou, kits sachets, réutilisables couleur et mini couverts.",
+        image: "/products/kit-couverts-6.jpg",
+        href: `${categoryPath(featuredCategorySlug)}#couverts`,
       },
       {
         id: "bols",
-        label: "Bols & saladiers",
-        description: "Biodégradable, carton et plastique pour soupes et salades.",
+        label: "Bol à salade",
+        description: "Saladiers biodégradable, carton et plastique pour soupes, salades et buffets.",
+        image: "/products/plateau-repas-5comp.jpg",
+        href: `${categoryPath(featuredCategorySlug)}#bols`,
+      },
+      {
+        id: "pots-dessert",
+        label: "Pot et coupe dessert",
+        description: "Pots à glace, coupes dessert et pots à sauce pour traiteur et CHR.",
+        image: "/products/verrine-carre.jpg",
+        href: `${categoryPath(featuredCategorySlug)}#pots-dessert`,
+      },
+      {
+        id: "barquettes",
+        label: "Barquette jetable",
+        description: "Cocottes, marmipack, sushi, barquettes frites et scellables.",
+        image: "/categories/snack.jpg",
+        href: `${categoryPath(featuredCategorySlug)}#barquettes`,
       },
       {
         id: "plateaux",
         label: "Plateaux & wood box",
-        description: "Plateaux repas, coffrets à emporter et wood box traiteur.",
+        description: "Plateaux repas, wood box traiteur et coffrets à emporter.",
+        image: "/products/wood-box.jpg",
+        href: `${categoryPath(featuredCategorySlug)}#plateaux`,
+      },
+      {
+        id: "vente-emporter",
+        label: "Vente à emporter",
+        description: "Emballages et supports pour restauration rapide et food service.",
+        image: "/categories/plateau-boite.png",
+        href: `${categoryPath(featuredCategorySlug)}#vente-emporter`,
       },
     ],
     products: vaisselleJetableProducts,
+    sectorLinks: vaisselleJetableSectorLinks,
     faq: [
       {
         question: "Quelle vaisselle jetable choisir pour un traiteur ?",
@@ -200,23 +247,71 @@ export const categories: Record<string, Category> = {
           "Oui, nos gammes biodégradable et compostable (pulpe de canne, bagasse, bois) répondent aux exigences de la loi AGEC pour la restauration collective et les événements.",
       },
       {
-        question: "Y a-t-il des tarifs dégressifs sur la vaisselle jetable ?",
+        question: "Y a-t-il un minimum de commande sur la vaisselle jetable ?",
         answer:
-          "Les comptes professionnels bénéficient de remises automatiques dès 10 packs sur la plupart des références. Pour les très grands volumes, demandez un devis personnalisé.",
+          "Non pour les particuliers et petits volumes. Les tarifs dégressifs s'appliquent à partir de 10 packs pour les comptes professionnels sur la plupart des références.",
+      },
+      {
+        question: "Quels tarifs dégressifs pour les professionnels ?",
+        answer:
+          "Les comptes pro bénéficient de remises automatiques dès 10 packs. Pour les très grands volumes (cantines, collectivités), demandez un devis personnalisé avec paiement sous 30 jours.",
       },
       {
         question: "Délai de livraison pour la vaisselle jetable en stock ?",
         answer:
           "Livraison 24/72h partout en France sur les références en stock. Commande possible en petite quantité pour les particuliers et associations.",
       },
+      {
+        question: "Peut-on personnaliser des gobelets ou emballages ?",
+        answer:
+          "Oui : gobelets carton, sacs kraft et certains emballages sont personnalisable avec votre logo. BAT sous 48h, délais de fabrication 2 à 3 semaines selon le produit.",
+      },
+      {
+        question: "Compostage domestique ou industriel pour les assiettes biodégradables ?",
+        answer:
+          "Nos assiettes en pulpe de canne et bagasse sont compostables en compostage industriel. En compostage domestique, les délais de dégradation peuvent être plus longs selon les conditions.",
+      },
+      {
+        question: "Vaisselle jetable réutilisable ou compostable : que choisir ?",
+        answer:
+          "Le compostable est idéal pour événements éco et collectivités AGEC. Le plastique réutilisable convient aux usages intensifs (festivals, CHR) où la durabilité prime sur le jetable à usage unique.",
+      },
     ],
-    seoContent: {
-      heading: "Vaisselle jetable pro : qualité, éco et petit prix",
-      paragraphs: [
-        "Ojetables est fournisseur français de vaisselle jetable pour traiteurs, restaurants, collectivités et organisateurs d'événements. Notre catalogue couvre assiettes jetables compostables, couverts en bois, bols et plateaux repas biodégradables, ainsi que des solutions plastique réutilisable pour un usage intensif.",
-        "Que vous préparez un mariage, une réception d'entreprise ou la cantine d'une collectivité, vous trouvez des conditionnements adaptés : lots de 50 à 500 unités, tarifs dégressifs pro et livraison express 24/72h sur plus de 3 000 références en stock.",
-      ],
-    },
+    seoHeading: "Vaisselle jetable pro : qualité, éco et petit prix",
+    seoSections: [
+      {
+        id: "usages-pro",
+        heading: "Vaisselle jetable pour traiteurs, CHR et collectivités",
+        paragraphs: [
+          "Notre catalogue vaisselle jetable couvre les besoins quotidiens des traiteurs, restaurants, hôtels, cantines et associations. Assiettes compostables pour réceptions, kits couverts bois pour buffets, plateaux repas biodégradables pour la restauration collective.",
+          "Chaque gamme est disponible en lots adaptés à votre volume : de quelques packs pour un événement privé à des palettes pour les collectivités.",
+        ],
+      },
+      {
+        id: "matieres-eco",
+        heading: "Matières éco : compostable, bois, carton et réutilisable",
+        paragraphs: [
+          "Choisissez entre pulpe de canne, bagasse, bois et bambou pour une vaisselle jetable compostable conforme AGEC, ou optez pour le plastique réutilisable pour un usage intensif en CHR et événementiel.",
+          "Nos assiettes biodégradables et couverts en bois sont des alternatives crédibles au plastique à usage unique pour vos clients sensibles à l'image éco-responsable.",
+        ],
+      },
+      {
+        id: "tarifs-livraison",
+        heading: "Tarifs dégressifs et livraison 24/72h",
+        paragraphs: [
+          "Comptes professionnels : remises dès 10 packs, devis volume en ligne et paiement sous 30 jours pour les encours validés. Particuliers et associations : commande sans minimum sur les références en stock.",
+          "Livraison 24/72h partout en France sur plus de 3 000 références. Frais de port calculés au panier, possibilité de livraison en palette pour les grands volumes.",
+        ],
+      },
+      {
+        id: "conformite-avec",
+        heading: "Conformité AGEC et contact alimentaire",
+        paragraphs: [
+          "Les gammes compostables et biodégradables répondent aux exigences de la loi AGEC pour la restauration et les événements. Certifications contact alimentaire sur les références adaptées à la vente à emporter et la restauration collective.",
+          "Besoin d'un conseil produit ou d'un devis volume ? Notre équipe accompagne traiteurs, CHR et acheteurs publics au 09 74 06 00 74 ou via le formulaire de devis en ligne.",
+        ],
+      },
+    ],
   },
 };
 

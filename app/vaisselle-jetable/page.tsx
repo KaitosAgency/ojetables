@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { CategoryBreadcrumb } from "@/components/category/category-breadcrumb";
+import { CategoryEditorialSection } from "@/components/category/category-editorial-section";
+import { CategoryFiltersBar } from "@/components/category/category-filters-bar";
 import { CategoryHero } from "@/components/category/category-hero";
 import { CategoryProductGrid } from "@/components/category/category-product-grid";
-import { CategorySeoBlock } from "@/components/category/category-seo-block";
+import { CategorySectorLinks } from "@/components/category/category-sector-links";
 import { CategorySubnav } from "@/components/category/category-subnav";
-import { FaqWithStructuredData } from "@/components/sections/faq-with-structured-data";
+import { FaqAccordion } from "@/components/sections/faq-accordion";
 import { ReviewsBand } from "@/components/sections/reviews-band";
 import { SectionHeader } from "@/components/sections/section-header";
 import { JsonLd, categoryPageJsonLd } from "@/components/seo/json-ld";
@@ -35,15 +36,14 @@ export default function VaisselleJetableCategoryPage() {
 
   return (
     <>
-      <JsonLd data={categoryPageJsonLd(category, category.products, path)} />
+      <JsonLd data={categoryPageJsonLd(category, path)} />
       <div className="bg-background">
-        <div className="mx-auto max-w-6xl px-4 pt-6 md:px-6 md:pt-8">
-          <CategoryBreadcrumb category={category} />
-        </div>
         <CategoryHero category={category} />
         <CategorySubnav category={category} />
+        <CategoryFiltersBar />
         <CategoryProductGrid category={category} />
-        <CategorySeoBlock category={category} />
+        <CategoryEditorialSection category={category} />
+        <CategorySectorLinks category={category} />
         <ReviewsBand />
         <section className="section-padding bg-white">
           <div className="mx-auto max-w-3xl px-4 md:px-6">
@@ -53,7 +53,7 @@ export default function VaisselleJetableCategoryPage() {
               description="Usages pro, conformité AGEC, tarifs et livraison : les réponses essentielles."
               align="center"
             />
-            <FaqWithStructuredData items={category.faq} className="mt-10" />
+            <FaqAccordion items={category.faq} className="mt-10" />
           </div>
         </section>
       </div>
