@@ -24,8 +24,9 @@ export function PressTvVideo() {
           <iframe
             src={dailymotionEmbedUrl(pressTvFeature.videoId, true)}
             title={pressTvFeature.alt}
-            className="absolute inset-0 h-full w-full"
-            allow="autoplay; fullscreen; picture-in-picture"
+            className="absolute inset-0 h-full w-full border-0"
+            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+            referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           />
         ) : (
