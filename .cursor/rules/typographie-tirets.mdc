@@ -1,0 +1,90 @@
+---
+description: Interdit les tirets cadratin dans tout contenu rédigé via Cursor (UI, SEO, docs, copy)
+alwaysApply: true
+---
+
+# Typographie : pas de tiret cadratin
+
+## Règle stricte
+
+Ne **jamais** utiliser le tiret cadratin (`—`, U+2014) dans un contenu produit ou modifié via Cursor : textes UI, métadonnées SEO, FAQ, aria-labels, emails, audits, README, `llms.txt`, commentaires reprenant du wording client, etc.
+
+## Remplacements autorisés
+
+| Contexte | Utiliser |
+|---|---|
+| Sous-titre de titre / metadata | ` \| ` (pipe) ou ` : ` |
+| Énumération ou explication | deux phrases distinctes, ou ` : ` pour introduire une liste |
+| Adresse (numéro de voie) | virgule : `ZA de Saune, 1 rue Roland Garros` |
+| Liste d'étapes (titre + description) | point ou deux-points : `. ` ou ` : ` |
+| Deux-points en colonne étroite (UI) | espace insécable avant `:` (`&nbsp;:`) ou `whitespace-nowrap` sur le segment précédant le `:` |
+
+## Structure de phrase
+
+Ne **jamais** utiliser la structure « élément A - élément B » dans le wording client (tiret simple ou cadratin).
+
+Préférer :
+- Deux phrases distinctes
+- Deux-points pour introduire une énumération
+- Phrase complète intégrant les deux éléments
+- Pipe (`|`) pour séparer les segments d'un titre SEO
+
+```tsx
+// ❌ Incorrect
+description="Gobelets et sacs - personnalisables avec logo"
+description="Les produits les plus commandés - qualité testée"
+
+// ✅ Correct
+description="Gobelets et sacs personnalisables avec votre logo"
+description="Personnalisez vos produits : gobelets, sacs, emballages"
+description="Les produits préférés des traiteurs. Qualité éprouvée au quotidien."
+title="Vaisselle jetable éco-responsable | Livraison 24/72h en France"
+```
+
+## Deux-points : pas de retour à la ligne avant
+
+En français, le `:` ne doit **jamais** passer seul en début de ligne.
+
+En JSX sur colonnes étroites :
+
+```tsx
+// ❌ Incorrect (césure possible avant :)
+description="Air France, Sodexo, Louis Vuitton : ils nous font confiance"
+
+// ✅ Correct
+description={
+  <>
+    <span className="whitespace-nowrap">Air France, Sodexo, Louis Vuitton&nbsp;:</span>{" "}
+    ils nous font confiance pour leurs événements.
+  </>
+}
+```
+
+## Exemples
+
+```tsx
+// ❌ Incorrect
+description="Les produits les plus commandés — qualité testée"
+description="Les produits les plus commandés - qualité testée"
+title="Vaisselle jetable éco-responsable — Livraison 24/72h"
+title="Vaisselle jetable éco-responsable - Livraison 24/72h"
+
+// ✅ Correct
+description="Les produits préférés des traiteurs. Qualité éprouvée au quotidien."
+title="Vaisselle jetable éco-responsable | Livraison 24/72h en France"
+```
+
+## Exceptions
+
+- Le tiret long Unicode `─` (décoratif CSS) reste autorisé en commentaires techniques, sans usage dans du copy client.
+
+## Vérification
+
+Avant de livrer du copywriting :
+
+```powershell
+rg "—" --glob "!node_modules/**"
+rg " - " --glob "*.{tsx,ts}" --glob "!node_modules/**"
+```
+
+Aucun tiret séparateur attendu dans le wording visible. Les tirets dans les noms de produits (`Wood Box`, `24 cl`, etc.) ou le code technique restent autorisés.

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 import { avisGarantis } from "@/lib/site";
 
@@ -11,8 +12,16 @@ function stripScripts(html: string) {
   return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
 }
 
+function shouldMountWidget(pathname: string) {
+  return pathname === "/" || pathname.startsWith("/produit/");
+}
+
 export function AvisGarantisOfficialWidget() {
+  const pathname = usePathname();
+
   useEffect(() => {
+    if (!shouldMountWidget(pathname)) return;
+
     let cancelled = false;
 
     async function mountWidget() {
@@ -42,13 +51,16 @@ export function AvisGarantisOfficialWidget() {
       }
     }
 
-    void mountWidget();
+    const timeoutId = window.setTimeout(() => {
+      void mountWidget();
+    }, 2000);
 
     return () => {
       cancelled = true;
+      window.clearTimeout(timeoutId);
       document.querySelector(`.${WIDGET_CONTAINER_CLASS}`)?.remove();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 type StarRatingProps = {
   className?: string;
   size?: "sm" | "md";
-  /** Note sur 5 — défaut 5 (affichage plein, ex. note boutique). */
+  /** Note sur 5 - défaut 5 (affichage plein, ex. note boutique). */
   value?: number;
   /** Variante pour fond sombre (footer, bandeau navy). */
   tone?: "default" | "inverse";

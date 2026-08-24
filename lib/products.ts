@@ -43,7 +43,7 @@ export const products: Record<string, Product> = {
     slug: "assiette-biodegradable-15cm",
     name: "Assiette biodégradable ronde 15 cm",
     shortName: "Assiette biodégradable 15 cm",
-    metaTitle: "Assiette biodégradable ronde 15 cm — Restauration éco",
+    metaTitle: "Assiette biodégradable ronde 15 cm - Restauration éco",
     metaDescription:
       "Assiette en pulpe de canne 15 cm, 100 % compostable. Pack de 100 dès 4,90 € HT. Livraison 24/72h, tarifs dégressifs pro. Demandez un devis volume.",
     category: "Assiettes compostables",
@@ -74,7 +74,7 @@ export const products: Record<string, Product> = {
       { label: "Diamètre", value: "15 cm" },
       { label: "Matière", value: "Pulpe de canne à sucre" },
       { label: "Conditionnement", value: "100 unités / pack" },
-      { label: "Compostable", value: "Oui — compostage industriel" },
+      { label: "Compostable", value: "Oui - compostage industriel" },
       { label: "Certification", value: "Contact alimentaire" },
       { label: "Couleur", value: "Naturel / beige" },
     ],

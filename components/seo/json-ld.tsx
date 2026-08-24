@@ -71,9 +71,9 @@ export function catalogItemListJsonLd(families: readonly CatalogFamily[]) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Catalogue vaisselle jetable Ojetables — 12 familles",
+    name: "Nos catégories : catalogue vaisselle jetable Ojetables",
     description:
-      "Les 12 catégories du catalogue Ojetables : vaisselle jetable, verrines, bio/écolo, snack, sacs, gobelets, plateaux, nappage, hygiène, personnalisation, destockage et Garcia de Pou.",
+      "Catégories du catalogue Ojetables : vaisselle jetable, verrines, bio/écolo, snack, sacs, gobelets, plateaux, nappage, hygiène, personnalisation, destockage et Garcia de Pou.",
     numberOfItems: families.length,
     itemListElement: families.map((family, index) => ({
       "@type": "ListItem",
@@ -85,6 +85,27 @@ export function catalogItemListJsonLd(families: readonly CatalogFamily[]) {
         ? family.href
         : `${base}${family.href.startsWith("/") || family.href.startsWith("#") ? family.href : `/${family.href}`}`,
     })),
+  };
+}
+
+export function homePageJsonLd() {
+  const base = getSiteUrl();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${base}/#webpage`,
+    url: `${base}/`,
+    name: "Vaisselle jetable éco-responsable | Livraison 24/72h en France | Ojetables",
+    description: site.description,
+    inLanguage: "fr-FR",
+    isPartOf: {
+      "@id": `${base}/#website`,
+    },
+    primaryImageOfPage: {
+      "@type": "ImageObject",
+      url: `${base}/opengraph-image`,
+    },
   };
 }
 

@@ -50,7 +50,7 @@ export function PersonalizationWizard() {
         Quel produit personnalisé pour mon projet ?
       </h3>
       <p className="mt-2 text-sm text-muted-foreground">
-        3 questions — nous vous orientons vers la bonne gamme avec minimum et délai clairs.
+        3 questions - nous vous orientons vers la bonne gamme avec minimum et délai clairs.
       </p>
 
       <div className="mt-8 grid gap-8 md:grid-cols-3">

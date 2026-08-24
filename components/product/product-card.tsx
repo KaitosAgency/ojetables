@@ -17,7 +17,7 @@ export type ProductCardProps = {
   rating: number;
   /** Nombre d'avis produit certifiés. */
   reviewCount: number;
-  /** Ex. « Lot de 100 » — conditionnement Magento. */
+  /** Ex. « Lot de 100 » - conditionnement Magento. */
   packLabel?: string;
   className?: string;
 };
@@ -99,12 +99,12 @@ export function ProductCard({
           <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-brand-kraft-dark/85">
             {category}
           </p>
-          <h4 className="mt-1.5 line-clamp-2 text-[13px] font-semibold leading-snug text-brand-navy transition-colors group-hover:text-brand-teal-dim">
+          <p className="mt-1.5 line-clamp-2 text-[13px] font-semibold leading-snug text-brand-navy transition-colors group-hover:text-brand-teal-dim">
             {name}
-          </h4>
+          </p>
           <p
             className="mt-1.5 flex items-center gap-1"
-            aria-label={`${rating.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} sur 5 — ${reviewCount.toLocaleString("fr-FR")} avis`}
+            aria-label={`${rating.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} sur 5 - ${reviewCount.toLocaleString("fr-FR")} avis`}
           >
             <StarRating size="sm" value={rating} />
             <span className="text-[11px] tabular-nums text-muted-foreground">

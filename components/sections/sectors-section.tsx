@@ -10,8 +10,8 @@ export function SectorsSection() {
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeader
           label="Par métier"
-          title="Solutions par secteur"
-          description="Des entrées adaptées à votre activité — pages dédiées et exemples de références."
+          title="Solutions adaptées à votre activité"
+          description="Traiteurs, associations, restaurateurs, collectivités : découvrez les produits recommandés pour votre secteur."
         />
 
         <div className="mt-10 grid gap-6 lg:grid-cols-2">
@@ -28,7 +28,7 @@ export function SectorsSection() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{sector.description}</p>
               </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {sector.products.map((product) => (
                   <ProductCard key={product.name} {...product} />
                 ))}

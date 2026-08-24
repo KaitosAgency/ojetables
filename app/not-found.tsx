@@ -26,7 +26,7 @@ export default function NotFound() {
         </div>
         <p className="mt-8 text-sm text-muted-foreground">
           <Link href="/" className="hover:text-brand-navy">
-            Ojetables — maquette Kaitos
+            Ojetables - maquette Kaitos
           </Link>
         </p>
       </div>

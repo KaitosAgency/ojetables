@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Ban, Handshake, Scale, Sprout, type LucideIcon } from "lucide-react";
 
 import { JsonLd, catalogItemListJsonLd } from "@/components/seo/json-ld";
+import { SectionHeader } from "@/components/sections/section-header";
 import {
   interactiveCardClassNameFor,
   type InteractiveCardAccent,
@@ -77,15 +78,12 @@ export function CatalogFamiliesSection() {
       <JsonLd data={catalogItemListJsonLd(catalogFamilies)} />
 
       <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <div className="max-w-2xl">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-brand-teal">
-            {catalogSeo.label}
-          </p>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-brand-navy md:text-4xl">
-            {catalogSeo.title}
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground md:text-base">{catalogSeo.metaLine}</p>
-        </div>
+        <SectionHeader
+          label={catalogSeo.label}
+          title={catalogSeo.title}
+          description={catalogSeo.metaLine}
+          descriptionClassName="text-sm md:text-base"
+        />
 
         <ul className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4">
           {catalogFamilies.map((family) => (
@@ -112,7 +110,7 @@ export function CatalogFamiliesSection() {
               href={ecoSeo.bioCategoryHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm font-semibold text-brand-teal underline-offset-2 hover:underline"
+              className="hidden text-sm font-semibold text-brand-teal underline-offset-2 hover:underline sm:inline"
             >
               {ecoSeo.bioCategoryLabel} →
             </Link>
@@ -138,6 +136,15 @@ export function CatalogFamiliesSection() {
               );
             })}
           </ul>
+
+          <Link
+            href={ecoSeo.bioCategoryHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block text-sm font-semibold text-brand-teal underline-offset-2 hover:underline sm:hidden"
+          >
+            {ecoSeo.bioCategoryLabel} →
+          </Link>
         </div>
       </div>
     </section>

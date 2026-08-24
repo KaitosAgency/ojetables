@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight, Mail, Phone, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Sheet,
   SheetClose,
@@ -158,6 +158,16 @@ export function MobileNav({ trigger }: MobileNavProps) {
     setSheetOpen(open);
     if (!open) setOpenCategoryId(null);
   }
+
+  useEffect(() => {
+    if (sheetOpen) {
+      document.body.setAttribute("data-mobile-nav-open", "");
+    } else {
+      document.body.removeAttribute("data-mobile-nav-open");
+    }
+
+    return () => document.body.removeAttribute("data-mobile-nav-open");
+  }, [sheetOpen]);
 
   return (
     <Sheet open={sheetOpen} onOpenChange={handleSheetOpenChange}>

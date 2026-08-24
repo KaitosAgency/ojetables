@@ -13,7 +13,7 @@ export function ClientLogosBand({ compact = false }: ClientLogosBandProps) {
           <SectionHeader
             label="Preuve sociale"
             title="Ils nous font confiance"
-            description="Des références B2B visibles dès la homepage — votre meilleur argument commercial."
+            description="Des références B2B visibles dès la homepage - votre meilleur argument commercial."
             align="center"
           />
         ) : (

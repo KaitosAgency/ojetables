@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** Ombres partagées — cartes cliquables, FAQ, etc. */
+/** Ombres partagées - cartes cliquables, FAQ, etc. */
 export const interactiveCardShadowClassName =
   "shadow-[0_1px_0_rgb(61_44_38/0.04)]";
 
@@ -9,11 +9,11 @@ export const interactiveCardShadowHoverClassName =
 
 export const interactiveCardBorderClassName = "border border-border/90";
 
-/** Base cliquable partagée — product cards, catégories catalogue, etc. */
+/** Base cliquable partagée - product cards, catégories catalogue, etc. */
 export const interactiveCardBaseClassName =
   "group flex h-full flex-col overflow-hidden rounded-lg bg-white transition-all";
 
-/** Style par défaut — aligné section « Par métier » (ProductCard). */
+/** Style par défaut - aligné section « Par métier » (ProductCard). */
 export const interactiveCardClassName = cn(
   interactiveCardBaseClassName,
   interactiveCardBorderClassName,
@@ -22,7 +22,7 @@ export const interactiveCardClassName = cn(
   interactiveCardShadowHoverClassName,
 );
 
-/** Accordéon FAQ — même langage que les cartes, état ouvert renforcé. */
+/** Accordéon FAQ - même langage que les cartes, état ouvert renforcé. */
 export function faqItemClassName(isOpen: boolean): string {
   return cn(
     interactiveCardBaseClassName,

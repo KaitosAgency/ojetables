@@ -158,7 +158,7 @@ export function BatMockup({ active }: MockupProps) {
           </div>
           <div className="perso-process-bat-step perso-process-bat-step--2 flex items-center gap-2 text-[9px]">
             <span className="h-1.5 w-1.5 rounded-full bg-brand-teal" />
-            <span className="font-medium text-brand-navy">Validé — lancement fabrication</span>
+            <span className="font-medium text-brand-navy">Validé : lancement fabrication</span>
           </div>
         </div>
       </div>

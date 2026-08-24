@@ -9,7 +9,7 @@ export function BestSellersSection() {
         <SectionHeader
           label="Catalogue"
           title="Nos best-sellers"
-          description="Les références les plus commandées — en production, cette liste est alimentée automatiquement par vos produits mis en avant Magento."
+          description="Les produits préférés des traiteurs, CHR et organisateurs d'événements. Qualité éprouvée au quotidien."
         />
 
         <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">

@@ -3,9 +3,8 @@ import Link from "next/link";
 import { Heart } from "lucide-react";
 import {
   avisGarantis,
-  catalogFamilies,
-  footerCatalog,
   footerNav,
+  footerSeoLinks,
   legalLinks,
   logos,
   site,
@@ -28,6 +27,12 @@ function ExternalLink({ href, children, className, title }: ExternalLinkProps) {
   );
 }
 
+function FooterSectionTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">{children}</p>
+  );
+}
+
 type FooterNavColumnProps = {
   title: string;
   ariaLabel: string;
@@ -37,7 +42,7 @@ type FooterNavColumnProps = {
 function FooterNavColumn({ title, ariaLabel, links }: FooterNavColumnProps) {
   return (
     <nav aria-label={ariaLabel} className="min-w-0">
-      <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">{title}</p>
+      <FooterSectionTitle>{title}</FooterSectionTitle>
       <ul className="mt-4 space-y-2.5 text-sm text-slate-400">
         {links.map((link) => (
           <li key={link.href}>
@@ -54,7 +59,7 @@ function FooterNavColumn({ title, ariaLabel, links }: FooterNavColumnProps) {
 function FooterContactColumn() {
   return (
     <div className="min-w-0 lg:text-right">
-      <p className="text-xs font-bold uppercase tracking-[0.15em] text-brand-teal">Contact</p>
+      <FooterSectionTitle>Contact</FooterSectionTitle>
 
       <address className="mt-4 not-italic text-sm leading-relaxed text-slate-400">
         <span className="block">{site.address.full}</span>
@@ -116,13 +121,13 @@ export function SiteFooter() {
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-10">
           <div className="sm:col-span-2 lg:col-span-3">
             <Link href="/" className="inline-flex">
-            <Image
-              src={logos.light}
-              alt={logos.alt}
-              width={logos.width}
-              height={logos.height}
-              className="h-11 w-auto md:h-12"
-            />
+              <Image
+                src={logos.light}
+                alt={logos.alt}
+                width={logos.width}
+                height={logos.height}
+                className="h-11 w-auto md:h-12"
+              />
             </Link>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">{site.description}</p>
           </div>
@@ -147,54 +152,16 @@ export function SiteFooter() {
 
       <Separator className="bg-white/10" />
 
-      <div className="mx-auto max-w-6xl px-4 py-10 md:px-6">
-        <nav aria-label={footerCatalog.title}>
-          <h2 className="text-sm font-bold uppercase tracking-[0.15em] text-brand-teal">
-            {footerCatalog.title}
-          </h2>
-
-          <div className="mt-5 flex flex-col gap-x-10 gap-y-2.5 sm:flex-row sm:gap-x-14 md:gap-x-16">
-            {[catalogFamilies.slice(0, 6), catalogFamilies.slice(6)].map((column, columnIndex) => (
-              <ul key={columnIndex} className="min-w-0 space-y-2.5 text-sm text-slate-400">
-                {column.map((family) => {
-                  const isExternal = family.href.startsWith("http");
-                  const label = family.originalLabel ?? family.label;
-
-                  return (
-                    <li key={family.id}>
-                      {isExternal ? (
-                        <ExternalLink
-                          href={family.href}
-                          className="block transition-colors hover:text-white"
-                          title={family.description}
-                        >
-                          {label}
-                        </ExternalLink>
-                      ) : (
-                        <Link
-                          href={family.href}
-                          className="block transition-colors hover:text-white"
-                          title={family.description}
-                        >
-                          {label}
-                        </Link>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            ))}
-          </div>
-        </nav>
-      </div>
-
-      <Separator className="bg-white/10" />
-
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-4 text-xs text-slate-500 md:flex-row md:px-6">
         <p>
-          © {new Date().getFullYear()} {site.legalName} — vaisselle jetable éco-responsable · livraison 24/72h
+          © {new Date().getFullYear()} {site.legalName} - vaisselle jetable éco-responsable · livraison 24/72h
         </p>
-        <nav aria-label="Liens légaux" className="flex flex-wrap items-center justify-center gap-4">
+        <nav aria-label="Liens légaux et SEO" className="flex flex-wrap items-center justify-center gap-4">
+          {footerSeoLinks.map((link) => (
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-white">
+              {link.label}
+            </Link>
+          ))}
           {legalLinks.map((link) => (
             <ExternalLink key={link.href} href={link.href} className="transition-colors hover:text-white">
               {link.label}

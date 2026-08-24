@@ -1,8 +1,8 @@
-# Ojetables — Maquette interactive
+# Ojetables - Maquette interactive
 
 Preview Next.js de la refonte Ojetables.fr, réalisée par [Kaitos Agency](https://kaitos.agency) suite au [pré-audit Ojetables](https://kaitos.agency/p/preaudit-ojetables).
 
-> **Maquette preview — non contractuelle.** Placeholders visuels, pas de panier ni compte client fonctionnel sur la maquette.
+> **Maquette preview - non contractuelle.** Placeholders visuels, pas de panier ni compte client fonctionnel sur la maquette.
 
 ## Stack
 
@@ -15,8 +15,8 @@ Preview Next.js de la refonte Ojetables.fr, réalisée par [Kaitos Agency](https
 
 | Route | Description |
 |-------|-------------|
-| `/` | Homepage — hero pro, logos clients, secteurs, réassurance, FAQ |
-| `/produit/assiette-biodegradable-15cm` | Fiche produit exemple — galerie, prix, tabs, JSON-LD Product |
+| `/` | Homepage - hero pro, logos clients, secteurs, réassurance, FAQ |
+| `/produit/assiette-biodegradable-15cm` | Fiche produit exemple - galerie, prix, tabs, JSON-LD Product |
 
 ## Démarrage local
 

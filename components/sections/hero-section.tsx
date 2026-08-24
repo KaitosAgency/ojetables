@@ -2,9 +2,9 @@ import Image from "next/image";
 import { CreditCard, Truck } from "lucide-react";
 import { LinkButton } from "@/components/ui/link-button";
 import { Badge } from "@/components/ui/badge";
-import { StarRating } from "@/components/ui/star-rating";
 import { HeroRotatingTagline } from "@/components/sections/hero-rotating-tagline";
-import { nav, routes, site } from "@/lib/site";
+import { TrustRatingInline } from "@/components/trust/trust-rating-inline";
+import { nav, routes } from "@/lib/site";
 
 export function HeroSection() {
   return (
@@ -27,10 +27,19 @@ export function HeroSection() {
         aria-hidden
       />
 
-      <div
-        className="pointer-events-none absolute inset-0 hidden bg-[url('/heroojetables_transparent_v2.png')] bg-[length:auto_100%] bg-[position:calc(100%+50px)_bottom] bg-no-repeat md:block md:max-[1199px]:bg-[position:calc(100%+50px)_bottom] lg:bg-[position:right_bottom]"
-        aria-hidden
-      />
+      <div className="pointer-events-none absolute inset-y-0 right-0 hidden md:flex md:items-end md:justify-end">
+        <Image
+          src="/heroojetables_transparent_v2.png"
+          alt=""
+          width={1717}
+          height={916}
+          priority
+          quality={90}
+          sizes="(min-width: 1280px) 720px, (min-width: 768px) 55vw"
+          className="h-full w-auto max-w-none translate-x-[50px]"
+          aria-hidden
+        />
+      </div>
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 pb-20 pt-12 md:px-6 md:pb-28 md:pt-16 lg:pb-32 lg:pt-20">
         <div className="max-w-xl text-left md:max-w-lg md:text-left lg:max-w-xl">
@@ -47,7 +56,7 @@ export function HeroSection() {
           </h1>
 
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            Traiteurs, restaurateurs, collectivités : +3 000 références en stock, livraison 24/48h et tarifs dégressifs. Particuliers & événements : petites quantités disponibles.
+            Fournisseur français de vaisselle jetable éco-responsable. +3 000 références en stock, livraison 24/72h partout en France, tarifs dégressifs pro et petites quantités pour particuliers.
           </p>
 
           <div className="mt-8 flex w-full flex-col items-stretch gap-3 sm:flex-row md:justify-start">
@@ -59,25 +68,14 @@ export function HeroSection() {
             </LinkButton>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center justify-start gap-x-2 gap-y-2 text-sm text-muted-foreground">
-            <a
-              href={site.aggregateRating.reviewsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-brand-navy"
-              aria-label={`${site.aggregateRating.display} sur ${site.aggregateRating.count.toLocaleString("fr-FR")} avis — voir les avis ${site.aggregateRating.label}`}
-            >
-              <StarRating size="sm" />
-              <span className="underline underline-offset-2">
-                {site.aggregateRating.display} sur {site.aggregateRating.count.toLocaleString("fr-FR")} avis
-              </span>
-            </a>
+          <div className="mt-6 flex w-full flex-wrap items-center justify-center gap-x-2 gap-y-2 text-sm text-muted-foreground md:justify-start">
+            <TrustRatingInline />
             <span className="hidden text-border sm:inline" aria-hidden>
               ·
             </span>
             <span className="inline-flex items-center gap-1.5">
               <Truck className="h-3.5 w-3.5 shrink-0 text-brand-kraft" aria-hidden />
-              Livraison 24/48h
+              Livraison 24/72h
             </span>
             <span className="hidden text-border sm:inline" aria-hidden>
               ·

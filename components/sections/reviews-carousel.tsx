@@ -8,10 +8,17 @@ import { reviewsFallback } from "@/lib/site";
 
 export function ReviewsCarousel() {
   return (
-    <ContentSlider ariaLabel="Avis clients" variant="light">
+    <ContentSlider
+      ariaLabel="Avis clients"
+      variant="light"
+      trackClassName="pb-4 pt-2"
+    >
       {reviewsFallback.map((review) => (
-        <ContentSliderSlide key={review.id} className="lg:w-[calc(50%-0.5rem)]">
-          <blockquote className="flex h-full min-h-[10.5rem] flex-col rounded-2xl border border-brand-navy/8 bg-white p-5 shadow-sm md:p-6">
+        <ContentSliderSlide
+          key={review.id}
+          className="sm:w-[calc(50%-0.5rem)] lg:!w-[calc(50%-0.5rem)]"
+        >
+          <blockquote className="flex h-full min-h-[12.5rem] flex-col rounded-2xl border border-brand-navy/8 bg-white p-5 shadow-sm md:p-6">
             <div className="flex items-center gap-2">
               <StarRating size="sm" value={review.rating} />
               <span className="inline-flex items-center gap-1 text-[11px] font-medium text-brand-teal-dim">
@@ -24,9 +31,9 @@ export function ReviewsCarousel() {
               &ldquo;{review.text}&rdquo;
             </p>
 
-            <footer className="mt-5 flex items-baseline justify-between gap-3">
+            <footer className="mt-5 flex items-baseline justify-between gap-3 pb-1">
               <cite className="text-sm font-semibold not-italic text-brand-navy">{review.author}</cite>
-              <time className="shrink-0 text-xs text-muted-foreground">{review.relativeTime}</time>
+              <span className="shrink-0 text-xs text-muted-foreground">{review.relativeTime}</span>
             </footer>
           </blockquote>
         </ContentSliderSlide>

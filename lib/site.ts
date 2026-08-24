@@ -7,7 +7,7 @@ export function productPath(slug: string): string {
 }
 
 export const ojetablesLive = {
-  /** Compte client unique — pas de distinction « pro » / particulier côté inscription Magento. */
+  /** Compte client unique - pas de distinction « pro » / particulier côté inscription Magento. */
   account: "https://www.ojetables.fr/customer/account/",
   accountLogin: "https://www.ojetables.fr/customer/account/login/",
   accountRegister: "https://www.ojetables.fr/customer/account/create/",
@@ -22,7 +22,9 @@ export const routes = {
   account: ojetablesLive.account,
   quote: ojetablesLive.quote,
   mariage: ojetablesLive.mariage,
-  personalization: "#personnalisation",
+  /** Page personnalisation prod - TODO: route Next interne à l’intégration Magento. */
+  personalization: "https://www.ojetables.fr/emballage-personnalise/",
+  /** Ancre homepage - TODO: remplacer par routes catégories Next (/vaisselle-jetable, etc.). */
   catalog: "#catalogue",
   destockage: "/destockage",
 } as const;
@@ -37,12 +39,12 @@ export const site = {
   phoneHref: "tel:+33974060074",
   email: "contact@ojetables.fr",
   address: {
-    street: "ZA de Saune — 1 rue Roland Garros",
+    street: "ZA de Saune, 1 rue Roland Garros",
     city: "Sainte-Foy-d'Aigrefeuille",
     postalCode: "31570",
     region: "Occitanie",
     country: "FR",
-    full: "ZA de Saune — 1 rue Roland Garros, 31570 Sainte-Foy-d'Aigrefeuille",
+    full: "ZA de Saune, 1 rue Roland Garros, 31570 Sainte-Foy-d'Aigrefeuille",
   },
   foundedYear: 2011,
   aggregateRating: {
@@ -102,13 +104,24 @@ export const logos = {
   /** Dimensions source ojetables.fr */
   width: 280,
   height: 83,
-  alt: "Logo Ojetables — vaisselle jetable biodégradable",
+  alt: "Logo Ojetables - vaisselle jetable biodégradable",
 } as const;
 
 export const favicon = {
   path: "/favicon.png",
   width: 32,
   height: 32,
+} as const;
+
+export const tabTitleAnimation = {
+  intervalMs: 2200,
+  messages: [
+    "Revenez sur Ojetables !",
+    "+3 000 références en stock",
+    "Livraison 24/72h",
+    "9,5/10 sur 2 417 avis",
+    "Vaisselle jetable éco",
+  ],
 } as const;
 
 export const partnerLogos = {
@@ -156,7 +169,7 @@ export type ProductNavGroup = {
   items: NavLink[];
 };
 
-/** Catégorie catalogue — ligne 2 du header (structure Magento ojetables.fr) */
+/** Catégorie catalogue - ligne 2 du header (structure Magento ojetables.fr) */
 export type CatalogNavCategory = {
   id: string;
   label: string;
@@ -168,7 +181,7 @@ export type CatalogNavCategory = {
 };
 
 /**
- * Navigation catalogue niveau 1 — structure Magento ojetables.fr (9 familles).
+ * Navigation catalogue niveau 1 - structure Magento ojetables.fr (9 familles).
  * Exclus du menu : Destockage (bouton L1), Garcia de Pou (filtre marque).
  * Généré via `node scripts/parse-nav.mjs` → lib/catalog-nav-data.json
  */
@@ -217,7 +230,7 @@ function mapCatalogNavCategory(
 export const catalogNavCategories: CatalogNavCategory[] =
   catalogNavRaw.map(mapCatalogNavCategory);
 
-/** Alias mobile / megamenu legacy — agrégé depuis le catalogue */
+/** Alias mobile / megamenu legacy - agrégé depuis le catalogue */
 export const productNavGroups: ProductNavGroup[] = [
   ...catalogNavCategories.flatMap((category) =>
     category.groups
@@ -259,7 +272,7 @@ export type CatalogFamily = {
 };
 
 /**
- * Les 12 familles homepage Magento (« Nos catégories ») — visuels d'origine ojetables.fr.
+ * Les 12 familles homepage Magento (« Nos catégories ») - visuels d'origine ojetables.fr.
  */
 export const catalogFamilies: readonly CatalogFamily[] = [
   {
@@ -268,7 +281,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
     href: "https://www.ojetables.fr/vaisselle-jetable-petit-prix",
     image: "/categories/vaisselle-jetable.jpg",
     description:
-      "Assiettes, couverts en bois, bols et vaisselle à usage unique — carton, pulpe de canne ou plastique réutilisable.",
+      "Assiettes, couverts en bois, bols jetables : carton, pulpe de canne ou plastique réutilisable.",
     highlights: ["Assiettes", "Couverts bois", "Bols"],
   },
   {
@@ -286,7 +299,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
     href: "https://www.ojetables.fr/emballage-biodegradable",
     image: "/categories/bio-ecolo.jpg",
     description:
-      "Vaisselle biodégradable et compostable conforme AGEC — pulpe de canne, bagasse, bambou et palmier.",
+      "Vaisselle biodégradable et compostable conforme AGEC. Pulpe de canne, bagasse, bambou et palmier.",
     highlights: ["Compostable", "AGEC", "Pulpe"],
   },
   {
@@ -296,7 +309,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
     href: routes.personalization,
     image: "/categories/personnalisation.png",
     description:
-      "Gobelets, sacs kraft et emballages au logo — BAT sous 48h, minimum dès 1 pièce selon le support.",
+      "Gobelets, sacs kraft et emballages personnalisés avec votre logo. BAT sous 48h, dès 1 pièce selon le produit.",
     highlights: ["Logo", "BAT 48h", "Dès 1 pc"],
     accent: "teal",
   },
@@ -316,7 +329,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
     href: "https://www.ojetables.fr/sac-papier-kraft",
     image: "/categories/sac.png",
     description:
-      "Sacs kraft, sacs à pain, sandwich et viennoiserie — papier et personnalisation logo sur devis.",
+      "Sacs kraft, sacs à pain, sandwich et viennoiserie. Papier de qualité, personnalisation sur devis.",
     highlights: ["Kraft", "Pain", "Logo"],
   },
   {
@@ -326,7 +339,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
     href: routes.destockage,
     image: "/categories/destockage.png",
     description:
-      "Promotions et fins de série — vaisselle jetable et emballages à prix cassés, stocks limités.",
+      "Promotions et fins de série : vaisselle jetable et emballages à prix cassés. Stocks limités.",
     highlights: ["Promos", "Fins de série", "Stock limité"],
     accent: "kraft",
   },
@@ -336,7 +349,7 @@ export const catalogFamilies: readonly CatalogFamily[] = [
     href: "https://www.ojetables.fr/gobelet-verre-flute",
     image: "/categories/gobelet-verre.jpg",
     description:
-      "Gobelets carton, plastique réutilisable et flûtes — chaud ou froid, personnalisable dès 1 pièce.",
+      "Gobelets carton, plastique réutilisable et flûtes pour boissons chaudes ou froides. Personnalisables dès 1 pièce.",
     highlights: ["Carton", "Réutilisable", "Flûte"],
   },
   {
@@ -379,10 +392,11 @@ export const catalogFamilies: readonly CatalogFamily[] = [
 ];
 
 export const catalogSeo = {
-  label: "Catalogue",
+  label: "Toutes nos gammes",
   title: "Nos catégories",
-  /** Ligne courte sous le titre — mots-clés SEO sans alourdir la page. */
-  metaLine: "+3 000 références · livraison 24/72h",
+  /** Ligne courte sous le titre - mots-clés SEO sans alourdir la page. */
+  metaLine:
+    "Vaisselle jetable, emballages bio, snacking, destockage : explorez nos 12 familles de produits pour professionnels et particuliers.",
 } as const;
 
 export const headerActions = {
@@ -394,7 +408,8 @@ export const personalizationSteps = [
   {
     step: 1,
     title: "Choisissez le produit",
-    description: "Gobelet carton, réutilisable, sac kraft ou couvert — chaque gamme a ses règles (minimum, délai, technique).",
+    description:
+      "Gobelet, sac kraft, couvert ou autre : chaque produit a ses propres règles (minimum, délai, technique d'impression).",
   },
   {
     step: 2,
@@ -404,12 +419,12 @@ export const personalizationSteps = [
   {
     step: 3,
     title: "Envoyez votre visuel",
-    description: "Logo, texte ou visuel complet — formats vectoriels conseillés (PDF, AI, SVG).",
+    description: "Logo, texte ou visuel complet. Formats vectoriels recommandés : PDF, AI ou SVG.",
   },
   {
     step: 4,
     title: "Validez le BAT",
-    description: "Bon à tirer sous 48h, puis fabrication et livraison (standard 2–3 sem., express possible).",
+    description: "BAT sous 48h, fabrication 2–3 semaines (express disponible sur demande).",
   },
 ] as const;
 
@@ -481,28 +496,6 @@ export const personalizationWizardOptions = {
     { id: "flexible", label: "Pas de date fixe" },
   ],
 } as const;
-
-export const personalizationFaq = [
-  {
-    question: "Peut-on commander dès 1 gobelet personnalisé ?",
-    answer:
-      "Oui, uniquement sur les gobelets réutilisables en impression digitale multicouleur. Les gobelets carton démarrent à 250 pièces, la sérigraphie 1 couleur à 500 pièces.",
-  },
-  {
-    question: "Comment envoyer mon logo ?",
-    answer:
-      "Après commande ou demande de devis, vous déposez votre fichier (PDF vectoriel, AI ou SVG recommandé). Notre équipe prépare un bon à tirer (BAT) à valider avant fabrication.",
-  },
-  {
-    question: "L'option express, comment ça marche ?",
-    answer:
-      "Sur la maquette, l'express est une option à cocher sur la fiche produit — plus un produit séparé à découvrir par hasard sur le site actuel. Délai 5–8 jours selon quantité, après validation du BAT.",
-  },
-  {
-    question: "Quel délai pour un devis personnalisation ?",
-    answer: "Devis sous 24h ouvrées pour sacs, couverts et commandes volume. BAT sous 48h après réception du visuel.",
-  },
-] as const;
 
 export const destockageItems = [
   {
@@ -668,7 +661,7 @@ export type DestockageProduct = (typeof destockageItems)[number];
 export const destockagePage = {
   title: "Promotions & fins de série",
   description:
-    "Stocks limités, prix cassés sur références sélectionnées — vaisselle jetable et emballages pro à prix destockage.",
+    "Stocks limités, prix cassés sur une sélection de vaisselle jetable et emballages professionnels.",
   externalCatalogUrl: "https://www.ojetables.fr/destockage-vaisselle-jetable",
 } as const;
 
@@ -677,7 +670,7 @@ export type FooterLink = {
   href: string;
 };
 
-/** Liens footer — alignés sur ojetables.fr (maillage interne SEO). */
+/** Liens footer - alignés sur ojetables.fr (maillage interne SEO). */
 export const footerNav = {
   informations: [
     { label: "Conditions générales de vente", href: "https://www.ojetables.fr/cgu/" },
@@ -708,6 +701,11 @@ export const legalLinks = [
   { label: "CGV", href: "https://www.ojetables.fr/cgu/" },
   { label: "Livraison", href: "https://www.ojetables.fr/livraison-vaisselle-jetable/" },
   { label: "Contact", href: "https://www.ojetables.fr/contacts/" },
+] as const;
+
+export const footerSeoLinks = [
+  { label: "Sitemap", href: "/sitemap.xml" },
+  { label: "llms.txt", href: "/llms.txt" },
 ] as const;
 
 export const clientLogos = [
@@ -741,11 +739,11 @@ export const clientLogos = [
 export const pressTvFeature = {
   label: "Capital · M6",
   title: "Vu à la télévision",
-  description: "Reportage « J'achète, je jette du grand gaspillage au grand recyclage »",
+  description: "Reportage Capital : nos alternatives éco au plastique jetable pour la restauration.",
   videoId: "x88t581",
   videoUrl: "https://www.dailymotion.com/video/x88t581",
   src: "/m6.jpg",
-  alt: "Capital sur M6 — J'achète, je jette du grand gaspillage au grand recyclage",
+  alt: "Capital sur M6 - J'achète, je jette du grand gaspillage au grand recyclage",
 } as const;
 
 export const pressMedia = [
@@ -771,7 +769,7 @@ export const pressMedia = [
     name: "L'Emballage en France",
     outlet: "L'Emballage en France",
     type: "press" as const,
-    title: "Packaging — vaisselle bio et écologique sur le site Ojetables",
+    title: "Packaging - vaisselle bio et écologique sur le site Ojetables",
     href: "https://france-emballage.org/packaging-de-la-vaisselle-bio-et-ecologique-sur-le-site-ojetables/",
     src: "/logos/media/fe-01.svg",
     className: "h-8 w-auto max-w-[9rem] sm:h-9 sm:max-w-[10rem]",
@@ -781,7 +779,7 @@ export const pressMedia = [
 export const sectors = [
   {
     title: "Traiteurs & événementiel",
-    description: "Kits couverts, verrines et plateaux — solutions élégantes pour vos événements pros.",
+    description: "Solutions élégantes pour vos événements professionnels : kits couverts, verrines et plateaux.",
     cta: "Voir la gamme traiteur",
     href: "https://www.ojetables.fr/vaisselle-jetable-traiteur/",
     products: [
@@ -820,7 +818,7 @@ export const sectors = [
   },
   {
     title: "Associations & clubs",
-    description: "Kermesses, buvettes et repas partagés — tarifs accessibles, volumes adaptés.",
+    description: "Pour vos kermesses, buvettes et repas partagés : tarifs accessibles, volumes adaptés à vos besoins.",
     cta: "Voir la gamme association",
     href: "https://www.ojetables.fr/vaisselle-jetable-association/",
     highlight: true,
@@ -860,7 +858,7 @@ export const sectors = [
   },
   {
     title: "CHR & restauration",
-    description: "Gobelets, barquettes et consommables — solutions pros pour restos et food trucks.",
+    description: "Solutions pros pour restaurants et food trucks : gobelets, barquettes et consommables du quotidien.",
     cta: "Voir la gamme resto",
     href: "https://www.ojetables.fr/vaisselle-jetable-restaurant/",
     products: [
@@ -901,7 +899,7 @@ export const sectors = [
   },
   {
     title: "Collectivités & cantines",
-    description: "Plateaux repas et grands volumes — conformité AGEC garantie pour le collectif.",
+    description: "Plateaux repas et grands volumes conformes AGEC pour la restauration collective.",
     cta: "Voir la gamme collectivité",
     href: "https://www.ojetables.fr/vaisselle-jetable-collectivite/",
     products: [
@@ -942,16 +940,16 @@ export const sectors = [
 
 type SectorProduct = (typeof sectors)[number]["products"][number];
 
-/** Maquette : liste unique simulant le flux « produits mis en avant » Magento. */
+/** Produits mis en avant homepage. */
 export const bestSellers: SectorProduct[] = sectors.flatMap((sector) => [...sector.products]).slice(0, 10);
 
 export const trustPillars = [
   {
     title: "9,5/10 sur 2 417 avis",
-    description: "Réputation certifiée Avis Garantis — un argument de confiance pour vos acheteurs pro.",
+    description: "Réputation certifiée Avis Garantis - un argument de confiance pour vos acheteurs pro.",
   },
   {
-    title: "Livraison 24/48h",
+    title: "Livraison 24/72h",
     description: "Stock permanent sur +3 000 références, expédition rapide partout en France.",
   },
   {
@@ -960,7 +958,7 @@ export const trustPillars = [
   },
   {
     title: "Vu à la télé",
-    description: "Passages sur M6 et Capital — une visibilité que vos concurrents n'ont pas.",
+    description: "Passages sur M6 et Capital - une visibilité que vos concurrents n'ont pas.",
   },
 ] as const;
 
@@ -972,10 +970,10 @@ export const ecoCommitments = [
 ] as const;
 
 export const ecoSeo = {
-  label: "Engagements",
-  title: "Nos engagements éco",
+  label: "Éco-responsabilité",
+  title: "Nos engagements éco-responsables",
   bioCategoryHref: "https://www.ojetables.fr/emballage-biodegradable",
-  bioCategoryLabel: "Voir la gamme bio",
+  bioCategoryLabel: "Découvrir la gamme biodégradable",
 } as const;
 
 export type ReviewItem = {
@@ -1067,16 +1065,13 @@ export const homeFaq = [
 
 export type FaqItem = { question: string; answer: string };
 
-export const previewDisclaimer =
-  "Maquette preview — non contractuelle · Réalisée par Kaitos Agency";
-
 export const leadMagnet = {
   storageKey: "ojetables-lead-magnet-dismissed",
   scrollThreshold: 0.45,
   titleDiscount: "−10 %",
   titleRest: "sur votre prochaine commande",
   description: "Entrez votre e-mail pour recevoir votre code promo exclusif.",
-  revealedDescription: "Voici votre code — valable sur votre prochaine commande.",
+  revealedDescription: "Voici votre code - valable sur votre prochaine commande.",
   emailCta: "Recevoir mon code",
   promoLabel: "Code promo",
   promoCode: "PRO10",

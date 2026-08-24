@@ -1,21 +1,37 @@
-# Ojetables — Maquette preview Kaitos Agency
+# Ojetables - Maquette interactive (preview Kaitos Agency)
 
-> Fournisseur français de vaisselle jetable éco pour traiteurs, CHR et collectivités.
+> Fournisseur français de vaisselle jetable et emballages éco pour traiteurs, CHR et collectivités. +3 000 références en stock, livraison 24/72h, tarifs dégressifs, devis volume.
 
-## Pages disponibles (maquette)
+Maquette preview - non contractuelle. Contenus et visuels à titre de démonstration de la refonte homepage et parcours produit.
 
-- / — Homepage refonte (positionnement pro B2B)
-- /produit/assiette-biodegradable-15cm — Fiche produit exemple
+## Pages indexables (maquette)
 
-## Points clés
+- / - Homepage : hero, best-sellers, secteurs, presse TV, personnalisation, catalogue 12 familles, destockage, réassurance, avis clients certifiés, engagements éco, FAQ
+- /produit/assiette-biodegradable-15cm - Fiche produit exemple (galerie, achat, onglets, personnalisation)
+- /destockage - Promotions et fins de série
 
-- +3 000 références en stock
-- Livraison 24/48h France
-- 9,5/10 sur 2 417 avis (Avis Garantis)
-- Tarifs dégressifs et devis volume
-- Conformité loi AGEC
+## Sitemap
+
+- https://www.ojetables.fr/sitemap.xml (URL canonique si déployé sur le domaine production)
+- /sitemap.xml - sur l’URL de déploiement de la maquette
+
+## Points clés métier
+
+- Note clients : 9,5/10 sur 2 417 avis (Société des Avis Garantis)
+- Livraison 24/72h partout en France
+- Paiement à 30 jours pour les comptes professionnels
+- Conformité loi AGEC, gammes biodégradables et compostables
+- Personnalisation logo (gobelets, sacs, etc.)
+- 12 familles catalogue : vaisselle, verrines, éco, snack, sacs, gobelets, plateaux, nappes, hygiène, personnalisation, destockage, Garcia de Pou
 
 ## Contact (site production)
 
 - Site : https://www.ojetables.fr
+- Téléphone : 09 74 06 00 74
+- E-mail : contact@ojetables.fr
+- Adresse : ZA de Saune, 1 rue Roland Garros, 31570 Sainte-Foy-d'Aigrefeuille
+
+## Crédits
+
 - Maquette réalisée par : https://kaitos.agency
+- Avis certifiés : https://www.societe-des-avis-garantis.fr/ojetables-fr/

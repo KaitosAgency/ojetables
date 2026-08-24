@@ -7,7 +7,8 @@ import {
 } from "@/components/ui/content-slider";
 import { destockageItems } from "@/lib/site";
 
-const destockageSlideClassName = "lg:basis-[calc(25%-0.75rem)]";
+const destockageSlideClassName =
+  "w-[calc(50%-0.375rem)] sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)]";
 
 export function DestockageCarousel({ className }: { className?: string }) {
   return (

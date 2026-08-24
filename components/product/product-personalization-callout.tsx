@@ -22,7 +22,7 @@ export function ProductPersonalizationCallout() {
             </span>
             <span>
               <strong className="text-brand-navy">{step.title}</strong>
-              {" — "}
+              {". "}
               {step.description}
             </span>
           </li>

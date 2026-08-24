@@ -38,8 +38,8 @@ export function PersonalizationProcessSection() {
     <div ref={sectionRef}>
       <SectionHeader
         label="Personnalisation"
-        title="Votre logo, enfin un parcours clair"
-        description="Fini les messages contradictoires et les options cachées : choisissez, chiffrez, envoyez, validez."
+        title="Personnalisez vos emballages avec votre logo"
+        description="Parcours simplifié en 4 étapes : choisissez le produit, calculez votre devis, envoyez votre visuel, validez le BAT sous 48h."
       />
 
       <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">

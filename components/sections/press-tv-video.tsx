@@ -34,7 +34,7 @@ export function PressTvVideo() {
             type="button"
             onClick={() => setIsPlaying(true)}
             className="group absolute inset-0 block w-full cursor-pointer border-0 bg-transparent p-0 text-left"
-            aria-label={`Lire le reportage Capital — ${pressTvFeature.description}`}
+            aria-label={`Lire le reportage Capital : ${pressTvFeature.description}`}
           >
             <Image
               src={pressTvFeature.src}

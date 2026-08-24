@@ -1,5 +1,6 @@
 import { BandBottomArc } from "@/components/ui/band-bottom-arc";
 import { ClientLogosMarquee } from "@/components/sections/client-logos-marquee";
+import { SectionHeader } from "@/components/sections/section-header";
 
 export function StatsBand() {
   return (
@@ -14,15 +15,22 @@ export function StatsBand() {
       />
 
       <div className="relative mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-12">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,13rem)_1fr] lg:gap-12 xl:grid-cols-[minmax(0,15rem)_1fr]">
-          <div>
-            <span className="inline-flex rounded-full border border-brand-kraft/30 bg-brand-kraft/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-kraft">
-              Ils nous choisissent
-            </span>
-            <p className="mt-3 text-base leading-relaxed text-brand-beige/65">
-              Des partenaires exigeants nous font confiance au quotidien.
-            </p>
-          </div>
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-12 xl:grid-cols-[minmax(0,18rem)_1fr]">
+          <SectionHeader
+            tone="inverse"
+            badge={
+              <span className="inline-flex rounded-full border border-brand-kraft/30 bg-brand-kraft/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-kraft">
+                Grandes marques
+              </span>
+            }
+            description={
+              <>
+                <span className="whitespace-nowrap">Air France, Sodexo, Louis Vuitton&nbsp;:</span>{" "}
+                ils nous font confiance pour leurs événements.
+              </>
+            }
+            descriptionClassName="text-base leading-relaxed"
+          />
 
           <ClientLogosMarquee />
         </div>

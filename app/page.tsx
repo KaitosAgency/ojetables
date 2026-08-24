@@ -1,15 +1,23 @@
+import type { Metadata } from "next";
+
 import { BestSellersSection } from "@/components/sections/best-sellers-section";
 import { StatsBand } from "@/components/sections/stats-band";
 import { CatalogFamiliesSection } from "@/components/sections/catalog-families-section";
 import { DestockageBand } from "@/components/sections/destockage-band";
-import { FaqWithStructuredData } from "@/components/sections/faq-with-structured-data";
 import { HeroSection } from "@/components/sections/hero-section";
+import { HomeFaqSection } from "@/components/sections/home-faq-section";
 import { PersonalizationSection } from "@/components/sections/personalization-section";
 import { PressBand } from "@/components/sections/press-band";
 import { ReviewsBand } from "@/components/sections/reviews-band";
 import { SectorsSection } from "@/components/sections/sectors-section";
-import { SectionHeader } from "@/components/sections/section-header";
-import { homeFaq } from "@/lib/site";
+import { createPageMetadata } from "@/lib/page-metadata";
+import { site } from "@/lib/site";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Vaisselle jetable éco-responsable | Livraison 24/72h en France",
+  description: site.description,
+  path: "/",
+});
 
 export default function HomePage() {
   return (
@@ -23,17 +31,7 @@ export default function HomePage() {
       <PersonalizationSection />
       <CatalogFamiliesSection />
       <ReviewsBand />
-      <section className="section-padding bg-white">
-        <div className="mx-auto max-w-3xl px-4 md:px-6">
-          <SectionHeader
-            label="FAQ"
-            title="Questions fréquentes"
-            description="Réponses structurées pour Google et les assistants IA."
-            align="center"
-          />
-          <FaqWithStructuredData items={homeFaq} className="mt-10" />
-        </div>
-      </section>
+      <HomeFaqSection />
     </>
   );
 }

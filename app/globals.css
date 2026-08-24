@@ -773,7 +773,7 @@ body {
   filter: grayscale(0);
 }
 
-/* ── Personnalisation — mockups animés (inspiré kaitos.agency) ── */
+/* ── Personnalisation - mockups animés (inspiré kaitos.agency) ── */
 .perso-process-mockup.is-active {
   --perso-cycle: 8s;
 }
@@ -804,7 +804,7 @@ body {
   background-size: contain;
 }
 
-/* Étape 1 — sélection produit */
+/* Étape 1 - sélection produit */
 .perso-process-choose-option {
   border-color: rgb(231 224 214 / 0.9);
   background: white;
@@ -851,7 +851,7 @@ body {
   64%, 100% { opacity: 0; transform: translate(72%, 62%); }
 }
 
-/* Étape 2 — quantité */
+/* Étape 2 - quantité */
 .perso-process-mockup.is-active .perso-process-qty-value {
   animation: perso-qty-count var(--perso-cycle) ease infinite;
 }
@@ -887,7 +887,7 @@ body {
   100% { opacity: 0; transform: translateY(4px); }
 }
 
-/* Étape 3 — upload */
+/* Étape 3 - upload */
 .perso-process-upload-file,
 .perso-process-upload-bar {
   opacity: 0;
@@ -937,7 +937,7 @@ body {
   100% { width: 0%; }
 }
 
-/* Étape 4 — BAT */
+/* Étape 4 - BAT */
 .perso-process-bat-check {
   opacity: 0;
   transform: scale(0.92);
@@ -1027,6 +1027,12 @@ body {
 }
 
 /* Widget officiel Société des Avis Garantis */
+body[data-mobile-nav-open] .agJsWidget.agJsWidget--maquette {
+  display: none !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
 .agJsWidget.agJsWidget--maquette {
   left: 0 !important;
   bottom: 0 !important;

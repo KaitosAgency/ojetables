@@ -10,6 +10,7 @@ export const contentSliderSlideClassName =
 type ContentSliderProps = {
   children: ReactNode;
   className?: string;
+  trackClassName?: string;
   ariaLabel?: string;
   variant?: "light" | "dark" | "green" | "kraft";
   autoPlay?: boolean;
@@ -20,6 +21,7 @@ type ContentSliderProps = {
 export function ContentSlider({
   children,
   className,
+  trackClassName,
   ariaLabel = "Carrousel",
   variant = "light",
   autoPlay = false,
@@ -327,6 +329,7 @@ export function ContentSlider({
           className={cn(
             "content-slider__track relative flex gap-4 overflow-x-auto overscroll-x-contain pb-1 pt-1 touch-pan-x",
             enableDrag && "cursor-grab active:cursor-grabbing select-none",
+            trackClassName,
           )}
           aria-label={ariaLabel}
           aria-roledescription="carrousel"
