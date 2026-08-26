@@ -23,10 +23,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
         </h1>
         <p className="mt-3 text-muted-foreground">{product.description}</p>
 
-        <p
-          className="mt-4 flex items-center gap-2"
-          aria-label={`${product.rating.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} sur 5 - ${product.reviewCount.toLocaleString("fr-FR")} avis`}
-        >
+        <p className="mt-4 flex items-center gap-2">
           <StarRating size="sm" value={product.rating} />
           <span className="text-sm tabular-nums text-muted-foreground">
             {product.rating.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} ·{" "}

@@ -73,8 +73,8 @@ export function ProductCard({
 
         {personalizable ? (
           <span
-            className="pointer-events-auto absolute right-1.5 top-1.5 z-20 flex h-6 w-6 items-center justify-center rounded-md border border-brand-teal/25 bg-white text-brand-teal-dim transition-colors hover:border-brand-teal hover:bg-brand-teal hover:text-white"
-            title="Personnalisation disponible"
+            role="img"
+            className="pointer-events-none absolute right-1.5 top-1.5 z-20 flex h-6 w-6 items-center justify-center rounded-md border border-brand-teal/25 bg-white text-brand-teal-dim"
             aria-label="Personnalisation disponible"
           >
             <Palette className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
@@ -124,14 +124,7 @@ export function ProductCard({
             <TitleTag className="mt-1.5 line-clamp-2 text-[13px] font-semibold leading-snug text-brand-navy transition-colors group-hover:text-brand-teal-dim">
               {name}
             </TitleTag>
-            <p
-              className="mt-1.5 flex items-center gap-1"
-              aria-label={
-                reviewCount > 0
-                  ? `${rating.toLocaleString("fr-FR", { maximumFractionDigits: 1 })} sur 5 - ${reviewCount.toLocaleString("fr-FR")} avis`
-                  : undefined
-              }
-            >
+            <p className="mt-1.5 flex items-center gap-1">
               {reviewCount > 0 ? (
                 <>
                   <StarRating size="sm" value={rating} />

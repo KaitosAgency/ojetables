@@ -15,8 +15,12 @@ const geistBoldUrl =
 const geistRegularUrl =
   "https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@5.2.5/latin-400-normal.woff";
 
-const ogLogoWidth = 220;
+const ogLogoWidth = 360;
 const ogLogoHeight = Math.round((ogLogoWidth * logos.height) / logos.width);
+const heroNaturalWidth = 1717;
+const heroNaturalHeight = 916;
+const ogHeroHeight = size.height;
+const ogHeroWidth = Math.round((ogHeroHeight * heroNaturalWidth) / heroNaturalHeight);
 
 function formatOgReviewCount(count: number): string {
   return count.toLocaleString("fr-FR").replace(/[\u202f\u00a0]/g, " ");
@@ -50,14 +54,16 @@ export default async function OpenGraphImage() {
         <img
           src={heroSrc}
           alt=""
-          width={1460}
-          height={780}
+          width={ogHeroWidth}
+          height={ogHeroHeight}
           style={{
             position: "absolute",
-            bottom: 0,
+            top: 0,
             right: 0,
+            height: ogHeroHeight,
+            width: ogHeroWidth,
             objectFit: "contain",
-            objectPosition: "100% 100%",
+            objectPosition: "100% 50%",
           }}
         />
 
@@ -94,25 +100,7 @@ export default async function OpenGraphImage() {
             padding: "48px 56px",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-            <img src={logoSrc} alt="" width={ogLogoWidth} height={ogLogoHeight} />
-            <div
-              style={{
-                display: "flex",
-                alignSelf: "flex-start",
-                borderRadius: 999,
-                border: "1px solid rgba(209, 125, 60, 0.35)",
-                background: "rgba(255, 255, 255, 0.82)",
-                padding: "10px 18px",
-                color: "#3d2c26",
-                fontSize: 17,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-              }}
-            >
-              Vaisselle jetable pro & éco
-            </div>
-          </div>
+          <img src={logoSrc} alt="" width={ogLogoWidth} height={ogLogoHeight} />
 
           <div style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 680 }}>
             <div
@@ -142,13 +130,31 @@ export default async function OpenGraphImage() {
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
               alignItems: "flex-end",
               borderTop: "1px solid rgba(61, 44, 38, 0.12)",
               paddingTop: 22,
             }}
           >
-            <div style={{ display: "flex", fontSize: 28, fontWeight: 700, color: "#3d2c26" }}>{site.phone}</div>
+            <div
+              style={{
+                display: "flex",
+                borderRadius: 999,
+                border: "1px solid rgba(209, 125, 60, 0.35)",
+                background: "rgba(255, 255, 255, 0.82)",
+                padding: "10px 18px",
+                color: "#3d2c26",
+                fontSize: 17,
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+              }}
+            >
+              Vaisselle jetable pro & éco
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
+              <div style={{ display: "flex", fontSize: 22, color: "#7a6e66" }}>{site.email}</div>
+              <div style={{ display: "flex", fontSize: 28, fontWeight: 700, color: "#3d2c26" }}>{site.phone}</div>
+            </div>
           </div>
         </div>
       </div>

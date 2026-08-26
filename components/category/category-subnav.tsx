@@ -13,7 +13,7 @@ export function CategorySubnav({ category, variant = "default" }: CategorySubnav
 
   return (
     <section
-      aria-label="Sous-familles de la catégorie"
+      aria-labelledby="category-subnav-heading"
       className={cn(
         "border-t border-border/60 bg-white",
         isCompact ? "py-8 md:py-10" : "section-padding !py-10 md:!py-14",
@@ -25,7 +25,10 @@ export function CategorySubnav({ category, variant = "default" }: CategorySubnav
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-teal">
               Parcourir la gamme
             </p>
-            <h2 className="mt-2 text-xl font-bold tracking-tight text-brand-navy md:text-2xl">
+            <h2
+              id="category-subnav-heading"
+              className="mt-2 text-xl font-bold tracking-tight text-brand-navy md:text-2xl"
+            >
               Gammes associées
             </h2>
           </div>
@@ -33,6 +36,7 @@ export function CategorySubnav({ category, variant = "default" }: CategorySubnav
           <SectionHeader
             label="Parcourir la gamme"
             title="Gammes associées"
+            titleId="category-subnav-heading"
             description="Assiettes, couverts, bols, barquettes et emballages : explorez les sous-familles de notre catalogue vaisselle jetable."
             descriptionClassName="text-sm md:text-base"
           />

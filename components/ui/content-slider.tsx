@@ -347,6 +347,7 @@ export function ContentSlider({
 
         <div
           ref={trackRef}
+          role="region"
           className={cn(
             "content-slider__track relative flex gap-4 overflow-x-auto overscroll-x-contain pb-1 pt-1 touch-pan-x",
             enableDrag && "cursor-grab active:cursor-grabbing select-none",

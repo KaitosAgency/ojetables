@@ -48,7 +48,6 @@ export function CategoryDestockageFilter({
             ? "bg-brand-kraft/25 text-brand-kraft-dark"
             : "bg-brand-navy/8 text-brand-navy",
         )}
-        aria-label={`${promoCount} promotions`}
       >
         {promoCount}
       </span>
