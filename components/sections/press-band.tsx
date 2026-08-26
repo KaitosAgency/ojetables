@@ -1,19 +1,22 @@
 import Image from "next/image";
 import { pressMedia, pressTvFeature } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { JsonLd, pressVideoJsonLd } from "@/components/seo/json-ld";
 import { PressTvVideo } from "./press-tv-video";
 import { SectionHeader } from "./section-header";
 
 export function PressBand() {
   return (
     <section
-      aria-labelledby="press-band-title"
+      aria-labelledby="press-band-heading"
       className="border-y border-border/60 bg-white py-10 md:py-14"
     >
+      <JsonLd data={pressVideoJsonLd()} />
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <SectionHeader
           label={pressTvFeature.label}
           title={pressTvFeature.title}
+          titleId="press-band-heading"
           description={pressTvFeature.description}
           align="center"
           titleClassName="text-2xl md:text-3xl"
@@ -22,10 +25,7 @@ export function PressBand() {
         <PressTvVideo />
 
         <div className="mt-12 border-t border-border/50 pt-8 md:mt-14 md:pt-10">
-          <p
-            id="press-band-title"
-            className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground"
-          >
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             Eux aussi ils parlent de nous
           </p>
 

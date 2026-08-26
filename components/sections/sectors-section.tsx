@@ -1,4 +1,5 @@
 import { ProductCard } from "@/components/product/product-card";
+import { ProductCardList, ProductCardListItem } from "@/components/product/product-card-list";
 import { LinkButton } from "@/components/ui/link-button";
 import { sectors } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -28,11 +29,16 @@ export function SectorsSection() {
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{sector.description}</p>
               </div>
 
-              <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <ProductCardList
+                ariaLabel={`Produits recommandés ${sector.title}`}
+                className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3"
+              >
                 {sector.products.map((product) => (
-                  <ProductCard key={product.name} {...product} />
+                  <ProductCardListItem key={product.name}>
+                    <ProductCard {...product} titleAs="h4" />
+                  </ProductCardListItem>
                 ))}
-              </div>
+              </ProductCardList>
 
               <div className="mt-5 border-t border-border/70 pt-5">
                 <LinkButton href={sector.href} variant="link" className="h-auto p-0 text-brand-teal">

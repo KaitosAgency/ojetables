@@ -1,4 +1,5 @@
 import catalogNavRaw from "./catalog-nav-data.json";
+import { decodeHtmlEntities } from "@/lib/decode-html";
 
 export const featuredProductSlug = "gobelet-carton-24cl-kraft-individuel";
 export const featuredCategorySlug = "vaisselle-jetable";
@@ -29,7 +30,9 @@ export const routes = {
   /** Page catégorie maquette — toutes les familles catalogue y convergent. */
   category: featuredCategoryPath,
   /** Ancre homepage sections catalogue. */
-  catalog: "#catalogue",
+  catalog: "/#catalogue",
+  /** Panier Magento prod — maquette sans checkout interne. */
+  cart: "https://www.ojetables.fr/checkout/cart/",
   destockage: "/destockage",
 } as const;
 
@@ -150,8 +153,8 @@ export const nav = {
   main: [
     { label: "Catalogue", href: routes.catalog },
     { label: "Mon devis", href: routes.quote },
-    { label: "Éco & Engagements", href: "#eco" },
-    { label: "Contact", href: "#contact" },
+    { label: "Éco & Engagements", href: "/#eco" },
+    { label: "Contact", href: "/#contact" },
   ],
   /** Boutons dédiés niveau 1 (après Produits) */
   highlights: [
@@ -159,7 +162,7 @@ export const nav = {
     { label: "Destockage", href: routes.destockage, accent: "destock" },
   ] satisfies NavHighlight[],
   productsLabel: "Produits",
-  productsHref: "#produits",
+  productsHref: "/#produits",
 } as const;
 
 /** Catégories catalogue avec badge promo (ligne 2 header) */
@@ -217,7 +220,7 @@ type RawNavLink = {
 
 function mapCatalogNavLink(item: RawNavLink): NavLink {
   return {
-    label: item.label,
+    label: decodeHtmlEntities(item.label),
     href: maquetteCatalogHref(item.href),
     children: item.children?.length ? item.children.map(mapCatalogNavLink) : undefined,
   };
@@ -233,10 +236,10 @@ function mapCatalogNavCategory(
 
   return {
     id: raw.id,
-    label: raw.label,
+    label: decodeHtmlEntities(raw.label),
     href: maquetteCatalogHref(raw.href),
     groups: raw.groups?.map((group) => ({
-      title: group.title,
+      title: decodeHtmlEntities(group.title),
       items: group.items.map(mapCatalogNavLink),
     })),
     items: raw.items?.map(mapCatalogNavLink),
@@ -720,6 +723,9 @@ export const legalLinks = [
 ] as const;
 
 export const footerSeoLinks = [
+  { label: "Vaisselle jetable", href: featuredCategoryPath },
+  { label: "Destockage", href: routes.destockage },
+  { label: "Fiche produit", href: routes.product },
   { label: "Sitemap", href: "/sitemap.xml" },
   { label: "llms.txt", href: "/llms.txt" },
 ] as const;
@@ -758,8 +764,17 @@ export const pressTvFeature = {
   description: "Reportage Capital : nos alternatives éco au plastique jetable pour la restauration.",
   videoId: "x88t581",
   videoUrl: "https://www.dailymotion.com/video/x88t581",
+  uploadDate: "2019-11-10",
+  duration: "PT2M30S",
   src: "/m6.jpg",
   alt: "Capital sur M6 - J'achète, je jette du grand gaspillage au grand recyclage",
+} as const;
+
+/** Politique retour produits standard (schema MerchantReturnPolicy / Google Merchant). */
+export const merchantReturnPolicy = {
+  url: "https://www.ojetables.fr/cgu/",
+  returnDays: 14,
+  applicableCountry: "FR",
 } as const;
 
 export const pressMedia = [

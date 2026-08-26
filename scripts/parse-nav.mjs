@@ -7,6 +7,9 @@ if (!match) process.exit(1);
 function decode(text) {
   return text
     .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
     .replace(/&eacute;/g, "é")
     .replace(/&Eacute;/g, "É")
     .replace(/&egrave;/g, "è")
@@ -16,6 +19,8 @@ function decode(text) {
     .replace(/&iuml;/g, "ï")
     .replace(/&nbsp;/g, " ")
     .replace(/&rsquo;/g, "'")
+    .replace(/&ldquo;/g, '"')
+    .replace(/&rdquo;/g, '"')
     .replace(/&#039;/g, "'")
     .replace(/<[^>]+>/g, "")
     .replace(/\s+/g, " ")

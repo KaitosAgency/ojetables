@@ -456,6 +456,100 @@ body {
   }
 }
 
+/* Pagination catalogue — mobile : 2 lignes, pas de chevauchement */
+
+/* Hero catégorie : fond mesh */
+.category-hero-mesh {
+  background:
+    radial-gradient(ellipse 85% 65% at 0% 25%, rgb(61 44 38 / 0.07), transparent 58%),
+    radial-gradient(ellipse 65% 50% at 100% 0%, rgb(209 125 60 / 0.14), transparent 52%),
+    radial-gradient(ellipse 55% 45% at 85% 100%, rgb(74 188 57 / 0.08), transparent 55%),
+    linear-gradient(165deg, #faf8f5 0%, #f5f0e8 48%, #efe8de 100%);
+}
+
+/* Photo catégorie : tiers droit, fusion multiply + masque latéral */
+.category-hero-image-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 33.333%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.category-hero-image-overlay__photo {
+  object-fit: cover;
+  object-position: center;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  filter: saturate(1.08) contrast(1.04);
+
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(0 0 0 / 0.45) 10%,
+    black 28%,
+    black 72%,
+    rgb(0 0 0 / 0.55) 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(0 0 0 / 0.45) 10%,
+    black 28%,
+    black 72%,
+    rgb(0 0 0 / 0.55) 90%,
+    transparent 100%
+  );
+}
+
+@media (max-width: 767px) {
+  .category-hero-image-overlay {
+    width: 42%;
+  }
+
+  .category-hero-image-overlay__photo {
+    opacity: 0.65;
+    object-position: 60% center;
+
+    /* Mobile : fondu gauche très progressif, bord droit net (pas de masque). */
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(0 0 0 / 0.04) 6%,
+      rgb(0 0 0 / 0.1) 12%,
+      rgb(0 0 0 / 0.18) 18%,
+      rgb(0 0 0 / 0.28) 24%,
+      rgb(0 0 0 / 0.38) 30%,
+      rgb(0 0 0 / 0.48) 36%,
+      rgb(0 0 0 / 0.58) 42%,
+      rgb(0 0 0 / 0.68) 48%,
+      rgb(0 0 0 / 0.78) 54%,
+      rgb(0 0 0 / 0.88) 60%,
+      black 66%,
+      black 100%
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(0 0 0 / 0.04) 6%,
+      rgb(0 0 0 / 0.1) 12%,
+      rgb(0 0 0 / 0.18) 18%,
+      rgb(0 0 0 / 0.28) 24%,
+      rgb(0 0 0 / 0.38) 30%,
+      rgb(0 0 0 / 0.48) 36%,
+      rgb(0 0 0 / 0.58) 42%,
+      rgb(0 0 0 / 0.68) 48%,
+      rgb(0 0 0 / 0.78) 54%,
+      rgb(0 0 0 / 0.88) 60%,
+      black 66%,
+      black 100%
+    );
+  }
+}
+
 /* Hero catégorie : fond beige remonté sous les crans du header */
 .category-hero-under-crans {
   --category-hero-cran-pull: calc(var(--header-crans-height, 10px) + 12px);
@@ -547,6 +641,76 @@ body {
   letter-spacing: 0.04em;
   color: #fff;
   pointer-events: none;
+}
+
+.product-card__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  isolation: isolate;
+  background: #fff;
+}
+
+.product-card__image-link {
+  display: block;
+}
+
+.product-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Footer prix + quick add : track overflow (width) + clip prix depuis la droite. */
+.product-card-price-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 1.75rem;
+  width: 100%;
+}
+
+.product-card-price-mask {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  min-height: 1.75rem;
+  padding-right: 0.25rem;
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 220ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.product-card-price-row:has(.product-card-cart-expand-track:hover) .product-card-price-mask,
+.product-card-price-row:has(.product-card-cart-expand-track:focus-within) .product-card-price-mask {
+  clip-path: inset(0 100% 0 0);
+}
+
+.product-card-cart-expand-track {
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 10;
+  height: 1.75rem;
+  width: 1.75rem;
+  overflow: hidden;
+  border-radius: 7px;
+  transition: width 300ms cubic-bezier(0.33, 1, 0.68, 1);
+  will-change: width;
+}
+
+.product-card-cart-expand-track:hover,
+.product-card-cart-expand-track:focus-within {
+  width: 100%;
+}
+
+.product-card-cart-expand-btn {
+  display: flex;
+  height: 1.75rem;
+  width: 100%;
+  min-width: 1.75rem;
+  border-radius: 7px;
 }
 
 .content-slider__track {
@@ -1095,5 +1259,56 @@ body[data-mobile-nav-open] .agJsWidget.agJsWidget--maquette {
   .agJsWidget.agJsWidget--maquette #sag_b_cocarde {
     transition: none;
   }
+}
+
+/* Filtre prix catalogue : double curseur natif */
+.category-price-range-input {
+  pointer-events: none;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+}
+
+.category-price-range-input--min {
+  z-index: 2;
+}
+
+.category-price-range-input--max {
+  z-index: 3;
+}
+
+.category-price-range-input::-webkit-slider-runnable-track {
+  height: 0.375rem;
+  background: transparent;
+}
+
+.category-price-range-input::-webkit-slider-thumb {
+  pointer-events: auto;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -0.3125rem;
+  height: 1rem;
+  width: 1rem;
+  border: 2px solid white;
+  border-radius: 9999px;
+  background: var(--color-brand-teal);
+  box-shadow: 0 1px 3px rgb(61 44 38 / 0.2);
+  cursor: pointer;
+}
+
+.category-price-range-input::-moz-range-track {
+  height: 0.375rem;
+  background: transparent;
+}
+
+.category-price-range-input::-moz-range-thumb {
+  pointer-events: auto;
+  height: 1rem;
+  width: 1rem;
+  border: 2px solid white;
+  border-radius: 9999px;
+  background: var(--color-brand-teal);
+  box-shadow: 0 1px 3px rgb(61 44 38 / 0.2);
+  cursor: pointer;
 }
 

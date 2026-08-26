@@ -9,6 +9,19 @@ export const interactiveCardShadowHoverClassName =
 
 export const interactiveCardBorderClassName = "border border-border/90";
 
+/** Ombre repos + hover (aligné ProductCard). */
+export const interactiveCardElevationClassName = cn(
+  interactiveCardShadowClassName,
+  interactiveCardShadowHoverClassName,
+);
+
+/** Bordure + ombre + hover bordure — cartes cliquables hors layout flex. */
+export const interactiveCardSurfaceClassName = cn(
+  interactiveCardBorderClassName,
+  interactiveCardElevationClassName,
+  "transition-all hover:border-brand-kraft/30",
+);
+
 /** Base cliquable partagée - product cards, catégories catalogue, etc. */
 export const interactiveCardBaseClassName =
   "group flex h-full flex-col overflow-hidden rounded-lg bg-white transition-all";

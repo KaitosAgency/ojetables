@@ -1,4 +1,5 @@
 import { ProductCard } from "@/components/product/product-card";
+import { ProductCardList, ProductCardListItem } from "@/components/product/product-card-list";
 import { bestSellers } from "@/lib/site";
 import { SectionHeader } from "./section-header";
 
@@ -12,11 +13,16 @@ export function BestSellersSection() {
           description="Les produits préférés des traiteurs, CHR et organisateurs d'événements. Qualité éprouvée au quotidien."
         />
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5">
+        <ProductCardList
+          ariaLabel="Best-sellers Ojetables"
+          className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-5"
+        >
           {bestSellers.map((product) => (
-            <ProductCard key={product.name} {...product} />
+            <ProductCardListItem key={product.name}>
+              <ProductCard {...product} />
+            </ProductCardListItem>
           ))}
-        </div>
+        </ProductCardList>
       </div>
     </section>
   );

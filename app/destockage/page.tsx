@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { ProductCard } from "@/components/product/product-card";
+import { ProductCardList, ProductCardListItem } from "@/components/product/product-card-list";
 import { SectionHeader } from "@/components/sections/section-header";
 import { LinkButton } from "@/components/ui/link-button";
 import { createPageMetadata } from "@/lib/page-metadata";
@@ -20,6 +21,7 @@ export default function DestockagePage() {
           <SectionHeader
             label="Destockage"
             title={destockagePage.title}
+            titleAs="h1"
             description={destockagePage.description}
           />
           <div className="mt-8 flex flex-wrap gap-3">
@@ -41,11 +43,16 @@ export default function DestockagePage() {
           <p className="text-sm font-semibold text-brand-navy">
             {destockageItems.length} offres en preview maquette
           </p>
-          <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+          <ProductCardList
+            ariaLabel="Produits destockage"
+            className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
+          >
             {destockageItems.map((product) => (
-              <ProductCard key={product.name} {...product} />
+              <ProductCardListItem key={product.name}>
+                <ProductCard {...product} showQuickActions={false} />
+              </ProductCardListItem>
             ))}
-          </div>
+          </ProductCardList>
         </div>
       </section>
     </div>

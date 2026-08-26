@@ -70,7 +70,6 @@ function CatalogNavGroupItems({
             <div className="py-1">
               <Link
                 href={item.href}
-                role="menuitem"
                 title={item.label}
                 onClick={onClose}
                 className={groupParentClass}
@@ -82,7 +81,6 @@ function CatalogNavGroupItems({
                   <li key={child.label}>
                     <Link
                       href={child.href}
-                      role="menuitem"
                       title={child.label}
                       onClick={onClose}
                       className={nestedChildClass}
@@ -96,7 +94,6 @@ function CatalogNavGroupItems({
           ) : (
             <Link
               href={item.href}
-              role="menuitem"
               title={item.label}
               onClick={onClose}
               className={flatLinkClass}
@@ -134,26 +131,34 @@ export function CatalogNavTrigger({
   }
 
   return (
-    <button
-      type="button"
-      onClick={() => onOpenChange(!open)}
-      aria-expanded={open}
-      aria-haspopup="true"
-      className={cn(
-        "inline-flex shrink-0 cursor-pointer items-center gap-1 border-0 bg-transparent px-0 py-0",
-        linkClass,
-        open ? "text-brand-teal" : "text-muted-foreground hover:text-brand-navy",
-      )}
-    >
-      <span className="relative inline-block">
-        {showHotBadge ? <CatalogNavHotBadge /> : null}
-        {category.label}
-      </span>
-      <ChevronDown
-        className={cn("h-3.5 w-3.5 transition-transform duration-200", open && "rotate-180")}
-        aria-hidden
-      />
-    </button>
+    <span className="inline-flex min-w-0 shrink items-center gap-0.5">
+      <Link
+        href={category.href}
+        className={cn(linkClass, open ? "text-brand-teal" : "text-muted-foreground hover:text-brand-navy")}
+      >
+        <span className="relative inline-block">
+          {showHotBadge ? <CatalogNavHotBadge /> : null}
+          {category.label}
+        </span>
+      </Link>
+      <button
+        type="button"
+        onClick={() => onOpenChange(!open)}
+        aria-expanded={open}
+        aria-haspopup="true"
+        aria-label={`Afficher les sous-catégories ${category.label}`}
+        className={cn(
+          "inline-flex shrink-0 cursor-pointer items-center justify-center rounded-sm border-0 bg-transparent p-0.5",
+          linkClass,
+          open ? "text-brand-teal" : "text-muted-foreground hover:text-brand-navy",
+        )}
+      >
+        <ChevronDown
+          className={cn("h-3.5 w-3.5 transition-transform duration-200", open && "rotate-180")}
+          aria-hidden
+        />
+      </button>
+    </span>
   );
 }
 
@@ -274,10 +279,7 @@ export function CatalogNavPanel({
   const groups = getCategoryGroups(category);
 
   return (
-    <div
-      className="absolute inset-x-0 top-full z-50 bg-white shadow-lg shadow-black/[0.04]"
-      role="menu"
-    >
+    <div className="absolute inset-x-0 top-full z-50 bg-white shadow-lg shadow-black/[0.04]">
       <div className="mx-auto max-w-6xl px-4 py-3.5 md:px-6">
         <CatalogNavPanelBody key={category.id} category={category} groups={groups} onClose={onClose} />
       </div>
@@ -297,17 +299,15 @@ export function CatalogNavRow({
 
   return (
     <>
-      <nav
-        className="flex w-full items-center justify-between"
-        aria-label="Catalogue produits"
-      >
+      <nav className="flex w-full items-center justify-between" aria-label="Catalogue produits">
+        <ul className="flex w-full list-none items-center justify-between gap-1 p-0">
         {catalogNavCategories.map((category) => {
           const hasPanel = categoryHasPanel(category);
           const isOpen = activeCategoryId === category.id;
           const showHotBadge = hotCategoryIds.has(category.id);
 
           return (
-            <div
+            <li
               key={category.id}
               className="inline-flex min-w-0 shrink"
               onMouseEnter={() => {
@@ -323,9 +323,10 @@ export function CatalogNavRow({
                 showHotBadge={showHotBadge}
                 onOpenChange={(next) => onActiveCategoryChange(next ? category.id : null)}
               />
-            </div>
+            </li>
           );
         })}
+        </ul>
       </nav>
       <CatalogNavPanel
         category={activeCategory}

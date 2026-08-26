@@ -11,9 +11,9 @@ import { ProductProBanner } from "@/components/product/product-pro-banner";
 import { ProductPurchasePanel } from "@/components/product/product-purchase-panel";
 import { ProductTabs } from "@/components/product/product-tabs";
 import { JsonLd, productPageJsonLd } from "@/components/seo/json-ld";
-import { createPageMetadata } from "@/lib/page-metadata";
+import { createProductPageMetadata } from "@/lib/page-metadata";
 import { getProduct } from "@/lib/products";
-import { productPath } from "@/lib/site";
+import { getSiteUrl, productPath } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -28,10 +28,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const product = getProduct(slug);
   if (!product) return {};
 
-  return createPageMetadata({
+  const primaryImage = product.images[0];
+  const siteUrl = getSiteUrl();
+
+  return createProductPageMetadata({
     title: product.metaTitle,
     description: product.metaDescription,
     path: productPath(slug),
+    openGraphImages: primaryImage
+      ? [
+          {
+            url: primaryImage.src.startsWith("http")
+              ? primaryImage.src
+              : `${siteUrl}${primaryImage.src}`,
+            alt: primaryImage.alt,
+          },
+        ]
+      : undefined,
   });
 }
 

@@ -11,6 +11,8 @@ type SectionHeaderProps = {
   descriptionClassName?: string;
   badge?: ReactNode;
   tone?: "default" | "inverse";
+  titleAs?: "h1" | "h2";
+  titleId?: string;
 };
 
 export function SectionHeader({
@@ -22,8 +24,11 @@ export function SectionHeader({
   descriptionClassName,
   badge,
   tone = "default",
+  titleAs = "h2",
+  titleId,
 }: SectionHeaderProps) {
   const isInverse = tone === "inverse";
+  const TitleTag = titleAs;
 
   return (
     <div className={cn(align === "center" && "text-center")}>
@@ -40,7 +45,8 @@ export function SectionHeader({
         </p>
       ) : null}
       {title ? (
-        <h2
+        <TitleTag
+          id={titleId}
           className={cn(
             "mt-3 font-bold tracking-tight",
             isInverse ? "text-brand-beige" : "text-brand-navy",
@@ -49,7 +55,7 @@ export function SectionHeader({
           )}
         >
           {title}
-        </h2>
+        </TitleTag>
       ) : null}
       {description ? (
         <p

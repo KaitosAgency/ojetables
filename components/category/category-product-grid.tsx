@@ -1,51 +1,50 @@
 import { ProductCard } from "@/components/product/product-card";
-import { SectionHeader } from "@/components/sections/section-header";
+import { ProductCardList, ProductCardListItem } from "@/components/product/product-card-list";
 import { LinkButton } from "@/components/ui/link-button";
 import type { Category } from "@/lib/categories";
 import { routes } from "@/lib/site";
 
 type CategoryProductGridProps = {
   category: Category;
+  embedded?: boolean;
 };
 
-export function CategoryProductGrid({ category }: CategoryProductGridProps) {
-  const pageProductCount = category.products.length;
-
+export function CategoryProductGrid({ category, embedded = false }: CategoryProductGridProps) {
   return (
-    <section id="produits" className="section-padding scroll-mt-36 bg-white">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
-        <SectionHeader
-          label="Produits"
-          title={`Notre sélection ${category.label.toLowerCase()}`}
-          description={`${pageProductCount} produits sur cette page · +${category.catalogProductCount.toLocaleString("fr-FR")} références au catalogue. Stock permanent, livraison 24/72h et tarifs dégressifs pour les professionnels.`}
-        />
+    <div>
+      <ProductCardList
+        ariaLabel={`Produits ${category.label}`}
+        className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4"
+      >
+        {category.products.map((product) => (
+          <ProductCardListItem key={product.href}>
+            <ProductCard {...product} showQuickActions />
+          </ProductCardListItem>
+        ))}
+      </ProductCardList>
 
-        <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
-          {category.products.map((product) => (
-            <ProductCard key={product.name} {...product} />
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-6 sm:flex-row sm:items-center">
-          <p className="text-sm text-muted-foreground">
-            Page 1 · {pageProductCount} produits affichés
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <LinkButton href={routes.quote} variant="brand" size="ctaSm">
-              Demander un devis volume
-            </LinkButton>
-            <LinkButton
-              href={routes.personalization}
-              variant="brandOutline"
-              size="ctaSm"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Personnalisation logo
-            </LinkButton>
-          </div>
-        </div>
+      <div
+        className={`flex flex-col gap-3 sm:flex-row sm:flex-wrap ${embedded ? "mt-6" : "mt-8 border-t border-border/60 pt-6"}`}
+      >
+        <LinkButton
+          href={routes.quote}
+          variant="brand"
+          size="ctaSm"
+          className="w-full justify-center sm:w-auto"
+        >
+          Demander un devis volume
+        </LinkButton>
+        <LinkButton
+          href={routes.personalization}
+          variant="brandOutline"
+          size="ctaSm"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full justify-center sm:w-auto"
+        >
+          Personnalisation logo
+        </LinkButton>
       </div>
-    </section>
+    </div>
   );
 }

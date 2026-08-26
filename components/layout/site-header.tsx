@@ -10,6 +10,7 @@ import { MobileNav } from "@/components/layout/mobile-nav";
 import { NavHighlightLink } from "@/components/layout/nav-highlight-link";
 import { Button } from "@/components/ui/button";
 import { headerActions, logos, nav, routes, site, topBar } from "@/lib/site";
+import { useMaquetteShop } from "@/lib/maquette-shop-context";
 
 function HeaderTopBar() {
   return (
@@ -82,6 +83,16 @@ function HeaderIconLink({
   );
 }
 
+function HeaderCartLink() {
+  const { cartCount } = useMaquetteShop();
+
+  return (
+    <HeaderIconLink href={routes.cart} label="Panier" badge={cartCount}>
+      <ShoppingCart className="h-5 w-5" strokeWidth={1.75} />
+    </HeaderIconLink>
+  );
+}
+
 export function SiteHeader() {
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
@@ -140,9 +151,7 @@ export function SiteHeader() {
               <HeaderIconLink href={routes.account} label="Mon compte">
                 <UserRound className="h-5 w-5" strokeWidth={1.75} />
               </HeaderIconLink>
-              <HeaderIconLink href="#" label="Panier" badge={headerActions.cartCount}>
-                <ShoppingCart className="h-5 w-5" strokeWidth={1.75} />
-              </HeaderIconLink>
+              <HeaderCartLink />
               <MobileNav
                 trigger={
                   <Button variant="outline" size="icon" className="size-8 lg:hidden" aria-label="Ouvrir le menu">

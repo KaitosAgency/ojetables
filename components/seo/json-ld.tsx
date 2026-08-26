@@ -1,6 +1,20 @@
 import type { Category } from "@/lib/categories";
 import { parseFrenchPrice, productCardAbsoluteUrl } from "@/lib/category-price";
-import { site, getSiteUrl, type CatalogFamily, type FaqItem } from "@/lib/site";
+import { getCategoryAggregateOffer } from "@/lib/category-price-filter";
+import { computeCategoryReviewAggregate } from "@/lib/category-reviews";
+import {
+  catalogNavCategories,
+  getSiteUrl,
+  merchantReturnPolicy,
+  nav,
+  pressTvFeature,
+  routes,
+  site,
+  type CatalogFamily,
+  type CatalogNavCategory,
+  type FaqItem,
+  type NavLink,
+} from "@/lib/site";
 import type { Product } from "@/lib/products";
 
 type JsonLdProps = {
@@ -64,6 +78,138 @@ export function websiteJsonLd() {
       "@id": `${getSiteUrl()}/#organization`,
     },
     inLanguage: "fr-FR",
+  };
+}
+
+function absoluteNavUrl(href: string, base: string): string {
+  if (href.startsWith("http://") || href.startsWith("https://")) {
+    return href;
+  }
+  if (href.startsWith("/#")) {
+    return `${base}${href}`;
+  }
+  if (href.startsWith("#")) {
+    return `${base}/${href}`;
+  }
+  if (href.startsWith("/")) {
+    return `${base}${href}`;
+  }
+  return `${base}/${href}`;
+}
+
+function navLinkSiteNavigationElement(item: NavLink, base: string): Record<string, unknown> {
+  const element: Record<string, unknown> = {
+    "@type": "SiteNavigationElement",
+    name: item.label,
+    url: absoluteNavUrl(item.href, base),
+  };
+
+  if (item.children?.length) {
+    element.hasPart = item.children.map((child) => navLinkSiteNavigationElement(child, base));
+  }
+
+  return element;
+}
+
+function catalogCategorySiteNavigationElement(
+  category: CatalogNavCategory,
+  base: string,
+): Record<string, unknown> {
+  const groups = category.groups ?? [{ title: category.label, items: category.items ?? [] }];
+  const subLinks = groups.flatMap((group) => group.items);
+
+  return {
+    "@type": "SiteNavigationElement",
+    name: category.label,
+    url: absoluteNavUrl(category.href, base),
+    ...(subLinks.length
+      ? { hasPart: subLinks.map((item) => navLinkSiteNavigationElement(item, base)) }
+      : {}),
+  };
+}
+
+export function siteNavigationJsonLd() {
+  const base = getSiteUrl();
+
+  const mainNavigationElements: Record<string, unknown>[] = [
+    {
+      "@type": "SiteNavigationElement",
+      name: "Accueil",
+      url: `${base}/`,
+    },
+    {
+      "@type": "SiteNavigationElement",
+      name: nav.productsLabel,
+      url: absoluteNavUrl(nav.productsHref, base),
+    },
+    ...nav.highlights.map((item) => ({
+      "@type": "SiteNavigationElement",
+      name: item.label,
+      url: absoluteNavUrl(item.href, base),
+    })),
+    ...nav.main.map((item) => ({
+      "@type": "SiteNavigationElement",
+      name: item.label,
+      url: absoluteNavUrl(item.href, base),
+    })),
+    {
+      "@type": "SiteNavigationElement",
+      name: "Mon compte",
+      url: routes.account,
+    },
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SiteNavigationElement",
+        "@id": `${base}/#navigation-main`,
+        name: "Navigation principale Ojetables",
+        hasPart: mainNavigationElements,
+      },
+      {
+        "@type": "SiteNavigationElement",
+        "@id": `${base}/#navigation-catalog`,
+        name: "Catalogue produits Ojetables",
+        url: absoluteNavUrl(routes.category, base),
+        hasPart: catalogNavCategories.map((category) =>
+          catalogCategorySiteNavigationElement(category, base),
+        ),
+      },
+    ],
+  };
+}
+
+export function pressVideoJsonLd() {
+  const base = getSiteUrl();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${base}/#press-tv-video`,
+    name: `${pressTvFeature.label} — ${pressTvFeature.title}`,
+    description: pressTvFeature.description,
+    thumbnailUrl: `${base}${pressTvFeature.src}`,
+    uploadDate: pressTvFeature.uploadDate,
+    duration: pressTvFeature.duration,
+    contentUrl: pressTvFeature.videoUrl,
+    embedUrl: `https://www.dailymotion.com/embed/video/${pressTvFeature.videoId}`,
+    publisher: {
+      "@id": `${base}/#organization`,
+    },
+  };
+}
+
+function merchantReturnPolicyEntity() {
+  return {
+    "@type": "MerchantReturnPolicy",
+    applicableCountry: merchantReturnPolicy.applicableCountry,
+    returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+    merchantReturnDays: merchantReturnPolicy.returnDays,
+    returnMethod: "https://schema.org/ReturnByMail",
+    returnFees: "https://schema.org/ReturnFeesCustomerResponsibility",
+    returnPolicyUrl: merchantReturnPolicy.url,
   };
 }
 
@@ -210,6 +356,7 @@ export function productPageJsonLd(product: Product, path: string) {
           },
         },
       },
+      hasMerchantReturnPolicy: merchantReturnPolicyEntity(),
     },
   };
 
@@ -249,6 +396,20 @@ export function categoryPageJsonLd(category: Category, path: string) {
     { name: category.label },
   ];
 
+  const reviewAggregate = computeCategoryReviewAggregate(products);
+  const aggregateOffer = getCategoryAggregateOffer(products);
+
+  const aggregateRatingEntity = reviewAggregate
+    ? {
+        "@type": "AggregateRating",
+        "@id": `${base}${path}#category-rating`,
+        ratingValue: String(reviewAggregate.ratingValue),
+        reviewCount: String(reviewAggregate.reviewCount),
+        bestRating: "5",
+        worstRating: "1",
+      }
+    : null;
+
   const collectionPage = {
     "@type": "CollectionPage",
     "@id": `${base}${path}#webpage`,
@@ -262,8 +423,11 @@ export function categoryPageJsonLd(category: Category, path: string) {
     publisher: {
       "@id": `${base}/#organization`,
     },
-    about: {
+    mainEntity: {
       "@id": `${base}${path}#collection`,
+    },
+    about: {
+      "@id": `${base}${path}#itemlist-products`,
     },
     primaryImageOfPage: {
       "@type": "ImageObject",
@@ -279,6 +443,24 @@ export function categoryPageJsonLd(category: Category, path: string) {
     image: `${base}${category.image}`,
     numberOfItems: products.length,
   };
+
+  if (aggregateRatingEntity) {
+    (collection as Record<string, unknown>).aggregateRating = {
+      "@id": aggregateRatingEntity["@id"],
+    };
+  }
+
+  if (aggregateOffer) {
+    (collection as Record<string, unknown>).offers = {
+      "@type": "AggregateOffer",
+      url: `${base}${path}`,
+      lowPrice: aggregateOffer.lowPrice,
+      highPrice: aggregateOffer.highPrice,
+      priceCurrency: "EUR",
+      offerCount: String(aggregateOffer.offerCount),
+      availability: "https://schema.org/InStock",
+    };
+  }
 
   const productItemList = {
     "@type": "ItemList",
@@ -304,6 +486,18 @@ export function categoryPageJsonLd(category: Category, path: string) {
           price: price.toFixed(2),
           availability: "https://schema.org/InStock",
           itemCondition: "https://schema.org/NewCondition",
+        };
+      }
+
+      const rating = product.rating ?? 0;
+      const reviewCount = product.reviewCount ?? 0;
+      if (rating > 0 && reviewCount > 0) {
+        productEntity.aggregateRating = {
+          "@type": "AggregateRating",
+          ratingValue: String(rating),
+          reviewCount: String(reviewCount),
+          bestRating: "5",
+          worstRating: "1",
         };
       }
 
@@ -338,15 +532,21 @@ export function categoryPageJsonLd(category: Category, path: string) {
     ...faqPageEntity(category.faq),
   };
 
+  const graph: Record<string, unknown>[] = [
+    collectionPage,
+    collection,
+    productItemList,
+    subfamilyItemList,
+    faqEntity,
+    breadcrumbEntity(path, breadcrumbs),
+  ];
+
+  if (aggregateRatingEntity) {
+    graph.push(aggregateRatingEntity);
+  }
+
   return {
     "@context": "https://schema.org",
-    "@graph": [
-      collectionPage,
-      collection,
-      productItemList,
-      subfamilyItemList,
-      faqEntity,
-      breadcrumbEntity(path, breadcrumbs),
-    ],
+    "@graph": graph,
   };
 }

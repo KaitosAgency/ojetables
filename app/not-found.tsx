@@ -1,8 +1,16 @@
-"use client";
-
+import type { Metadata } from "next";
 import Link from "next/link";
+
 import { LinkButton } from "@/components/ui/link-button";
+import { createPageMetadata } from "@/lib/page-metadata";
 import { routes } from "@/lib/site";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Page introuvable",
+  description: "Cette page n'existe pas dans la maquette preview Ojetables.",
+  path: "/404",
+  noIndex: true,
+});
 
 export default function NotFound() {
   return (

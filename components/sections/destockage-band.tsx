@@ -2,9 +2,15 @@ import dynamic from "next/dynamic";
 import { Flame, Tag, Truck } from "lucide-react";
 import Link from "next/link";
 
+import { ProductCard } from "@/components/product/product-card";
 import { buttonVariants } from "@/components/ui/button";
+import { interactiveCardElevationClassName } from "@/components/ui/interactive-card";
 import { SectionHeader } from "@/components/sections/section-header";
-import { routes } from "@/lib/site";
+import {
+  ContentSliderSlide,
+  destockageSlideClassName,
+} from "@/components/sections/destockage-slider";
+import { destockageItems, routes } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 function DestockageCarouselSkeleton({ className }: { className?: string }) {
@@ -16,10 +22,10 @@ function DestockageCarouselSkeleton({ className }: { className?: string }) {
   );
 }
 
-const DestockageCarousel = dynamic(
+const DestockageSlider = dynamic(
   () =>
-    import("@/components/sections/destockage-carousel").then((module) => ({
-      default: module.DestockageCarousel,
+    import("@/components/sections/destockage-slider").then((module) => ({
+      default: module.DestockageSlider,
     })),
   { loading: () => <DestockageCarouselSkeleton className="min-w-0 lg:col-span-8" /> },
 );
@@ -46,7 +52,12 @@ export function DestockageBand() {
             />
 
             <div className="mt-6 grid grid-cols-2 gap-3 sm:max-w-md">
-              <div className="rounded-xl border border-brand-kraft/10 bg-white p-4 shadow-sm">
+              <div
+                className={cn(
+                  "rounded-xl border border-brand-kraft/10 bg-white p-4 transition-all",
+                  interactiveCardElevationClassName,
+                )}
+              >
                 <div className="flex items-center gap-2.5">
                   <span
                     className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-kraft/12"
@@ -58,7 +69,12 @@ export function DestockageBand() {
                 </div>
                 <p className="mt-2 text-xs leading-snug text-muted-foreground">Remise maximale</p>
               </div>
-              <div className="rounded-xl border border-brand-kraft/10 bg-white p-4 shadow-sm">
+              <div
+                className={cn(
+                  "rounded-xl border border-brand-kraft/10 bg-white p-4 transition-all",
+                  interactiveCardElevationClassName,
+                )}
+              >
                 <div className="flex items-center gap-2.5">
                   <span
                     className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-teal/12"
@@ -85,7 +101,13 @@ export function DestockageBand() {
             </Link>
           </div>
 
-          <DestockageCarousel className="min-w-0 lg:col-span-8" />
+          <DestockageSlider className="min-w-0 lg:col-span-8">
+            {destockageItems.map((product) => (
+              <ContentSliderSlide key={product.name} className={destockageSlideClassName}>
+                <ProductCard {...product} className="h-full" showQuickActions={false} />
+              </ContentSliderSlide>
+            ))}
+          </DestockageSlider>
         </div>
       </div>
     </section>

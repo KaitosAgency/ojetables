@@ -1,4 +1,5 @@
 import { ProductCard } from "@/components/product/product-card";
+import { ProductCardList, ProductCardListItem } from "@/components/product/product-card-list";
 import { SectionHeader } from "@/components/sections/section-header";
 import type { Product } from "@/lib/products";
 import { maquetteProductHref } from "@/lib/site";
@@ -15,22 +16,26 @@ export function ProductCrossSell({ product }: ProductCrossSellProps) {
         title="Souvent achetés avec"
         description="Produits fréquemment commandés avec ce gobelet carton kraft."
       />
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ProductCardList
+        ariaLabel="Produits complémentaires"
+        className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+      >
         {product.crossSell.map((item) => (
-          <ProductCard
-            key={item.name}
-            name={item.name}
-            image={item.image}
-            category={item.category}
-            priceFrom={item.priceFrom}
-            href={maquetteProductHref}
-            rating={item.rating}
-            reviewCount={item.reviewCount}
-            packLabel={item.packLabel}
-            className="h-full"
-          />
+          <ProductCardListItem key={item.name}>
+            <ProductCard
+              name={item.name}
+              image={item.image}
+              category={item.category}
+              priceFrom={item.priceFrom}
+              href={maquetteProductHref}
+              rating={item.rating}
+              reviewCount={item.reviewCount}
+              packLabel={item.packLabel}
+              className="h-full"
+            />
+          </ProductCardListItem>
         ))}
-      </div>
+      </ProductCardList>
     </section>
   );
 }

@@ -16,7 +16,6 @@ import { LinkButton } from "@/components/ui/link-button";
 import { NavHighlightLink } from "@/components/layout/nav-highlight-link";
 import {
   catalogNavCategories,
-  headerActions,
   logos,
   nav,
   routes,
@@ -26,6 +25,7 @@ import {
   type NavLink,
   type ProductNavGroup,
 } from "@/lib/site";
+import { useMaquetteShop } from "@/lib/maquette-shop-context";
 import { cn } from "@/lib/utils";
 
 type MobileNavProps = {
@@ -106,20 +106,27 @@ function MobileCatalogCategory({
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-expanded={isOpen}
-        className="flex w-full min-w-0 cursor-pointer items-center gap-1 rounded-md px-1.5 py-1.5 text-left text-[13px] font-medium text-brand-navy transition-colors hover:bg-muted"
-      >
-        <span className="min-w-0 flex-1 truncate" title={category.label}>
+      <div className="flex min-w-0 items-center gap-0.5">
+        <Link
+          href={category.href}
+          title={category.label}
+          className="min-w-0 flex-1 cursor-pointer truncate rounded-md px-1.5 py-1.5 text-[13px] font-medium text-brand-navy transition-colors hover:bg-muted hover:text-brand-teal"
+        >
           {category.label}
-        </span>
-        <ChevronRight
-          className={cn("h-4 w-4 shrink-0 text-muted-foreground transition-transform", isOpen && "rotate-90")}
-          aria-hidden
-        />
-      </button>
+        </Link>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-label={`Afficher les sous-catégories ${category.label}`}
+          className="inline-flex shrink-0 cursor-pointer items-center justify-center rounded-md p-1.5 text-brand-navy transition-colors hover:bg-muted"
+        >
+          <ChevronRight
+            className={cn("h-4 w-4 text-muted-foreground transition-transform", isOpen && "rotate-90")}
+            aria-hidden
+          />
+        </button>
+      </div>
 
       {isOpen ? (
         <div className="mb-1 ml-2 space-y-2 border-l border-border/60 py-1 pl-2">
@@ -151,6 +158,7 @@ function MobileCatalogCategory({
 }
 
 export function MobileNav({ trigger }: MobileNavProps) {
+  const { cartCount } = useMaquetteShop();
   const [sheetOpen, setSheetOpen] = useState(false);
   const [openCategoryId, setOpenCategoryId] = useState<string | null>(null);
 
@@ -212,13 +220,13 @@ export function MobileNav({ trigger }: MobileNavProps) {
               Mon compte
             </LinkButton>
             <LinkButton
-              href="#"
+              href={routes.cart}
               variant="brandOutline"
               size="ctaSm"
               className="h-8 w-full text-xs"
             >
               Mon panier
-              {headerActions.cartCount > 0 ? ` (${headerActions.cartCount})` : null}
+              {cartCount > 0 ? ` (${cartCount})` : null}
             </LinkButton>
           </div>
           <nav className="flex min-h-0 flex-1 flex-col overflow-hidden" aria-label="Catalogue mobile">

@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Pré-audit Ojetables.fr",
+    "page": "home"
+  },
+  {
+    "group": "À LIRE EN PRIORITÉ",
+    "items": [
+      {
+        "title": "Résumé exécutif",
+        "page": "synthese"
+      },
+      {
+        "title": "Quick Wins",
+        "page": "quick-wins"
+      }
+    ]
+  },
+  {
+    "group": "AXES STRATÉGIQUES",
+    "items": [
+      {
+        "title": "UX & identité - Homepage B2B",
+        "page": "ux-et-identite"
+      },
+      {
+        "title": "Parcours personnalisation",
+        "page": "parcours-personnalisation"
+      },
+      {
+        "title": "Pages secteurs (footer)",
+        "page": "pages-secteurs-existantes"
+      },
+      {
+        "title": "Page d'accueil (SEO & CRO)",
+        "page": "strategie-seo-page-accueil"
+      },
+      {
+        "title": "Fiches produits",
+        "page": "strategie-seo-fiches-produits"
+      },
+      {
+        "title": "Opportunité B2C & longue traîne",
+        "page": "opportunite-b2c-seo"
+      },
+      {
+        "title": "Audit technique",
+        "page": "audit-technique"
+      },
+      {
+        "title": "GEO & AEO - Visibilité IA",
+        "page": "geo-aeo-llm"
+      }
+    ]
+  },
+  {
+    "group": "SUITE POSSIBLE",
+    "items": [
+      {
+        "title": "Et si vous voulez aller plus loin ?",
+        "page": "audit-complet-suite"
+      }
+    ]
+  }
+]

@@ -3,7 +3,9 @@
 import { BadgeCheck } from "lucide-react";
 
 import { ContentSlider, ContentSliderSlide } from "@/components/ui/content-slider";
+import { interactiveCardSurfaceClassName } from "@/components/ui/interactive-card";
 import { StarRating } from "@/components/ui/star-rating";
+import { cn } from "@/lib/utils";
 import { reviewsFallback } from "@/lib/site";
 
 export function ReviewsCarousel() {
@@ -18,7 +20,12 @@ export function ReviewsCarousel() {
           key={review.id}
           className="sm:w-[calc(50%-0.5rem)] lg:!w-[calc(50%-0.5rem)]"
         >
-          <blockquote className="flex h-full min-h-[12.5rem] flex-col rounded-2xl border border-brand-navy/8 bg-white p-5 shadow-sm md:p-6">
+          <blockquote
+            className={cn(
+              "flex h-full min-h-[12.5rem] flex-col rounded-2xl bg-white p-5 md:p-6",
+              interactiveCardSurfaceClassName,
+            )}
+          >
             <div className="flex items-center gap-2">
               <StarRating size="sm" value={review.rating} />
               <span className="inline-flex items-center gap-1 text-[11px] font-medium text-brand-teal-dim">

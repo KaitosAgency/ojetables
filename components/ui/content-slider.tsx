@@ -396,12 +396,15 @@ export function ContentSlider({
 export function ContentSliderSlide({
   children,
   className,
+  id,
 }: {
   children: ReactNode;
   className?: string;
+  id?: string;
 }) {
   return (
     <div
+      id={id}
       className={cn(
         "content-slider__slide shrink-0 snap-start",
         contentSliderSlideClassName,

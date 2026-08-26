@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { CatalogNavCrawl } from "@/components/layout/catalog-nav-crawl";
 import { DeferredClientWidgets } from "@/components/layout/deferred-client-widgets";
-import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/components/seo/json-ld";
+import { JsonLd, organizationJsonLd, siteNavigationJsonLd, websiteJsonLd } from "@/components/seo/json-ld";
+import { MaquetteShopProvider } from "@/lib/maquette-shop-context";
 import { createDefaultMetadata } from "@/lib/og-metadata";
 import { site, getSiteUrl, favicon } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -25,9 +27,6 @@ export const metadata: Metadata = {
     shortcut: favicon.path,
     apple: favicon.path,
   },
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     ...defaultMetadata.openGraph,
     description: site.description,
@@ -45,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="describedby" href={`${siteUrl}/llms.txt`} type="text/markdown" />
       </head>
       <body className="min-h-full bg-background text-foreground">
+        <MaquetteShopProvider>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[200] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-brand-navy focus:shadow-lg"
@@ -53,10 +53,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd()} />
+        <JsonLd data={siteNavigationJsonLd()} />
         <SiteHeader />
+        <CatalogNavCrawl />
         <main id="main-content" className="flex-1">{children}</main>
         <SiteFooter />
         <DeferredClientWidgets />
+        </MaquetteShopProvider>
       </body>
     </html>
   );

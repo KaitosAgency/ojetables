@@ -1,8 +1,9 @@
 import type { ProductCardProps } from "@/components/product/product-card";
-import type { FaqItem, FooterLink } from "@/lib/site";
-import { footerNav, featuredProductSlug, productPath } from "@/lib/site";
-
-const maquetteProductCardHref = productPath(featuredProductSlug);
+import type { FaqItem } from "@/lib/site";
+import {
+  vaisselleJetableCatalogCount,
+  vaisselleJetableProducts,
+} from "@/lib/vaisselle-jetable-data";
 
 export type CategorySubfamily = {
   id: string;
@@ -32,7 +33,6 @@ export type Category = {
   imageAlt: string;
   subfamilies: readonly CategorySubfamily[];
   products: readonly ProductCardProps[];
-  sectorLinks: readonly FooterLink[];
   faq: readonly FaqItem[];
   seoHeading: string;
   seoSections: readonly CategorySeoSection[];
@@ -47,123 +47,6 @@ export function categoryPath(slug: string): string {
 /** Maquette : une seule catégorie démo — tous les liens catalogue y convergent. */
 export const featuredCategorySlug = "vaisselle-jetable";
 
-const vaisselleJetableSectorLinks: FooterLink[] = footerNav.metiers
-  .filter((link) => !link.label.toLowerCase().includes("personnalisation"))
-  .slice(0, 5);
-
-const vaisselleJetableProducts: ProductCardProps[] = [
-  {
-    name: "Gobelet carton 24 cl Kraft (individuel)",
-    category: "Gobelets",
-    image: "/products/gobelet-carton-24cl.jpg",
-    priceWas: "3,90 €",
-    priceFrom: "3,20 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 50",
-    rating: 4.9,
-    reviewCount: 8,
-  },
-  {
-    name: "Assiette biodégradable ronde 15 cm",
-    category: "Assiettes compostables",
-    image: "/products/assiette-galaxie.jpg",
-    priceFrom: "4,90 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 100",
-    rating: 4.8,
-    reviewCount: 24,
-  },
-  {
-    name: "Assiette Galaxie biodégradable Ø 13 cm",
-    category: "Assiettes",
-    image: "/products/assiette-galaxie.jpg",
-    priceWas: "42,00 €",
-    priceFrom: "36,20 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 200",
-    rating: 4,
-    reviewCount: 2,
-  },
-  {
-    name: "Kit couverts 6 en 1 bois kraft",
-    category: "Couverts",
-    image: "/products/kit-couverts-6.jpg",
-    priceWas: "9,99 €",
-    priceFrom: "8,99 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 100",
-    rating: 5,
-    reviewCount: 4,
-  },
-  {
-    name: "Kit couverts 4 en 1 bois kraft",
-    category: "Couverts",
-    image: "/products/kit-couverts-4.jpg",
-    priceWas: "10,49 €",
-    priceFrom: "8,99 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 100",
-    rating: 4.9,
-    reviewCount: 9,
-  },
-  {
-    name: "Cuillère en bois 160 mm eco",
-    category: "Couverts",
-    image: "/products/cuillere-bois.jpg",
-    priceWas: "2,20 €",
-    priceFrom: "1,80 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 100",
-    rating: 4.8,
-    reviewCount: 12,
-  },
-  {
-    name: "Sachet couverts 6 en 1 bois",
-    category: "Couverts",
-    image: "/products/sachet-couverts-bois.jpg",
-    priceWas: "52,99 €",
-    priceFrom: "45,99 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 500",
-    rating: 4.8,
-    reviewCount: 10,
-  },
-  {
-    name: "Wood Box 1 L avec couvercle",
-    category: "Plateaux",
-    image: "/products/wood-box.jpg",
-    priceWas: "44,99 €",
-    priceFrom: "37,99 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 25",
-    personalizable: true,
-    rating: 4.9,
-    reviewCount: 9,
-  },
-  {
-    name: "Wood Box XXL 6 L avec couvercle",
-    category: "Plateaux",
-    image: "/products/wood-box-xxl.jpg",
-    priceWas: "46,20 €",
-    priceFrom: "38,20 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 10",
-    rating: 4.9,
-    reviewCount: 9,
-  },
-  {
-    name: "Plateau repas biodégradable 5 compartiments",
-    category: "Plateaux repas",
-    image: "/products/plateau-repas-5comp.jpg",
-    priceWas: "74,00 €",
-    priceFrom: "65,00 €",
-    href: maquetteProductCardHref,
-    packLabel: "Lot de 150",
-    rating: 4,
-    reviewCount: 2,
-  },
-];
-
 export const categories: Record<string, Category> = {
   [featuredCategorySlug]: {
     id: "vaisselle-jetable",
@@ -174,14 +57,14 @@ export const categories: Record<string, Category> = {
     metaDescription:
       "Assiettes, couverts et bols jetables pour traiteurs, CHR et collectivités. Compostable, carton ou réutilisable. +3 000 références, livraison 24/72h, tarifs dégressifs pro.",
     description:
-      "Assiettes, couverts en bois, bols jetables : carton, pulpe de canne ou plastique réutilisable. Petit prix et gammes éco pour professionnels et particuliers.",
+      "Assiettes biodégradables, couverts bois et bols jetables pour traiteurs, CHR et collectivités. <strong>Conformes loi AGEC</strong>, certifiés contact alimentaire.<br />Large choix de matériaux : carton recyclable, pulpe de canne compostable ou plastique réutilisable. Conditionnements adaptés de 50 à 500 unités, <strong>tarifs dégressifs dès 10 packs</strong>. Gammes éco et petit prix en stock. <strong>Livraison 24/72h</strong> partout en France.",
     bluf:
       "Ojetables est le fournisseur français de vaisselle jetable éco-responsable pour traiteurs, CHR et collectivités. +3 000 références en stock, livraison 24/72h, 9,5/10 sur 2 417 avis certifiés.",
     intro:
       "Assiettes compostables, couverts bois et kits traiteur, bols et plateaux repas : conditionnements de 50 à 500 unités, tarifs dégressifs dès 10 packs pour les comptes pro et commande en petite quantité pour les particuliers.",
     image: "/categories/vaisselle-jetable.jpg",
     imageAlt: "Vaisselle jetable professionnelle - assiettes, couverts et bols Ojetables",
-    catalogProductCount: 3000,
+    catalogProductCount: vaisselleJetableCatalogCount,
     subfamilies: [
       {
         id: "assiettes",
@@ -234,7 +117,6 @@ export const categories: Record<string, Category> = {
       },
     ],
     products: vaisselleJetableProducts,
-    sectorLinks: vaisselleJetableSectorLinks,
     faq: [
       {
         question: "Quelle vaisselle jetable choisir pour un traiteur ?",

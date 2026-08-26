@@ -137,7 +137,7 @@ export function ProductPurchasePanel({ product }: ProductPurchasePanelProps) {
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row">
-        <LinkButton href="#" variant="brand" size="cta" className="flex-1">
+        <LinkButton href={routes.cart} variant="brand" size="cta" className="flex-1">
           Ajouter au panier
         </LinkButton>
         <LinkButton href={routes.quote} variant="brandOutline" size="cta" className="flex-1">
