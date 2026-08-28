@@ -1,14 +1,16 @@
+import { PageContainer } from "@/components/layout/page-container";
 import { ProductCard } from "@/components/product/product-card";
 import { ProductCardList, ProductCardListItem } from "@/components/product/product-card-list";
 import { LinkButton } from "@/components/ui/link-button";
 import { sectors } from "@/lib/site";
+import { toProductCardProps } from "@/lib/site/product-teasers";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "./section-header";
 
 export function SectorsSection() {
   return (
     <section id="secteurs" className="section-padding section-glow">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <PageContainer>
         <SectionHeader
           label="Par métier"
           title="Solutions adaptées à votre activité"
@@ -34,8 +36,8 @@ export function SectorsSection() {
                 className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3"
               >
                 {sector.products.map((product) => (
-                  <ProductCardListItem key={product.name}>
-                    <ProductCard {...product} titleAs="h4" />
+                  <ProductCardListItem key={product.id}>
+                    <ProductCard {...toProductCardProps(product)} titleAs="h4" />
                   </ProductCardListItem>
                 ))}
               </ProductCardList>
@@ -48,7 +50,7 @@ export function SectorsSection() {
             </article>
           ))}
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }

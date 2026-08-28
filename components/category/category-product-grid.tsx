@@ -17,7 +17,7 @@ export function CategoryProductGrid({ category, embedded = false }: CategoryProd
         className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-4 lg:grid-cols-3 xl:grid-cols-4"
       >
         {category.products.map((product) => (
-          <ProductCardListItem key={product.href}>
+          <ProductCardListItem key={product.id ?? product.href}>
             <ProductCard {...product} showQuickActions />
           </ProductCardListItem>
         ))}
@@ -32,7 +32,7 @@ export function CategoryProductGrid({ category, embedded = false }: CategoryProd
           size="ctaSm"
           className="w-full justify-center sm:w-auto"
         >
-          Demander un devis volume
+          Demander un devis
         </LinkButton>
         <LinkButton
           href={routes.personalization}

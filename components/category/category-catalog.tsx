@@ -1,5 +1,6 @@
 "use client";
 
+import { PageContainer } from "@/components/layout/page-container";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -69,7 +70,7 @@ export function CategoryCatalog({ category, products }: CategoryCatalogProps) {
   const priceBounds = useMemo(() => getProductPriceBounds(products), [products]);
   const promoCount = useMemo(() => countPromoProducts(products), [products]);
   const favoriteCountInCategory = useMemo(
-    () => products.filter((product) => favoriteKeys.has(product.href)).length,
+    () => products.filter((product) => favoriteKeys.has(product.id)).length,
     [products, favoriteKeys],
   );
 
@@ -83,7 +84,7 @@ export function CategoryCatalog({ category, products }: CategoryCatalogProps) {
     );
     result = filterProductsByCategorySearch(result, searchQuery);
     if (favoritesOnly) {
-      result = result.filter((product) => favoriteKeys.has(product.href));
+      result = result.filter((product) => favoriteKeys.has(product.id));
     }
     return result;
   }, [
@@ -230,7 +231,7 @@ export function CategoryCatalog({ category, products }: CategoryCatalogProps) {
     <>
       <FilterRobotsMeta active={hasFilters || sortKey !== "default"} />
       <section id="produits" className="scroll-mt-36 bg-white pb-16 pt-8 md:pb-24 md:pt-10">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <PageContainer>
           <div className="border-b border-border/60 pb-4">
             <h2 className="sr-only">Résultats {category.label.toLowerCase()}</h2>
 
@@ -300,7 +301,7 @@ export function CategoryCatalog({ category, products }: CategoryCatalogProps) {
 
           <div className="mt-6 flex items-start gap-8 lg:gap-10">
             <aside className="hidden w-60 shrink-0 lg:block xl:w-64">
-              <div className="sticky top-36">
+              <div className="sticky top-[calc(var(--site-header-height)+var(--site-header-gap))]">
                 <CategoryFiltersPanel
                   groups={vaisselleJetableFilterGroups}
                   activeFilterKeysByGroup={activeFilterKeysByGroup}
@@ -334,7 +335,7 @@ export function CategoryCatalog({ category, products }: CategoryCatalogProps) {
               />
             </div>
           </div>
-        </div>
+        </PageContainer>
       </section>
     </>
   );

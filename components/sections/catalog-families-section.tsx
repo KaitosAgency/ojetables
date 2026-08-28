@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Ban, Handshake, Scale, Sprout, type LucideIcon } from "lucide-react";
 
+import { PageContainer } from "@/components/layout/page-container";
 import { CatalogFamilyCard } from "@/components/catalog/catalog-family-card";
 import { JsonLd, catalogItemListJsonLd } from "@/components/seo/json-ld";
 import { SectionHeader } from "@/components/sections/section-header";
@@ -37,7 +38,7 @@ export function CatalogFamiliesSection() {
     <section id="catalogue" className="section-padding scroll-mt-36 section-glow">
       <JsonLd data={catalogItemListJsonLd(catalogFamilies)} />
 
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <PageContainer>
         <SectionHeader
           label={catalogSeo.label}
           title={catalogSeo.title}
@@ -110,7 +111,7 @@ export function CatalogFamiliesSection() {
             {ecoSeo.bioCategoryLabel} →
           </Link>
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }

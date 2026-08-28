@@ -5,21 +5,17 @@ import { BadgeCheck } from "lucide-react";
 import { ContentSlider, ContentSliderSlide } from "@/components/ui/content-slider";
 import { interactiveCardSurfaceClassName } from "@/components/ui/interactive-card";
 import { StarRating } from "@/components/ui/star-rating";
+import { reviewsSliderConfig } from "@/lib/content-slider-configs";
 import { cn } from "@/lib/utils";
 import { reviewsFallback } from "@/lib/site";
 
 export function ReviewsCarousel() {
+  const { slideClassName, ...sliderProps } = reviewsSliderConfig;
+
   return (
-    <ContentSlider
-      ariaLabel="Avis clients"
-      variant="light"
-      trackClassName="pb-4 pt-2"
-    >
+    <ContentSlider ariaLabel="Avis clients" {...sliderProps}>
       {reviewsFallback.map((review) => (
-        <ContentSliderSlide
-          key={review.id}
-          className="sm:w-[calc(50%-0.5rem)] lg:!w-[calc(50%-0.5rem)]"
-        >
+        <ContentSliderSlide key={review.id} className={slideClassName}>
           <blockquote
             className={cn(
               "flex h-full min-h-[12.5rem] flex-col rounded-2xl bg-white p-5 md:p-6",

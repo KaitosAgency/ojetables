@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components/layout/page-container";
 import Image from "next/image";
 import { pressMedia, pressTvFeature } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -12,7 +13,7 @@ export function PressBand() {
       className="border-y border-border/60 bg-white py-10 md:py-14"
     >
       <JsonLd data={pressVideoJsonLd()} />
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <PageContainer>
         <SectionHeader
           label={pressTvFeature.label}
           title={pressTvFeature.title}
@@ -54,7 +55,7 @@ export function PressBand() {
             ))}
           </ul>
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }

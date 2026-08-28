@@ -2,10 +2,8 @@
 
 import { CatalogFamilyCard } from "@/components/catalog/catalog-family-card";
 import { ContentSlider, ContentSliderSlide } from "@/components/ui/content-slider";
+import { subfamiliesSliderConfig } from "@/lib/content-slider-configs";
 import type { CategorySubfamily } from "@/lib/categories";
-
-const subfamilySlideClassName =
-  "w-[calc(50%-0.375rem)] sm:w-[calc(33.333%-0.67rem)] lg:w-[calc(20%-0.8rem)]";
 
 type CategorySubfamiliesSliderProps = {
   subfamilies: readonly CategorySubfamily[];
@@ -16,16 +14,12 @@ export function CategorySubfamiliesSlider({
   subfamilies,
   className,
 }: CategorySubfamiliesSliderProps) {
+  const { slideClassName, ...sliderProps } = subfamiliesSliderConfig;
+
   return (
-    <ContentSlider
-      ariaLabel="Sous-familles de la catégorie"
-      variant="light"
-      className={className}
-      autoPlay
-      autoPlayInterval={5000}
-    >
+    <ContentSlider ariaLabel="Sous-familles de la catégorie" className={className} {...sliderProps}>
       {subfamilies.map((subfamily) => (
-        <ContentSliderSlide key={subfamily.id} className={subfamilySlideClassName}>
+        <ContentSliderSlide key={subfamily.id} className={slideClassName}>
           <CatalogFamilyCard
             label={subfamily.label}
             description={subfamily.description}

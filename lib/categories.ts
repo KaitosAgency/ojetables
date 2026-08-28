@@ -1,5 +1,6 @@
 import type { ProductCardProps } from "@/components/product/product-card";
 import type { FaqItem } from "@/lib/site";
+import { categoryPath, featuredCategorySlug } from "@/lib/routes";
 import {
   vaisselleJetableCatalogCount,
   vaisselleJetableProducts,
@@ -40,12 +41,7 @@ export type Category = {
   catalogProductCount: number;
 };
 
-export function categoryPath(slug: string): string {
-  return `/${slug}`;
-}
-
-/** Maquette : une seule catégorie démo — tous les liens catalogue y convergent. */
-export const featuredCategorySlug = "vaisselle-jetable";
+export { categoryPath, featuredCategoryPath, featuredCategorySlug } from "@/lib/routes";
 
 export const categories: Record<string, Category> = {
   [featuredCategorySlug]: {
@@ -141,7 +137,7 @@ export const categories: Record<string, Category> = {
       {
         question: "Délai de livraison pour la vaisselle jetable en stock ?",
         answer:
-          "Livraison 24/72h partout en France sur les références en stock. Commande possible en petite quantité pour les particuliers et associations.",
+          "Livraison 24/72h en France métropolitaine. Frais de port : 6,90 € HT (0–29,99 €), 9,90 € HT (30–139,99 €), 16,90 € HT (140–249,99 €), offerts dès 250 € HT. Option express 26,90 € HT, retrait dépôt offert.",
       },
       {
         question: "Peut-on personnaliser des gobelets ou emballages ?",
@@ -182,7 +178,7 @@ export const categories: Record<string, Category> = {
         heading: "Tarifs dégressifs et livraison 24/72h",
         paragraphs: [
           "Comptes professionnels : remises dès 10 packs, devis volume en ligne et paiement sous 30 jours pour les encours validés. Particuliers et associations : commande sans minimum sur les références en stock.",
-          "Livraison 24/72h partout en France sur plus de 3 000 références. Frais de port calculés au panier, possibilité de livraison en palette pour les grands volumes.",
+          "Livraison 24/72h partout en France sur plus de 3 000 références. Frais de port : 6,90 € HT (0–29,99 €), 9,90 € HT (30–139,99 €), 16,90 € HT (140–249,99 €), offerts dès 250 € HT. Option express 26,90 € HT, retrait dépôt offert.",
         ],
       },
       {
@@ -200,6 +196,3 @@ export const categories: Record<string, Category> = {
 export function getCategory(slug: string): Category | undefined {
   return categories[slug];
 }
-
-/** Chemin canonique de la catégorie maquette. */
-export const featuredCategoryPath = categoryPath(featuredCategorySlug);

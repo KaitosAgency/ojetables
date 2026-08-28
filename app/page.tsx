@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { PageScrollReset } from "@/components/layout/page-scroll-reset";
 import { BestSellersSection } from "@/components/sections/best-sellers-section";
 import { StatsBand } from "@/components/sections/stats-band";
 import { CatalogFamiliesSection } from "@/components/sections/catalog-families-section";
@@ -22,6 +23,7 @@ export const metadata: Metadata = createPageMetadata({
 export default function HomePage() {
   return (
     <>
+      <PageScrollReset mode="home" />
       <HeroSection />
       <StatsBand />
       <BestSellersSection />

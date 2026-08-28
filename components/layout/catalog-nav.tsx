@@ -13,15 +13,8 @@ import {
   type NavLink,
   type ProductNavGroup,
 } from "@/lib/site";
+import { categoryHasPanel, getCategoryGroups } from "@/lib/catalog-nav-utils";
 import { cn } from "@/lib/utils";
-
-function categoryHasPanel(category: CatalogNavCategory): boolean {
-  return Boolean(category.groups?.length || category.items?.length);
-}
-
-function getCategoryGroups(category: CatalogNavCategory): ProductNavGroup[] {
-  return category.groups ?? [{ title: category.label, items: category.items ?? [] }];
-}
 
 const hotCategoryIds = new Set<string>(catalogNavHotCategoryIds);
 
@@ -279,7 +272,7 @@ export function CatalogNavPanel({
   const groups = getCategoryGroups(category);
 
   return (
-    <div className="absolute inset-x-0 top-full z-50 bg-white shadow-lg shadow-black/[0.04]">
+    <div className="catalog-nav-panel absolute inset-x-0 top-full z-[60] bg-white shadow-lg shadow-black/[0.04]">
       <div className="mx-auto max-w-6xl px-4 py-3.5 md:px-6">
         <CatalogNavPanelBody key={category.id} category={category} groups={groups} onClose={onClose} />
       </div>

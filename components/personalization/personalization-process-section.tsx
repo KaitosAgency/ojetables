@@ -39,10 +39,10 @@ export function PersonalizationProcessSection() {
       <SectionHeader
         label="Personnalisation"
         title="Personnalisez vos emballages avec votre logo"
-        description="Parcours simplifié en 4 étapes : choisissez le produit, calculez votre devis, envoyez votre visuel, validez le BAT sous 48h."
+        description="Même parcours que sur la fiche produit : gabarit, dépôt du visuel, puis commande — BAT sous 48 h."
       />
 
-      <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {personalizationSteps.map((step, index) => {
           const Mockup = PERSONALIZATION_PROCESS_MOCKUPS[index];
 

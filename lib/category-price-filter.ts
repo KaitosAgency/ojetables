@@ -1,4 +1,5 @@
 import { parseFrenchPrice } from "@/lib/category-price";
+import { EURO_NBSP } from "@/lib/product-format";
 import type { ProductCardProps } from "@/components/product/product-card";
 import type { VaisselleJetableProduct } from "@/lib/vaisselle-jetable-data";
 
@@ -14,7 +15,21 @@ export type CategoryAggregateOffer = {
 };
 
 export function formatCategoryPrice(value: number): string {
-  return `${value.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €`;
+  return `${value.toLocaleString("fr-FR", { maximumFractionDigits: 0 })}${EURO_NBSP}€ HT`;
+}
+
+function iterateProductPrices(
+  products: readonly { priceFrom: string }[],
+  callback: (price: number) => void,
+): number {
+  let count = 0;
+  for (const product of products) {
+    const price = parseFrenchPrice(product.priceFrom);
+    if (price === null) continue;
+    count += 1;
+    callback(price);
+  }
+  return count;
 }
 
 export function getProductPriceBounds(
@@ -23,12 +38,10 @@ export function getProductPriceBounds(
   let min = Number.POSITIVE_INFINITY;
   let max = 0;
 
-  for (const product of products) {
-    const price = parseFrenchPrice(product.priceFrom);
-    if (price === null) continue;
+  iterateProductPrices(products, (price) => {
     min = Math.min(min, price);
     max = Math.max(max, price);
-  }
+  });
 
   if (!Number.isFinite(min) || max <= 0) {
     return { min: 0, max: 100 };
@@ -48,13 +61,10 @@ export function getCategoryAggregateOffer(
   let max = 0;
   let offerCount = 0;
 
-  for (const product of products) {
-    const price = parseFrenchPrice(product.priceFrom);
-    if (price === null) continue;
-    offerCount += 1;
+  offerCount = iterateProductPrices(products, (price) => {
     min = Math.min(min, price);
     max = Math.max(max, price);
-  }
+  });
 
   if (offerCount === 0 || !Number.isFinite(min)) return null;
 

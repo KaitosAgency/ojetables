@@ -15,5 +15,3 @@ export type CategoryFilterGroup = {
 };
 
 export const vaisselleJetableFilterGroups: readonly CategoryFilterGroup[] = scrapedFilterGroups;
-
-export const categoryFilterGroupIds = vaisselleJetableFilterGroups.map((group) => group.id);

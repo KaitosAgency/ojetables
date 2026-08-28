@@ -4,11 +4,10 @@ import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 
 import { CategoryFiltersPanel } from "@/components/category/category-filters-panel";
+import { AppSheetHeader } from "@/components/layout/app-sheet-header";
 import {
   Sheet,
   SheetContent,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -84,9 +83,7 @@ export function CategoryFiltersMobile({
         }
       />
       <SheetContent side="left" className="w-[min(100vw-1rem,20rem)] gap-0 p-0 sm:max-w-xs">
-        <SheetHeader className="border-b border-border/60 px-4 py-4 text-left">
-          <SheetTitle className="text-base font-bold text-brand-navy">Filtrer la sélection</SheetTitle>
-        </SheetHeader>
+        <AppSheetHeader title="Filtrer la sélection" />
         <div className="flex-1 overflow-y-auto p-4">
           <CategoryFiltersPanel
             variant="sheet"

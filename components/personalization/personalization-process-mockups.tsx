@@ -1,5 +1,11 @@
 "use client";
 
+import { Check, Download, Upload } from "lucide-react";
+
+import {
+  PersoProcessCursor,
+  PersoProcessDragUnit,
+} from "@/components/personalization/perso-process-cursor";
 import { useProcessCycle } from "@/components/personalization/use-process-cycle";
 
 type MockupProps = {
@@ -17,84 +23,81 @@ function MockupShell({
 }) {
   return (
     <div
-      className={`perso-process-mockup relative mx-auto aspect-[4/5] w-full min-h-[240px] max-h-[320px] overflow-hidden rounded-lg border border-border/80 bg-white shadow-[0_4px_20px_rgb(61_44_38/0.06)] ${active ? "is-active" : ""} ${className}`}
+      className={`perso-process-mockup relative mx-auto aspect-[4/5] w-full min-h-[240px] max-h-[320px] overflow-hidden rounded-lg border border-brand-teal/25 bg-white shadow-[0_4px_20px_rgb(61_44_38/0.06)] ${active ? "is-active" : ""} ${className}`}
     >
       {children}
     </div>
   );
 }
 
-const PRODUCT_OPTIONS = [
-  { label: "Gobelet carton", detail: "Sérigraphie · dès 250 pcs" },
-  { label: "Gobelet réutilisable", detail: "Digital · dès 1 pc" },
-  { label: "Sac kraft", detail: "Flexo · sur devis" },
-];
-
-export function ChooseProductMockup({ active }: MockupProps) {
-  useProcessCycle(active, 8000);
+/** Étape 1 — aligné panneau Personnaliser fiche produit. */
+export function DownloadTemplateMockup({ active }: MockupProps) {
+  useProcessCycle(active);
 
   return (
-    <MockupShell active={active} className="perso-process-mockup--choose">
+    <MockupShell active={active} className="perso-process-mockup--download">
       <div className="flex h-full flex-col p-4">
         <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-          Type de produit
+          Gabarit produit
         </p>
-        <ul className="mt-3 flex flex-1 flex-col gap-2">
-          {PRODUCT_OPTIONS.map((option, index) => (
-            <li
-              key={option.label}
-              className={`perso-process-choose-option perso-process-choose-option--${index} rounded-lg border px-3 py-2.5 text-left transition-colors`}
-            >
-              <p className="text-[11px] font-semibold text-brand-navy">{option.label}</p>
-              <p className="mt-0.5 text-[9px] text-muted-foreground">{option.detail}</p>
-            </li>
-          ))}
-        </ul>
-        <div className="perso-process-cursor perso-process-cursor--choose" aria-hidden />
-      </div>
-    </MockupShell>
-  );
-}
 
-export function QuantityMockup({ active }: MockupProps) {
-  useProcessCycle(active, 8000);
-
-  return (
-    <MockupShell active={active} className="perso-process-mockup--qty">
-      <div className="flex h-full flex-col p-4">
-        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-          Quantité & tarif
-        </p>
-        <div className="mt-4 rounded-lg border border-border bg-brand-beige/40 px-3 py-3">
-          <label className="text-[9px] font-medium text-muted-foreground">Quantité</label>
-          <p className="perso-process-qty-value mt-1 text-2xl font-bold tabular-nums text-brand-navy">
-            250
+        <div className="perso-process-template-preview mt-3 flex flex-1 flex-col items-center justify-center rounded-lg border border-border/80 bg-brand-beige/25 px-3 py-4">
+          <svg
+            className="perso-process-cup-outline h-32 w-24 text-brand-navy/25"
+            viewBox="0 0 72 96"
+            fill="none"
+            aria-hidden
+          >
+            <path
+              d="M14 34 C14 24 58 24 58 34 L52 86 C52 92 20 92 20 86 Z"
+              stroke="currentColor"
+              strokeWidth="2.25"
+              strokeDasharray="5 4"
+              strokeLinejoin="round"
+            />
+            <path
+              d="M12 34 C12 28 60 28 60 34"
+              stroke="currentColor"
+              strokeWidth="2.25"
+              strokeDasharray="5 4"
+              strokeLinecap="round"
+            />
+            <rect
+              x="26"
+              y="46"
+              width="20"
+              height="22"
+              rx="2"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeDasharray="4 3"
+            />
+          </svg>
+          <p className="mt-3 text-center text-[9px] leading-snug text-muted-foreground">
+            Zones d&apos;impression · cotes · fond perdu
           </p>
         </div>
-        <dl className="mt-4 space-y-2 text-[10px]">
-          <div className="flex justify-between gap-2">
-            <dt className="text-muted-foreground">Minimum</dt>
-            <dd className="font-medium text-brand-navy">250 pcs</dd>
-          </div>
-          <div className="flex justify-between gap-2">
-            <dt className="text-muted-foreground">Prix unitaire</dt>
-            <dd className="perso-process-qty-price font-semibold text-brand-kraft-dark">0,82 € HT</dd>
-          </div>
-          <div className="flex justify-between gap-2">
-            <dt className="text-muted-foreground">Délai indicatif</dt>
-            <dd className="font-medium text-brand-navy">2–3 sem.</dd>
-          </div>
-        </dl>
-        <p className="perso-process-qty-badge mt-auto rounded-md bg-brand-teal/10 px-2 py-1.5 text-center text-[9px] font-medium text-brand-teal-dim">
-          Tarif dégressif dès 500 pcs
-        </p>
+
+        <div className="perso-process-download-btn mt-3 inline-flex h-9 w-full items-center justify-center gap-1.5 rounded-[10px] border border-brand-teal/30 bg-white text-[10px] font-semibold text-brand-navy">
+          <Download
+            className="perso-process-download-icon size-3.5 shrink-0 text-brand-teal"
+            strokeWidth={2}
+            aria-hidden
+          />
+          Télécharger le gabarit
+        </div>
+      </div>
+
+      <div className="perso-process-overlay pointer-events-none absolute inset-0">
+        <PersoProcessCursor variant="download" />
       </div>
     </MockupShell>
   );
 }
 
+/** Étape 2 — zone drag & drop fiche produit. */
 export function UploadMockup({ active }: MockupProps) {
-  useProcessCycle(active, 8000);
+  useProcessCycle(active);
 
   return (
     <MockupShell active={active} className="perso-process-mockup--upload">
@@ -102,73 +105,99 @@ export function UploadMockup({ active }: MockupProps) {
         <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Votre visuel
         </p>
-        <div className="perso-process-upload-zone relative mt-3 flex flex-1 flex-col items-center justify-center rounded-lg border-2 border-dashed border-brand-teal/30 bg-brand-beige/20 px-3 py-4">
-          <div className="perso-process-upload-icon flex h-10 w-10 items-center justify-center rounded-full bg-white text-brand-teal shadow-sm">
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              <path d="M12 16V4m0 0l-4 4m4-4l4 4M4 20h16" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </div>
-          <p className="mt-3 text-[10px] font-medium text-brand-navy">Glissez votre logo</p>
-          <p className="mt-0.5 text-[9px] text-muted-foreground">PDF, AI, SVG ou PNG HD</p>
-          <div className="perso-process-upload-file mt-3 flex items-center gap-2 rounded-md border border-border bg-white px-2.5 py-1.5 shadow-sm">
+        <div className="perso-process-upload-zone relative mt-3 flex flex-1 flex-col items-center justify-center rounded-[10px] border-2 border-dashed border-brand-teal/35 bg-white px-3 py-4">
+          <span className="perso-process-upload-icon flex size-11 items-center justify-center rounded-full bg-brand-teal/10 text-brand-teal">
+            <Upload className="size-5" strokeWidth={2} aria-hidden />
+          </span>
+          <p className="mt-3 text-[10px] font-semibold text-brand-navy">Glissez votre fichier ici</p>
+          <p className="mt-0.5 text-center text-[9px] text-muted-foreground">
+            ou cliquez pour parcourir
+          </p>
+          <div className="perso-process-upload-file mt-3 flex items-center gap-2 rounded-md border border-brand-teal/25 bg-white px-2.5 py-1.5 shadow-sm">
             <span className="flex h-5 w-5 items-center justify-center rounded bg-brand-teal/10 text-[8px] font-bold text-brand-teal">
               AI
             </span>
             <span className="text-[9px] font-medium text-brand-navy">logo-club.ai</span>
+            <Check
+              className="perso-process-upload-check ml-0.5 size-3.5 text-brand-teal"
+              strokeWidth={2.5}
+              aria-hidden
+            />
           </div>
           <div className="perso-process-upload-bar mt-3 h-1 w-full overflow-hidden rounded-full bg-border/60">
             <div className="perso-process-upload-bar-fill h-full rounded-full bg-brand-teal" />
           </div>
         </div>
       </div>
+
+      <div className="perso-process-overlay pointer-events-none absolute inset-0">
+        <PersoProcessDragUnit />
+      </div>
     </MockupShell>
   );
 }
 
-export function BatMockup({ active }: MockupProps) {
-  useProcessCycle(active, 8000);
+/** Étape 3 — panier / paiement. */
+export function OrderMockup({ active }: MockupProps) {
+  useProcessCycle(active);
 
   return (
-    <MockupShell active={active} className="perso-process-mockup--bat">
-      <div className="flex h-full flex-col p-4">
-        <div className="flex items-center justify-between gap-2">
-          <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-            Bon à tirer
-          </p>
-          <span className="perso-process-bat-status rounded-full bg-amber-100 px-2 py-0.5 text-[8px] font-semibold text-amber-800">
-            En attente
+    <MockupShell active={active} className="perso-process-mockup--order">
+      <div className="perso-process-order-toast absolute left-3 right-3 top-3 z-10 flex items-center justify-center gap-1.5 rounded-full border border-brand-teal/25 bg-white px-3 py-1.5 text-[9px] font-semibold text-brand-navy shadow-[0_4px_16px_rgb(61_44_38/0.1)]">
+        <Check className="size-3.5 shrink-0 text-brand-teal" strokeWidth={2.5} aria-hidden />
+        Commande enregistrée
+      </div>
+
+      <div className="flex h-full flex-col p-4 pt-5">
+        <p className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+          Panier
+        </p>
+
+        <div className="perso-process-order-lines mt-2.5 flex-1 overflow-hidden rounded-lg border border-border/80 bg-brand-beige/15">
+          <div className="flex items-start justify-between gap-2 border-b border-border/60 px-2.5 py-2">
+            <p className="min-w-0 text-[9px] leading-snug text-brand-navy">
+              <span className="font-semibold">Gobelet carton 24 cl</span>
+              <span className="text-muted-foreground"> · ×250</span>
+            </p>
+            <span className="shrink-0 text-[9px] font-semibold tabular-nums text-brand-navy">
+              205,00&nbsp;€ HT
+            </span>
+          </div>
+          <div className="flex items-center justify-between gap-2 border-b border-border/60 px-2.5 py-2">
+            <span className="text-[9px] text-brand-navy">Personnalisation logo</span>
+            <span className="text-[9px] font-semibold text-brand-teal">Gratuit</span>
+          </div>
+          <div className="flex items-center justify-between gap-2 px-2.5 py-2">
+            <span className="text-[9px] text-brand-navy">Livraison standard</span>
+            <span className="text-[9px] font-semibold tabular-nums text-brand-navy">9,90&nbsp;€ HT</span>
+          </div>
+        </div>
+
+        <div className="mt-2.5 flex items-center justify-between gap-2 px-0.5">
+          <span className="text-[10px] font-bold text-brand-navy">Total HT</span>
+          <span className="perso-process-order-price text-[11px] font-bold tabular-nums text-brand-teal">
+            214,90&nbsp;€ HT
           </span>
         </div>
-        <div className="perso-process-bat-preview relative mt-3 flex flex-1 items-center justify-center rounded-lg border border-border bg-brand-beige/30">
-          <div className="flex h-24 w-16 flex-col items-center justify-end rounded-t-full border-2 border-brand-navy/15 bg-white pb-2 shadow-sm">
-            <span className="perso-process-bat-logo text-[7px] font-bold tracking-tight text-brand-teal">
-              CLUB
-            </span>
-          </div>
-          <div className="perso-process-bat-check absolute inset-0 flex items-center justify-center rounded-lg bg-brand-teal/10">
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-teal text-lg font-bold text-white shadow-md">
-              ✓
-            </span>
-          </div>
+
+        <div className="perso-process-order-cta mt-2 flex h-9 w-full items-center justify-center rounded-[10px] bg-brand-teal text-[10px] font-semibold text-white">
+          Payer
         </div>
-        <div className="mt-3 space-y-1.5">
-          <div className="perso-process-bat-step perso-process-bat-step--1 flex items-center gap-2 text-[9px]">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-teal" />
-            <span className="text-muted-foreground">BAT envoyé sous 48h</span>
-          </div>
-          <div className="perso-process-bat-step perso-process-bat-step--2 flex items-center gap-2 text-[9px]">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-teal" />
-            <span className="font-medium text-brand-navy">Validé : lancement fabrication</span>
-          </div>
-        </div>
+
+        <p className="perso-process-order-bat mt-2 rounded-md bg-brand-teal/10 px-2 py-1.5 text-center text-[8px] font-medium text-brand-teal-dim">
+          BAT sous 48 h avant fabrication
+        </p>
+      </div>
+
+      <div className="perso-process-overlay pointer-events-none absolute inset-0">
+        <PersoProcessCursor variant="order" />
       </div>
     </MockupShell>
   );
 }
 
 export const PERSONALIZATION_PROCESS_MOCKUPS = [
-  ChooseProductMockup,
-  QuantityMockup,
+  DownloadTemplateMockup,
   UploadMockup,
-  BatMockup,
+  OrderMockup,
 ] as const;

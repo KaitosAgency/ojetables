@@ -2,21 +2,23 @@
 
 Preview Next.js de la refonte Ojetables.fr, réalisée par [Kaitos Agency](https://kaitos.agency) suite au [pré-audit Ojetables](https://kaitos.agency/p/preaudit-ojetables).
 
-> **Maquette preview - non contractuelle.** Placeholders visuels, pas de panier ni compte client fonctionnel sur la maquette.
+> **Maquette preview — non contractuelle.** Placeholders visuels, panier simulé, une fiche produit fonctionnelle. Voir [docs/maquette-limitations.md](./docs/maquette-limitations.md).
 
 ## Stack
 
 - Next.js 16 (App Router)
 - React 19 + TypeScript
 - Tailwind CSS v4 + shadcn/ui
-- Infra SEO reprise du projet Proxi-it (meta, OG, JSON-LD, FAQ)
+- Infra SEO : meta, OG, JSON-LD, FAQ, sitemap
 
-## Pages
+## Pages indexables (4)
 
 | Route | Description |
 |-------|-------------|
-| `/` | Homepage - hero pro, logos clients, secteurs, réassurance, FAQ |
-| `/produit/gobelet-carton-24cl-kraft-individuel` | Fiche produit exemple - Gobelet carton 24 cl Kraft, galerie, prix, tabs, JSON-LD Product |
+| `/` | Homepage — hero, catalogue, secteurs, avis, FAQ |
+| `/vaisselle-jetable` | Catégorie exemple — filtres, pagination, JSON-LD CollectionPage |
+| `/produit/gobelet-carton-24cl-kraft-individuel` | Fiche produit — galerie, prix, tabs, JSON-LD Product |
+| `/destockage` | Promotions — grille + JSON-LD CollectionPage |
 
 ## Démarrage local
 
@@ -29,34 +31,41 @@ npm run dev
 
 Ouvrir [http://localhost:3000](http://localhost:3000).
 
-## Build
+## Scripts
 
 ```bash
 npm run lint
 npm run build
+node scripts/parse-nav.mjs    # Régénère lib/catalog-nav-data.json
 ```
+
+## Variables d'environnement
+
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_SITE_URL` | URL canonique preview (ex. `https://ojetables-maquette.vercel.app`) |
+
+Sans cette variable, canonical / OG / JSON-LD utilisent `https://www.ojetables.fr`.
 
 ## Déploiement Vercel
 
-1. Importer le dossier `Maquette_interactive` comme root du projet
-2. Définir `NEXT_PUBLIC_SITE_URL` = URL de production Vercel (ex. `https://ojetables-maquette.vercel.app`)
+1. Root du projet = dossier `Maquette_interactive`
+2. Définir `NEXT_PUBLIC_SITE_URL`
 3. Deploy
 
-Sans cette variable, les URLs canoniques, OG et JSON-LD pointeront vers `ojetables.fr`.
+## Documentation équipe
 
-## SEO inclus
+- [Architecture](./docs/architecture.md)
+- [Limitations maquette](./docs/maquette-limitations.md)
+- [Contribuer](./CONTRIBUTING.md)
 
-- Metadata + canonical par page
-- Images OG/Twitter dynamiques (`opengraph-image.tsx`)
-- JSON-LD : Organization, WebSite, FAQPage, Product + Offer + shippingDetails
-- `robots.ts` + `sitemap.ts` (2 pages indexables)
-- `public/llms.txt`
-
-## Structure
+## Structure (après refactor)
 
 ```
-app/              Routes Next.js
-components/       UI, sections homepage, composants produit
-lib/site.ts       Constantes marque (nav, FAQ, stats, secteurs)
-lib/products.ts   Données mock fiche produit
+app/                  Routes Next.js
+components/           UI, sections, SEO
+lib/site/             Données marque (barrel @/lib/site)
+lib/products/         Fiche produit exemple
+lib/maquette/         Overrides preview (retirer en prod)
+lib/types/            Types partagés
 ```

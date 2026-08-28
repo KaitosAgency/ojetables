@@ -73,16 +73,20 @@ export function createPageMetadata({
   };
 }
 
-/** Metadata fiche produit : image produit + og:type product (via meta additionnelle). */
+/**
+ * Metadata fiche produit : image produit sans `og:type`.
+ * `product` n'existe pas dans le type OpenGraph de Next et `other` produirait un `name=`
+ * au lieu du `property=` attendu par les scrapers : la balise est rendue dans la page.
+ */
 export function createProductPageMetadata(
   input: PageMetadataInput,
 ): Metadata {
   const metadata = createPageMetadata(input);
+  const { type, ...openGraphWithoutType } = metadata.openGraph as { type?: string };
+  void type;
 
   return {
     ...metadata,
-    other: {
-      "og:type": "product",
-    },
+    openGraph: openGraphWithoutType,
   };
 }

@@ -3,9 +3,6 @@ export const DEFAULT_CATEGORY_PER_PAGE = 24;
 
 export const CATEGORY_PER_PAGE_OPTIONS = [12, 24, 48, 96] as const;
 
-/** @deprecated Utiliser DEFAULT_CATEGORY_PER_PAGE */
-export const CATEGORY_PRODUCTS_PER_PAGE = DEFAULT_CATEGORY_PER_PAGE;
-
 export function parseCategoryPage(value: string | string[] | null | undefined): number {
   const raw = Array.isArray(value) ? value[0] : value;
   const parsed = Number.parseInt(raw ?? "1", 10);

@@ -1,10 +1,25 @@
 import { BandBottomArc } from "@/components/ui/band-bottom-arc";
+import { PageContainer } from "@/components/layout/page-container";
 import { ClientLogosMarquee } from "@/components/sections/client-logos-marquee";
 import { SectionHeader } from "@/components/sections/section-header";
+import { cn } from "@/lib/utils";
 
-export function StatsBand() {
+type StatsBandProps = {
+  /** `overlap` : arc blanc vers la section suivante (homepage). `footer` : bandeau plein avant le pied de page. */
+  variant?: "overlap" | "footer";
+};
+
+export function StatsBand({ variant = "overlap" }: StatsBandProps) {
+  const isFooter = variant === "footer";
+
   return (
-    <section className="band-arc-overlap relative z-10 overflow-hidden bg-brand-navy pb-5 md:pb-6">
+    <section
+      aria-label="Références clients"
+      className={cn(
+        "relative overflow-hidden bg-brand-navy [overflow-anchor:none] pb-5 md:pb-6",
+        isFooter ? "band-arc-overlap border-t border-border/60 z-10" : "band-arc-overlap z-10",
+      )}
+    >
       <div
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_120%_at_0%_50%,rgb(209_125_60/0.1),transparent_55%)]"
         aria-hidden
@@ -14,8 +29,14 @@ export function StatsBand() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-12">
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-12 xl:grid-cols-[minmax(0,18rem)_1fr]">
+      <PageContainer className={cn("relative", isFooter ? "py-8 md:py-10" : "py-10 md:py-12")}>
+        <div
+          className={cn(
+            "grid items-center gap-10 lg:grid-cols-[minmax(0,17rem)_1fr] lg:gap-12",
+            !isFooter && "xl:grid-cols-[minmax(0,18rem)_1fr]",
+            isFooter && "gap-8 lg:grid-cols-[minmax(0,16rem)_1fr] lg:gap-10",
+          )}
+        >
           <SectionHeader
             tone="inverse"
             badge={
@@ -29,12 +50,12 @@ export function StatsBand() {
                 ils nous font confiance pour leurs événements.
               </>
             }
-            descriptionClassName="text-base leading-relaxed"
+            descriptionClassName={isFooter ? "text-sm leading-relaxed md:text-base" : "text-base leading-relaxed"}
           />
 
           <ClientLogosMarquee />
         </div>
-      </div>
+      </PageContainer>
       <BandBottomArc className="text-white" />
     </section>
   );

@@ -8,7 +8,7 @@ export function ProductProBanner({ className }: ProductProBannerProps) {
   const items = [
     "Un seul compte client",
     "Tarifs dégressifs",
-    "Devis volume",
+    "Demander un devis",
     "Personnalisation logo",
     "Livraison 24/72h",
   ];
@@ -16,7 +16,7 @@ export function ProductProBanner({ className }: ProductProBannerProps) {
   return (
     <div
       className={cn(
-        "sticky top-0 z-40 border-b border-brand-kraft/25 bg-brand-beige/60 backdrop-blur-sm",
+        "sticky top-0 z-40 min-h-11 border-b border-brand-kraft/25 bg-brand-beige/60 backdrop-blur-sm md:min-h-12",
         className,
       )}
     >

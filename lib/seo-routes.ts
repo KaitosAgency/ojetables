@@ -16,7 +16,7 @@ export const indexableRoutes: SeoRoute[] = [
     path: routes.product,
     changeFrequency: "weekly",
     priority: 0.9,
-    lastModified: "2026-08-20",
+    lastModified: "2026-08-28",
   },
   {
     path: routes.destockage,

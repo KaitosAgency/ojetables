@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import { Flame, Tag, Truck } from "lucide-react";
 import Link from "next/link";
 
+import { PageContainer } from "@/components/layout/page-container";
 import { ProductCard } from "@/components/product/product-card";
 import { buttonVariants } from "@/components/ui/button";
 import { interactiveCardElevationClassName } from "@/components/ui/interactive-card";
@@ -11,6 +12,7 @@ import {
   destockageSlideClassName,
 } from "@/components/sections/destockage-slider";
 import { destockageItems, routes } from "@/lib/site";
+import { toProductCardProps } from "@/lib/site/product-teasers";
 import { cn } from "@/lib/utils";
 
 function DestockageCarouselSkeleton({ className }: { className?: string }) {
@@ -38,7 +40,7 @@ export function DestockageBand() {
         aria-hidden
       />
 
-      <div className="relative mx-auto max-w-6xl px-4 md:px-6">
+      <PageContainer className="relative">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-6 xl:gap-8">
           <div className="min-w-0 lg:col-span-4">
             <SectionHeader
@@ -103,13 +105,13 @@ export function DestockageBand() {
 
           <DestockageSlider className="min-w-0 lg:col-span-8">
             {destockageItems.map((product) => (
-              <ContentSliderSlide key={product.name} className={destockageSlideClassName}>
-                <ProductCard {...product} className="h-full" showQuickActions={false} />
+              <ContentSliderSlide key={product.id} className={destockageSlideClassName}>
+                <ProductCard {...toProductCardProps(product)} className="h-full" showQuickActions={false} />
               </ContentSliderSlide>
             ))}
           </DestockageSlider>
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }

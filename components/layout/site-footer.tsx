@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Heart } from "lucide-react";
+import { HomeLink } from "@/components/layout/home-link";
 import {
   avisGarantis,
   footerNav,
@@ -120,7 +121,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl px-4 py-12 md:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-x-8 lg:gap-y-10">
           <div className="sm:col-span-2 lg:col-span-3">
-            <Link href="/" className="inline-flex">
+            <HomeLink className="inline-flex">
               <Image
                 src={logos.light}
                 alt={logos.alt}
@@ -128,7 +129,7 @@ export function SiteFooter() {
                 height={logos.height}
                 className="h-11 w-auto md:h-12"
               />
-            </Link>
+            </HomeLink>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-400">{site.description}</p>
           </div>
 

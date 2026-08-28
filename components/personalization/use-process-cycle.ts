@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-const DEFAULT_CYCLE_MS = 8000;
+const DEFAULT_CYCLE_MS = 10000;
 
 /** Re-déclenche les animations CSS à chaque cycle tant que le mockup est actif. */
 export function useProcessCycle(active: boolean, cycleMs = DEFAULT_CYCLE_MS) {

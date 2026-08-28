@@ -2,15 +2,11 @@
 
 import type { ReactNode } from "react";
 
-import {
-  ContentSlider,
-  ContentSliderSlide,
-} from "@/components/ui/content-slider";
+import { ContentSlider } from "@/components/ui/content-slider";
+import { destockageSliderConfig } from "@/lib/content-slider-configs";
 
-export { ContentSliderSlide };
-
-export const destockageSlideClassName =
-  "w-[calc(50%-0.375rem)] sm:w-[calc(50%-0.5rem)] lg:w-[calc(25%-0.75rem)]";
+export { destockageSlideClassName } from "@/lib/content-slider-configs";
+export { ContentSliderSlide } from "@/components/ui/content-slider";
 
 type DestockageSliderProps = {
   children: ReactNode;
@@ -19,13 +15,15 @@ type DestockageSliderProps = {
 
 /** Carrousel destockage — les cartes produit sont passées en children (RSC). */
 export function DestockageSlider({ children, className }: DestockageSliderProps) {
+  const { variant, autoPlay, autoPlayInterval } = destockageSliderConfig;
+
   return (
     <ContentSlider
       ariaLabel="Produits destockage"
-      variant="kraft"
       className={className}
-      autoPlay
-      autoPlayInterval={4500}
+      variant={variant}
+      autoPlay={autoPlay}
+      autoPlayInterval={autoPlayInterval}
     >
       {children}
     </ContentSlider>

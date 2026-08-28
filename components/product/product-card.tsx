@@ -1,14 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Palette } from "lucide-react";
 import { ProductCardFavoriteButton } from "@/components/product/product-card-quick-actions";
 import { ProductCardFooterActions } from "@/components/product/product-card-footer-actions";
+import { ProductPersonalizableBadge } from "@/components/product/product-personalizable-badge";
 import { StarRating } from "@/components/ui/star-rating";
+import { getDiscountPercentFromLabels } from "@/lib/product-format";
 import { interactiveCardClassName } from "@/components/ui/interactive-card";
 import { getProductCardImageSrc } from "@/lib/product-image";
 import { cn } from "@/lib/utils";
 
 export type ProductCardProps = {
+  /** Identifiant catalogue (maquette catégorie — favoris / clés React). */
+  id?: string;
   name: string;
   image: string;
   category: string;
@@ -27,21 +30,12 @@ export type ProductCardProps = {
   titleAs?: "h3" | "h4";
   /** Favoris + ajout panier rapide — uniquement pages catégorie (`CategoryProductGrid`). */
   showQuickActions?: boolean;
+  /** Layout compact pour carrousels (sans footer actions). */
+  variant?: "default" | "compact";
 };
 
-function parseFrenchPrice(value: string): number | null {
-  const amount = Number.parseFloat(value.replace(/\s/g, "").replace("€", "").replace(",", "."));
-  return Number.isFinite(amount) ? amount : null;
-}
-
-function getDiscountPercent(priceWas: string, priceFrom: string): number | null {
-  const was = parseFrenchPrice(priceWas);
-  const from = parseFrenchPrice(priceFrom);
-  if (!was || !from || from >= was) return null;
-  return Math.round((1 - from / was) * 100);
-}
-
 export function ProductCard({
+  id,
   name,
   image,
   category,
@@ -55,10 +49,13 @@ export function ProductCard({
   className,
   titleAs = "h3",
   showQuickActions = false,
+  variant = "default",
 }: ProductCardProps) {
+  const isCompact = variant === "compact";
   const isExternal = href.startsWith("http");
+  const shopKey = id ?? href;
   const isQuote = priceFrom.toLowerCase().includes("devis");
-  const discountPercent = priceWas ? getDiscountPercent(priceWas, priceFrom) : null;
+  const discountPercent = priceWas ? getDiscountPercentFromLabels(priceWas, priceFrom) : null;
   const hasDiscount = Boolean(priceWas && discountPercent);
   const TitleTag = titleAs;
 
@@ -72,13 +69,7 @@ export function ProductCard({
         ) : null}
 
         {personalizable ? (
-          <span
-            role="img"
-            className="pointer-events-none absolute right-1.5 top-1.5 z-20 flex h-6 w-6 items-center justify-center rounded-md border border-brand-teal/25 bg-white text-brand-teal-dim"
-            aria-label="Personnalisation disponible"
-          >
-            <Palette className="h-3.5 w-3.5" strokeWidth={2} aria-hidden />
-          </span>
+          <ProductPersonalizableBadge className="absolute right-1.5 top-1.5 z-20" />
         ) : null}
 
         <Link
@@ -92,12 +83,15 @@ export function ProductCard({
             fill
             draggable={false}
             sizes="(max-width: 640px) 45vw, (max-width: 1024px) 33vw, 280px"
-            className="product-card__image object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]"
+            className={cn(
+              "product-card__image object-cover object-center transition-transform duration-300 group-hover:scale-[1.03]",
+              isCompact && "object-contain",
+            )}
           />
         </Link>
         {showQuickActions === true ? (
           <ProductCardFavoriteButton
-            productKey={href}
+            productKey={shopKey}
             productName={name}
             className="absolute bottom-1.5 left-1.5 z-20"
           />
@@ -140,6 +134,7 @@ export function ProductCard({
         </div>
       </Link>
 
+      {!isCompact ? (
       <div
         className={cn(
           "mt-auto border-t border-brand-beige bg-gradient-to-r from-brand-beige/90 via-brand-beige/70 to-brand-beige/50",
@@ -148,7 +143,7 @@ export function ProductCard({
       >
         {showQuickActions === true ? (
           <ProductCardFooterActions
-            productKey={href}
+            productKey={shopKey}
             productName={name}
             isQuote={isQuote}
             price={
@@ -183,6 +178,7 @@ export function ProductCard({
           </p>
         )}
       </div>
+      ) : null}
     </article>
   );
 }

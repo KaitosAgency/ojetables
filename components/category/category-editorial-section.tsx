@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { PageContainer } from "@/components/layout/page-container";
 import type { Category } from "@/lib/categories";
 import { categoryPath } from "@/lib/categories";
 import { routes, productPath, featuredProductSlug } from "@/lib/site";
@@ -12,8 +13,8 @@ export function CategoryEditorialSection({ category }: CategoryEditorialSectionP
   const basePath = categoryPath(category.slug);
 
   return (
-    <section className="border-t border-border/60 bg-brand-beige/40 section-padding text-left">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+    <section className="border-t border-border/60 bg-brand-beige/20 section-padding text-left">
+      <PageContainer>
         <h2 className="text-2xl font-bold tracking-tight text-brand-navy md:text-3xl">
           {category.seoHeading}
         </h2>
@@ -99,7 +100,7 @@ export function CategoryEditorialSection({ category }: CategoryEditorialSectionP
                 <strong>Comptes professionnels</strong> : remises dès 10 packs, devis volume en ligne et paiement sous 30 jours pour les encours validés. Particuliers et associations : commande sans minimum sur les références en stock.
               </p>
               <p>
-                <strong>Livraison 24/72h</strong> partout en France sur plus de 3 000 références. Frais de port calculés au panier, possibilité de livraison en palette pour les grands volumes. Consultez aussi notre{" "}
+                <strong>Livraison 24/72h</strong> partout en France sur plus de 3 000 références. Frais de port : 6,90 € HT (0–29,99 €), 9,90 € HT (30–139,99 €), 16,90 € HT (140–249,99 €), offerts dès 250 € HT. Consultez aussi notre{" "}
                 <Link href={routes.destockage} className="font-medium text-brand-teal hover:underline">
                   sélection destockage
                 </Link>{" "}
@@ -148,7 +149,7 @@ export function CategoryEditorialSection({ category }: CategoryEditorialSectionP
           </Link>
           {" "}sur gobelets et emballages.
         </p>
-      </div>
+      </PageContainer>
     </section>
   );
 }

@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components/layout/page-container";
 import { CategorySubfamiliesSlider } from "@/components/category/category-subfamilies-slider";
 import { SectionHeader } from "@/components/sections/section-header";
 import type { Category } from "@/lib/categories";
@@ -19,7 +20,7 @@ export function CategorySubnav({ category, variant = "default" }: CategorySubnav
         isCompact ? "py-8 md:py-10" : "section-padding !py-10 md:!py-14",
       )}
     >
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <PageContainer>
         {isCompact ? (
           <div className="mb-6">
             <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-teal">
@@ -62,7 +63,7 @@ export function CategorySubnav({ category, variant = "default" }: CategorySubnav
             <span key={`anchor-${subfamily.id}`} id={subfamily.id} className="scroll-mt-36" />
           ))}
         </div>
-      </div>
+      </PageContainer>
     </section>
   );
 }

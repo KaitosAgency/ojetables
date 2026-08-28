@@ -1,6 +1,16 @@
 "use client";
 
-import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
+import {
+  Children,
+  cloneElement,
+  isValidElement,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -16,6 +26,10 @@ type ContentSliderProps = {
   autoPlay?: boolean;
   autoPlayInterval?: number;
   enableDrag?: boolean;
+  /** Triple le contenu et reboucle le scroll horizontal (carrousels produits). */
+  infiniteLoop?: boolean;
+  /** Masque latéral : `when-overflow` = uniquement si le contenu déborde (défaut). */
+  edgeMask?: boolean | "when-overflow";
 };
 
 export function ContentSlider({
@@ -27,12 +41,33 @@ export function ContentSlider({
   autoPlay = false,
   autoPlayInterval = 4500,
   enableDrag = true,
+  infiniteLoop = false,
+  edgeMask = "when-overflow",
 }: ContentSliderProps) {
+  const originalChildren = useMemo(() => Children.toArray(children), [children]);
+  const renderedChildren = useMemo(() => {
+    if (!infiniteLoop || originalChildren.length === 0) {
+      return originalChildren;
+    }
+
+    return Array.from({ length: 3 }, (_, copyIndex) =>
+      originalChildren.map((child, childIndex) => {
+        if (isValidElement(child)) {
+          return cloneElement(child, {
+            key: `content-slider-loop-${copyIndex}-${String(child.key ?? childIndex)}`,
+          });
+        }
+
+        return child;
+      }),
+    ).flat();
+  }, [children, infiniteLoop, originalChildren]);
   const rootRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const activeIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [pageCount, setPageCount] = useState(0);
+  const [hasOverflow, setHasOverflow] = useState(false);
   const snapIndicesRef = useRef<number[]>([0]);
   const autoPlayPausedRef = useRef(false);
   const autoPlayPauseUntilRef = useRef(0);
@@ -47,7 +82,9 @@ export function ContentSlider({
   const isDark = variant === "dark";
   const isGreen = variant === "green";
   const isKraft = variant === "kraft";
-  const useEdgeMask = variant === "light" || isKraft;
+  const useEdgeMaskVariant = variant === "light" || isKraft;
+  const showEdgeMask =
+    edgeMask === true || (edgeMask === "when-overflow" && useEdgeMaskVariant && hasOverflow);
 
   const pauseAutoPlay = useCallback((durationMs = 8000) => {
     autoPlayPauseUntilRef.current = Date.now() + durationMs;
@@ -64,6 +101,36 @@ export function ContentSlider({
   const getMaxScrollLeft = useCallback((track: HTMLElement) => {
     return Math.max(0, track.scrollWidth - track.clientWidth);
   }, []);
+
+  const getSlideStep = useCallback((track: HTMLElement) => {
+    const firstSlide = track.children[0] as HTMLElement | undefined;
+    if (!firstSlide) return 0;
+
+    const styles = getComputedStyle(track);
+    const gap =
+      Number.parseFloat(styles.columnGap || styles.gap || "0") ||
+      Number.parseFloat(styles.rowGap || "0") ||
+      0;
+
+    return firstSlide.offsetWidth + gap;
+  }, []);
+
+  const repositionInfiniteLoop = useCallback(
+    (track: HTMLElement) => {
+      if (!infiniteLoop || originalChildren.length === 0) return;
+
+      const segment = track.scrollWidth / 3;
+      if (segment <= 0) return;
+
+      const threshold = Math.max(8, segment * 0.02);
+      if (track.scrollLeft <= threshold) {
+        track.scrollLeft += segment;
+      } else if (track.scrollLeft >= segment * 2 - threshold) {
+        track.scrollLeft -= segment;
+      }
+    },
+    [infiniteLoop, originalChildren.length],
+  );
 
   const computeSnapIndices = useCallback(
     (track: HTMLElement) => {
@@ -107,12 +174,15 @@ export function ContentSlider({
     const track = trackRef.current;
     if (!track) return;
 
+    repositionInfiniteLoop(track);
+
     const snapIndices = computeSnapIndices(track);
     snapIndicesRef.current = snapIndices;
     setPageCount(snapIndices.length);
     if (snapIndices.length === 0) return;
 
     const maxScroll = getMaxScrollLeft(track);
+    setHasOverflow(maxScroll > 2);
     const scrollLeft = track.scrollLeft;
     let activePage = 0;
     let closestDistance = Number.POSITIVE_INFINITY;
@@ -129,7 +199,27 @@ export function ContentSlider({
 
     activeIndexRef.current = activePage;
     setActiveIndex(activePage);
-  }, [computeSnapIndices, getMaxScrollLeft]);
+  }, [computeSnapIndices, getMaxScrollLeft, repositionInfiniteLoop]);
+
+  useEffect(() => {
+    if (!infiniteLoop || originalChildren.length === 0) return;
+
+    const track = trackRef.current;
+    if (!track) return;
+
+    const initScroll = () => {
+      const segment = track.scrollWidth / 3;
+      if (segment > 0) {
+        track.scrollLeft = segment;
+        updateScrollState();
+      }
+    };
+
+    initScroll();
+    window.addEventListener("resize", initScroll);
+
+    return () => window.removeEventListener("resize", initScroll);
+  }, [infiniteLoop, originalChildren.length, renderedChildren, updateScrollState]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -143,7 +233,7 @@ export function ContentSlider({
       track.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
     };
-  }, [updateScrollState, children]);
+  }, [updateScrollState, renderedChildren]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -161,10 +251,28 @@ export function ContentSlider({
   }, [autoPlay]);
 
   useEffect(() => {
-    if (!autoPlay || pageCount <= 1) return;
+    if (!autoPlay) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return;
+
+    if (infiniteLoop && originalChildren.length > 0) {
+      const interval = window.setInterval(() => {
+        if (isAutoPlayPaused()) return;
+
+        const track = trackRef.current;
+        if (!track) return;
+
+        const step = getSlideStep(track);
+        if (step <= 0) return;
+
+        track.scrollBy({ left: step, behavior: "smooth" });
+      }, autoPlayInterval);
+
+      return () => window.clearInterval(interval);
+    }
+
+    if (pageCount <= 1) return;
 
     const interval = window.setInterval(() => {
       if (isAutoPlayPaused()) return;
@@ -173,7 +281,16 @@ export function ContentSlider({
     }, autoPlayInterval);
 
     return () => window.clearInterval(interval);
-  }, [autoPlay, autoPlayInterval, pageCount, scrollToPage, isAutoPlayPaused]);
+  }, [
+    autoPlay,
+    autoPlayInterval,
+    pageCount,
+    scrollToPage,
+    isAutoPlayPaused,
+    infiniteLoop,
+    originalChildren.length,
+    getSlideStep,
+  ]);
 
   useEffect(() => {
     if (!enableDrag) return;
@@ -205,8 +322,11 @@ export function ContentSlider({
 
       if (delta === 0) return;
 
-      const canScrollFurther =
-        delta < 0 ? el.scrollLeft > 0 : el.scrollLeft < maxScroll;
+      const canScrollFurther = infiniteLoop
+        ? true
+        : delta < 0
+          ? el.scrollLeft > 0
+          : el.scrollLeft < maxScroll;
 
       if (!canScrollFurther) return;
 
@@ -217,7 +337,7 @@ export function ContentSlider({
 
     trackEl.addEventListener("wheel", handleWheel, { passive: false });
     return () => trackEl.removeEventListener("wheel", handleWheel);
-  }, [enableDrag, pauseAutoPlay, getMaxScrollLeft, children]);
+  }, [enableDrag, pauseAutoPlay, getMaxScrollLeft, renderedChildren, infiniteLoop]);
 
   useEffect(() => {
     if (!enableDrag) return;
@@ -332,7 +452,7 @@ export function ContentSlider({
         if (autoPlay) autoPlayPausedRef.current = false;
       }}
     >
-      <div className={cn("relative min-w-0", useEdgeMask && "content-slider__fade-edges")}>
+      <div className={cn("relative min-w-0", showEdgeMask && "content-slider__fade-edges")}>
         {isGreen ? (
           <>
             <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-10 bg-gradient-to-r from-brand-teal-dim to-transparent sm:w-14" />
@@ -361,11 +481,11 @@ export function ContentSlider({
           onClickCapture={handleClickCapture}
           onTouchStart={() => pauseAutoPlay()}
         >
-          {children}
+          {renderedChildren}
         </div>
       </div>
 
-      {pageCount > 1 ? (
+      {pageCount > 1 && !infiniteLoop ? (
         <div className="mt-6 flex justify-center" aria-hidden>
           <div className="flex items-center gap-2">
             {Array.from({ length: pageCount }).map((_, index) => (

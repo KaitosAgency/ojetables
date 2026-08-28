@@ -46,6 +46,14 @@
     transparent 7px,
     transparent 12px
   );
+  /* Header sticky : crans carton + hauteur mesurée en JS (site-header.tsx) */
+  --header-crans-height: 10px;
+  --site-header-height: 8.5rem;
+  --site-header-gap: 1rem;
+}
+
+html {
+  scroll-padding-top: calc(var(--site-header-height) + var(--site-header-gap));
 }
 
 @theme inline {
@@ -99,6 +107,10 @@ body {
   width: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -106,6 +118,8 @@ body {
 
 #main-content {
   overflow-x: clip;
+  position: relative;
+  z-index: 0;
 }
 
 .nav-link-baseline {
@@ -561,10 +575,14 @@ body {
   z-index: 0;
 }
 
-.site-header-cardboard {
+.site-header-shell {
   position: sticky;
   top: 0;
   z-index: 50;
+  isolation: isolate;
+}
+
+.site-header-cardboard {
   overflow: visible;
 }
 
@@ -607,7 +625,7 @@ body {
 
 .header-catalog-divider {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .header-catalog-divider::before {
@@ -641,6 +659,15 @@ body {
   letter-spacing: 0.04em;
   color: #fff;
   pointer-events: none;
+}
+
+.product-gallery__promo-ribbon {
+  left: -3rem;
+  top: 1.35rem;
+  width: 9.5rem;
+  padding-block: 0.35rem;
+  font-size: 0.9375rem;
+  letter-spacing: 0.05em;
 }
 
 .product-card__media {
@@ -717,6 +744,88 @@ body {
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   -ms-overflow-style: none;
+}
+
+/* PDP — colonne achat type Green Store (sticky top + scroll sync JS) */
+.product-init-sticky {
+  align-self: stretch;
+}
+
+.product-sticky-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+@media (min-width: 1024px) {
+  .product-sticky-items {
+    position: sticky;
+    top: calc(var(--site-header-height) + var(--site-header-gap));
+    height: calc(100dvh - var(--site-header-height) - var(--site-header-gap));
+    overflow: hidden;
+    z-index: 1;
+  }
+}
+
+.product-purchase-card {
+  overflow: visible;
+}
+
+/* PDP — caret blanc dans l’onglet actif (pointe vers le haut) */
+.product-anchor-nav__caret {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid #fff;
+}
+
+/* Espace pour les badges inclinés */
+.product-volume-bundles {
+  overflow: visible;
+  padding-top: 0.625rem;
+  padding-left: 0.5rem;
+}
+
+.product-volume-bundle__badge {
+  position: absolute;
+  left: -0.25rem;
+  top: -0.5rem;
+  z-index: 10;
+  display: flex;
+  min-width: 2.35rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 0.3rem 0.4rem;
+  rotate: -16deg;
+  font-size: 0.4375rem;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #fff;
+  pointer-events: none;
+  box-shadow: 0 2px 5px rgb(61 44 38 / 0.2);
+}
+
+.product-volume-bundle__badge--unlocked {
+  background: var(--brand-teal-dim);
+}
+
+.product-volume-bundle__badge--locked {
+  background: #6b7280;
+}
+
+@media (min-width: 640px) {
+  .product-volume-bundle__badge {
+    left: -0.3rem;
+    top: -0.55rem;
+    min-width: 2.5rem;
+    padding: 0.35rem 0.45rem;
+    font-size: 0.5rem;
+  }
 }
 
 .content-slider__track:active {
@@ -823,6 +932,7 @@ body {
 }
 
 .client-logos-marquee {
+  overflow-anchor: none;
   container-type: inline-size;
   -webkit-mask-image: linear-gradient(
     to right,
@@ -948,9 +1058,9 @@ body {
   filter: grayscale(0);
 }
 
-/* ── Personnalisation - mockups animés (inspiré kaitos.agency) ── */
+/* ── Personnalisation - mockups animés (cycle 10s) ── */
 .perso-process-mockup.is-active {
-  --perso-cycle: 8s;
+  --perso-cycle: 10s;
 }
 
 .perso-process-card {
@@ -969,102 +1079,143 @@ body {
   }
 }
 
-.perso-process-cursor {
+.perso-process-overlay {
+  z-index: 20;
+}
+
+/* ── Curseur partagé (style pointeur Windows) ── */
+.perso-process-cursor,
+.perso-process-drag-cursor {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   pointer-events: none;
   opacity: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='%233d2c26'%3E%3Cpath d='M5 3l14 9-6 1-3 7z'/%3E%3C/svg%3E");
+  z-index: 2;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M4 2l16 10-6.5 1.5-2.5 8.5z' fill='%23ffffff' stroke='%231a1a1a' stroke-width='1.15' stroke-linejoin='round'/%3E%3Cpath d='M5 3l14 9-6 1-3 7z' fill='%231a1a1a'/%3E%3C/svg%3E");
   background-size: contain;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 1px 1px rgb(0 0 0 / 0.12));
+  transform: translate(-2px, -2px);
 }
 
-/* Étape 1 - sélection produit */
-.perso-process-choose-option {
-  border-color: rgb(231 224 214 / 0.9);
-  background: white;
-}
-
-.perso-process-mockup.is-active .perso-process-choose-option--0 {
-  animation: perso-choose-opt-0 var(--perso-cycle) ease infinite;
-}
-
-.perso-process-mockup.is-active .perso-process-choose-option--1 {
-  animation: perso-choose-opt-1 var(--perso-cycle) ease infinite;
-}
-
-.perso-process-mockup.is-active .perso-process-choose-option--2 {
-  animation: perso-choose-opt-2 var(--perso-cycle) ease infinite;
-}
-
-.perso-process-mockup.is-active .perso-process-cursor--choose {
-  animation: perso-choose-cursor var(--perso-cycle) ease infinite;
-}
-
-@keyframes perso-choose-opt-0 {
-  0%, 8%, 28%, 100% { border-color: rgb(231 224 214 / 0.9); background: white; }
-  12%, 24% { border-color: rgb(74 188 57 / 0.55); background: rgb(74 188 57 / 0.08); }
-}
-
-@keyframes perso-choose-opt-1 {
-  0%, 28%, 48%, 100% { border-color: rgb(231 224 214 / 0.9); background: white; }
-  32%, 44% { border-color: rgb(74 188 57 / 0.55); background: rgb(74 188 57 / 0.08); }
-}
-
-@keyframes perso-choose-opt-2 {
-  0%, 48%, 68%, 100% { border-color: rgb(231 224 214 / 0.9); background: white; }
-  52%, 64% { border-color: rgb(74 188 57 / 0.55); background: rgb(74 188 57 / 0.08); }
-}
-
-@keyframes perso-choose-cursor {
-  0%, 8% { opacity: 0; transform: translate(72%, 18%); }
-  12%, 22% { opacity: 1; transform: translate(72%, 22%); }
-  24%, 28% { opacity: 0; transform: translate(72%, 22%); }
-  32%, 42% { opacity: 1; transform: translate(72%, 42%); }
-  44%, 48% { opacity: 0; transform: translate(72%, 42%); }
-  52%, 62% { opacity: 1; transform: translate(72%, 62%); }
-  64%, 100% { opacity: 0; transform: translate(72%, 62%); }
-}
-
-/* Étape 2 - quantité */
-.perso-process-mockup.is-active .perso-process-qty-value {
-  animation: perso-qty-count var(--perso-cycle) ease infinite;
-}
-
-.perso-process-mockup.is-active .perso-process-qty-price {
-  animation: perso-qty-price var(--perso-cycle) ease infinite;
-}
-
-.perso-process-qty-badge {
+.perso-process-cursor__ripple {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgb(74 188 57 / 0.55);
   opacity: 0;
-  transform: translateY(4px);
+  transform: scale(0.3);
+  transform-origin: center;
 }
 
-.perso-process-mockup.is-active .perso-process-qty-badge {
-  animation: perso-qty-badge-in var(--perso-cycle) ease infinite;
+/* ══ Étape 1 — Gabarit (0–10% idle, 10–30% gobelet, 30–45% curseur, 45–52% clic, 52–70% feedback, 70–100% reset) ══ */
+
+.perso-process-cup-outline {
+  opacity: 0.35;
+  transform: scale(0.92);
 }
 
-@keyframes perso-qty-count {
-  0%, 15% { opacity: 1; }
-  20%, 45% { opacity: 0.4; }
-  50%, 55% { opacity: 1; }
-  100% { opacity: 1; }
+.perso-process-download-btn {
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-@keyframes perso-qty-price {
-  0%, 45% { color: #8b5a2b; }
-  50%, 100% { color: #4abc39; }
+.perso-process-download-icon {
+  transition: transform 0.2s ease;
 }
 
-@keyframes perso-qty-badge-in {
-  0%, 48% { opacity: 0; transform: translateY(4px); }
-  55%, 90% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(4px); }
+.perso-process-mockup.is-active .perso-process-template-preview {
+  animation: perso-template-glow var(--perso-cycle) ease infinite;
 }
 
-/* Étape 3 - upload */
+.perso-process-mockup.is-active .perso-process-cup-outline {
+  animation: perso-cup-outline-in var(--perso-cycle) ease infinite;
+}
+
+.perso-process-mockup.is-active .perso-process-download-btn {
+  animation: perso-download-btn-press var(--perso-cycle) ease infinite;
+}
+
+.perso-process-mockup.is-active .perso-process-download-icon {
+  animation: perso-download-icon-pulse var(--perso-cycle) ease infinite;
+}
+
+.perso-process-mockup.is-active .perso-process-cursor--download {
+  animation: perso-download-cursor var(--perso-cycle) ease-in-out infinite;
+}
+
+.perso-process-mockup.is-active .perso-process-cursor--download .perso-process-cursor__ripple {
+  animation: perso-cursor-ripple var(--perso-cycle) ease infinite;
+}
+
+@keyframes perso-cup-outline-in {
+  0%, 9% { opacity: 0.35; transform: scale(0.92); color: rgb(61 44 38 / 0.22); }
+  18%, 68% { opacity: 1; transform: scale(1); color: rgb(61 44 38 / 0.32); }
+  78%, 100% { opacity: 0.55; transform: scale(0.96); color: rgb(61 44 38 / 0.24); }
+}
+
+@keyframes perso-template-glow {
+  0%, 9% { border-color: rgb(231 224 214 / 0.8); background: rgb(245 240 232 / 0.25); }
+  18%, 30% { border-color: rgb(74 188 57 / 0.4); background: rgb(74 188 57 / 0.1); }
+  40%, 100% { border-color: rgb(231 224 214 / 0.8); background: rgb(245 240 232 / 0.25); }
+}
+
+@keyframes perso-download-cursor {
+  0%, 29% { opacity: 0; left: 88%; top: 8%; transform: translate(-2px, -2px) scale(1); }
+  35% { opacity: 1; left: 88%; top: 8%; transform: translate(-2px, -2px) scale(1); }
+  44% { opacity: 1; left: 50%; top: 88%; transform: translate(-2px, -2px) scale(1); }
+  47%, 51% { opacity: 1; left: 50%; top: 88%; transform: translate(-2px, -2px) scale(0.88); }
+  55%, 100% { opacity: 0; left: 50%; top: 90%; transform: translate(-2px, -2px) scale(1); }
+}
+
+@keyframes perso-cursor-ripple {
+  0%, 44% { opacity: 0; transform: scale(0.3); }
+  47% { opacity: 1; transform: scale(0.5); }
+  52% { opacity: 0; transform: scale(1.8); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+
+@keyframes perso-download-btn-press {
+  0%, 44% {
+    border-color: rgb(74 188 57 / 0.3);
+    background: white;
+    box-shadow: none;
+    transform: scale(1);
+  }
+  47%, 51% {
+    border-color: rgb(74 188 57 / 0.65);
+    background: rgb(74 188 57 / 0.14);
+    box-shadow: inset 0 1px 2px rgb(61 44 38 / 0.08);
+    transform: scale(0.97);
+  }
+  55%, 68% {
+    border-color: rgb(74 188 57 / 0.55);
+    background: rgb(74 188 57 / 0.08);
+    box-shadow: 0 4px 14px -6px rgb(74 188 57 / 0.45);
+    transform: scale(1);
+  }
+  78%, 100% {
+    border-color: rgb(74 188 57 / 0.3);
+    background: white;
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+@keyframes perso-download-icon-pulse {
+  0%, 54% { transform: scale(1); }
+  58% { transform: scale(1.2); }
+  62%, 100% { transform: scale(1); }
+}
+
+/* ══ Étape 2 — Upload (0–12% idle, 12–20% entrée, 20–45% drag, 45–52% drop, 52–75% barre, 75–88% validé, 88–100% reset) ══ */
+
 .perso-process-upload-file,
-.perso-process-upload-bar {
+.perso-process-upload-bar,
+.perso-process-upload-check {
   opacity: 0;
 }
 
@@ -1072,12 +1223,46 @@ body {
   width: 0%;
 }
 
+.perso-process-drag-unit {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.perso-process-drag-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgb(74 188 57 / 0.35);
+  background: white;
+  box-shadow: 0 2px 8px rgb(61 44 38 / 0.1);
+  white-space: nowrap;
+}
+
+.perso-process-drag-cursor {
+  position: absolute;
+  right: -5px;
+  bottom: -7px;
+  opacity: 1;
+}
+
 .perso-process-mockup.is-active .perso-process-upload-zone {
-  animation: perso-upload-pulse var(--perso-cycle) ease infinite;
+  animation: perso-upload-zone-target var(--perso-cycle) ease infinite;
+}
+
+.perso-process-mockup.is-active .perso-process-drag-unit {
+  animation: perso-upload-drag-unit var(--perso-cycle) ease-in-out infinite;
+}
+
+.perso-process-mockup.is-active .perso-process-drag-unit .perso-process-cursor__ripple {
+  animation: perso-upload-drop-ripple var(--perso-cycle) ease infinite;
 }
 
 .perso-process-mockup.is-active .perso-process-upload-file {
-  animation: perso-upload-file-in var(--perso-cycle) ease infinite;
+  animation: perso-upload-file-drop var(--perso-cycle) ease infinite;
 }
 
 .perso-process-mockup.is-active .perso-process-upload-bar {
@@ -1088,76 +1273,141 @@ body {
   animation: perso-upload-bar-fill var(--perso-cycle) ease infinite;
 }
 
-@keyframes perso-upload-pulse {
-  0%, 20% { border-color: rgb(74 188 57 / 0.25); }
-  35%, 50% { border-color: rgb(74 188 57 / 0.55); background: rgb(74 188 57 / 0.06); }
-  65%, 100% { border-color: rgb(74 188 57 / 0.25); }
+.perso-process-mockup.is-active .perso-process-upload-check {
+  animation: perso-upload-valid var(--perso-cycle) ease infinite;
 }
 
-@keyframes perso-upload-file-in {
-  0%, 28% { opacity: 0; transform: translateY(-8px); }
-  38%, 85% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-8px); }
+@keyframes perso-upload-zone-target {
+  0%, 19% { border-color: rgb(74 188 57 / 0.25); background: white; }
+  28%, 50% { border-color: rgb(74 188 57 / 0.6); background: rgb(74 188 57 / 0.06); }
+  58%, 74% { border-color: rgb(74 188 57 / 0.45); background: rgb(74 188 57 / 0.04); }
+  88%, 100% { border-color: rgb(74 188 57 / 0.25); background: white; }
+}
+
+@keyframes perso-upload-drag-unit {
+  0%, 11% { opacity: 0; left: 6%; top: 72%; transform: translate(0, 0); }
+  16%, 19% { opacity: 1; left: 6%; top: 72%; transform: translate(0, 0); }
+  28%, 43% { opacity: 1; left: 50%; top: 52%; transform: translate(-50%, -50%); }
+  46%, 50% { opacity: 1; left: 50%; top: 52%; transform: translate(-50%, -50%) scale(0.96); }
+  53%, 100% { opacity: 0; left: 50%; top: 52%; transform: translate(-50%, -50%); }
+}
+
+@keyframes perso-upload-drop-ripple {
+  0%, 44% { opacity: 0; transform: scale(0.3); }
+  47% { opacity: 1; transform: scale(0.5); }
+  52% { opacity: 0; transform: scale(1.8); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+
+@keyframes perso-upload-file-drop {
+  0%, 50% { opacity: 0; transform: translateY(4px); }
+  54%, 86% { opacity: 1; transform: translateY(0); }
+  92%, 100% { opacity: 0; transform: translateY(4px); }
 }
 
 @keyframes perso-upload-bar-show {
-  0%, 38% { opacity: 0; }
-  42%, 88% { opacity: 1; }
-  100% { opacity: 0; }
+  0%, 51% { opacity: 0; }
+  54%, 88% { opacity: 1; }
+  94%, 100% { opacity: 0; }
 }
 
 @keyframes perso-upload-bar-fill {
-  0%, 42% { width: 0%; }
-  75%, 88% { width: 100%; }
-  100% { width: 0%; }
+  0%, 53% { width: 0%; }
+  74%, 86% { width: 100%; }
+  94%, 100% { width: 0%; }
 }
 
-/* Étape 4 - BAT */
-.perso-process-bat-check {
+@keyframes perso-upload-valid {
+  0%, 74% { opacity: 0; transform: scale(0.6); }
+  78%, 88% { opacity: 1; transform: scale(1); }
+  94%, 100% { opacity: 0; transform: scale(0.6); }
+}
+
+/* ══ Étape 3 — Panier (0–15% récap, 15–35% curseur, 35–45% clic Payer, 45–60% toast, 60–75% total, 75–90% BAT, 90–100% reset) ══ */
+
+.perso-process-order-toast {
   opacity: 0;
-  transform: scale(0.92);
+  transform: translateY(-8px);
 }
 
-.perso-process-bat-step--2 {
+.perso-process-order-bat {
   opacity: 0;
+  transform: translateY(4px);
 }
 
-.perso-process-mockup.is-active .perso-process-bat-status {
-  animation: perso-bat-status var(--perso-cycle) ease infinite;
+.perso-process-mockup.is-active .perso-process-cursor--order {
+  animation: perso-order-cursor var(--perso-cycle) ease-in-out infinite;
 }
 
-.perso-process-mockup.is-active .perso-process-bat-logo {
-  animation: perso-bat-logo-in var(--perso-cycle) ease infinite;
+.perso-process-mockup.is-active .perso-process-cursor--order .perso-process-cursor__ripple {
+  animation: perso-order-cursor-ripple var(--perso-cycle) ease infinite;
 }
 
-.perso-process-mockup.is-active .perso-process-bat-check {
-  animation: perso-bat-check-in var(--perso-cycle) ease infinite;
+.perso-process-mockup.is-active .perso-process-order-cta {
+  animation: perso-order-cta-press var(--perso-cycle) ease infinite;
 }
 
-.perso-process-mockup.is-active .perso-process-bat-step--2 {
-  animation: perso-bat-step-2 var(--perso-cycle) ease infinite;
+.perso-process-mockup.is-active .perso-process-order-toast {
+  animation: perso-order-toast-in var(--perso-cycle) ease infinite;
 }
 
-@keyframes perso-bat-status {
-  0%, 45% { background: rgb(254 243 199); color: rgb(146 64 14); }
-  50%, 100% { background: rgb(74 188 57 / 0.15); color: rgb(58 154 46); }
+.perso-process-mockup.is-active .perso-process-order-price {
+  animation: perso-order-price-flash var(--perso-cycle) ease infinite;
 }
 
-@keyframes perso-bat-logo-in {
-  0%, 15% { opacity: 0; transform: scale(0.85); }
-  25%, 100% { opacity: 1; transform: scale(1); }
+.perso-process-mockup.is-active .perso-process-order-bat {
+  animation: perso-order-bat-in var(--perso-cycle) ease infinite;
 }
 
-@keyframes perso-bat-check-in {
-  0%, 48% { opacity: 0; transform: scale(0.92); }
-  55%, 88% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.92); }
+@keyframes perso-order-cursor {
+  0%, 14% { opacity: 0; left: 88%; top: 10%; transform: translate(-2px, -2px) scale(1); }
+  20% { opacity: 1; left: 88%; top: 10%; transform: translate(-2px, -2px) scale(1); }
+  33% { opacity: 1; left: 50%; top: 83%; transform: translate(-2px, -2px) scale(1); }
+  36%, 40% { opacity: 1; left: 50%; top: 83%; transform: translate(-2px, -2px) scale(0.88); }
+  46%, 100% { opacity: 0; left: 50%; top: 83%; transform: translate(-2px, -2px) scale(1); }
 }
 
-@keyframes perso-bat-step-2 {
-  0%, 52% { opacity: 0; }
-  58%, 92% { opacity: 1; }
-  100% { opacity: 0; }
+@keyframes perso-order-cursor-ripple {
+  0%, 33% { opacity: 0; transform: scale(0.3); }
+  36% { opacity: 1; transform: scale(0.5); }
+  41% { opacity: 0; transform: scale(1.8); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+
+@keyframes perso-order-cta-press {
+  0%, 33% {
+    transform: scale(1);
+    box-shadow: none;
+    filter: brightness(1);
+  }
+  36%, 40% {
+    transform: scale(0.97);
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.15);
+    filter: brightness(0.95);
+  }
+  46%, 100% {
+    transform: scale(1);
+    box-shadow: none;
+    filter: brightness(1);
+  }
+}
+
+@keyframes perso-order-toast-in {
+  0%, 44% { opacity: 0; transform: translateY(-8px); }
+  48%, 58% { opacity: 1; transform: translateY(0); }
+  64%, 100% { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes perso-order-price-flash {
+  0%, 58% { color: #3d2c26; }
+  64%, 74% { color: #4abc39; }
+  80%, 100% { color: #3d2c26; }
+}
+
+@keyframes perso-order-bat-in {
+  0%, 74% { opacity: 0; transform: translateY(4px); }
+  78%, 88% { opacity: 1; transform: translateY(0); }
+  94%, 100% { opacity: 0; transform: translateY(4px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1171,17 +1421,34 @@ body {
     animation: none !important;
   }
 
+  .perso-process-cup-outline {
+    opacity: 1;
+    transform: none;
+  }
+
   .perso-process-upload-file,
   .perso-process-upload-bar,
-  .perso-process-bat-check,
-  .perso-process-bat-step--2,
-  .perso-process-qty-badge {
+  .perso-process-upload-check {
     opacity: 1;
     transform: none;
   }
 
   .perso-process-upload-bar-fill {
     width: 100%;
+  }
+
+  .perso-process-drag-unit {
+    display: none;
+  }
+
+  .perso-process-cursor {
+    display: none;
+  }
+
+  .perso-process-order-toast,
+  .perso-process-order-bat {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -1225,6 +1492,12 @@ body[data-mobile-nav-open] .agJsWidget.agJsWidget--maquette {
 .agJsWidget.agJsWidget--maquette:focus-within #sag_b_cocarde {
   transform: scale(0.76);
   filter: brightness(1.05) drop-shadow(0 6px 14px rgb(61 44 38 / 0.18));
+}
+
+@media screen and (max-width: 1023px) {
+  body[data-product-sticky-bar-visible] .agJsWidget.agJsWidget--maquette {
+    bottom: 3.625rem !important;
+  }
 }
 
 @media screen and (min-width: 640px) and (max-width: 900px) {

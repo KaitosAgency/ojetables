@@ -1,3 +1,4 @@
+/** @maquette-only — tous les liens catalogue convergent vers la fiche produit exemple. */
 import type { ProductCardProps } from "@/components/product/product-card";
 import scraped from "@/lib/data/vaisselle-jetable.json";
 import type { CategoryFilterGroup } from "@/lib/category-filters";
@@ -9,6 +10,7 @@ import {
 import { isPromoProduct } from "@/lib/category-promo";
 import { decodeHtmlEntities } from "@/lib/decode-html";
 import { formatProductDisplayName } from "@/lib/format-product-name";
+import { maquetteProductHref } from "@/lib/site";
 
 export type VaisselleJetableProduct = ProductCardProps & {
   id: string;
@@ -57,7 +59,7 @@ export function mapScrapedToProductCard(product: ScrapedProduct): VaisselleJetab
   return {
     id: product.id,
     name: formatProductDisplayName(decodeHtmlEntities(product.name)),
-    href: product.href,
+    href: maquetteProductHref,
     image: product.image,
     category: decodeHtmlEntities(product.category),
     priceFrom: product.priceFrom,

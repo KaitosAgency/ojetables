@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 
+import { PageContainer } from "@/components/layout/page-container";
 import { ProductCard } from "@/components/product/product-card";
 import { ProductCardList, ProductCardListItem } from "@/components/product/product-card-list";
 import { SectionHeader } from "@/components/sections/section-header";
 import { LinkButton } from "@/components/ui/link-button";
+import { JsonLd, destockagePageJsonLd } from "@/components/seo/json-ld";
 import { createPageMetadata } from "@/lib/page-metadata";
+import { toProductCardProps } from "@/lib/site/product-teasers";
 import { destockageItems, destockagePage } from "@/lib/site";
 
 export const metadata: Metadata = createPageMetadata({
@@ -16,8 +19,9 @@ export const metadata: Metadata = createPageMetadata({
 export default function DestockagePage() {
   return (
     <div className="bg-background">
+      <JsonLd data={destockagePageJsonLd(destockagePage, destockageItems, "/destockage")} />
       <section className="border-b border-brand-kraft/20 bg-gradient-to-br from-brand-kraft/15 via-brand-beige to-white section-padding">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <PageContainer>
           <SectionHeader
             label="Destockage"
             title={destockagePage.title}
@@ -35,11 +39,11 @@ export default function DestockagePage() {
               Catalogue live ojetables.fr
             </LinkButton>
           </div>
-        </div>
+        </PageContainer>
       </section>
 
       <section className="section-padding bg-white">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <PageContainer>
           <p className="text-sm font-semibold text-brand-navy">
             {destockageItems.length} offres en preview maquette
           </p>
@@ -48,12 +52,12 @@ export default function DestockagePage() {
             className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4"
           >
             {destockageItems.map((product) => (
-              <ProductCardListItem key={product.name}>
-                <ProductCard {...product} showQuickActions={false} />
+              <ProductCardListItem key={product.id}>
+                <ProductCard {...toProductCardProps(product)} showQuickActions={false} />
               </ProductCardListItem>
             ))}
           </ProductCardList>
-        </div>
+        </PageContainer>
       </section>
     </div>
   );

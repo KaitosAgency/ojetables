@@ -6,12 +6,8 @@ import {
   routes,
   type CatalogNavCategory,
   type NavLink,
-  type ProductNavGroup,
 } from "@/lib/site";
-
-function getCategoryGroups(category: CatalogNavCategory): ProductNavGroup[] {
-  return category.groups ?? [{ title: category.label, items: category.items ?? [] }];
-}
+import { getCategoryGroups } from "@/lib/catalog-nav-utils";
 
 function CrawlNavLink({ item }: { item: NavLink }) {
   return (

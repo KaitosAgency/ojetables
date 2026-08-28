@@ -2,11 +2,14 @@ import { Suspense } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { PageContainer } from "@/components/layout/page-container";
 import { CategoryEditorialSection } from "@/components/category/category-editorial-section";
 import { CategoryCatalog } from "@/components/category/category-catalog";
 import { CategoryHero } from "@/components/category/category-hero";
 import { CategoryReviewsBand } from "@/components/category/category-reviews-band";
 import { CategorySubnav } from "@/components/category/category-subnav";
+import { BlogPostsBand } from "@/components/sections/blog-posts-band";
+import { StatsBand } from "@/components/sections/stats-band";
 import { FaqAccordion } from "@/components/sections/faq-accordion";
 import { SectionHeader } from "@/components/sections/section-header";
 import { CategoryPaginationLinks } from "@/components/seo/category-pagination-links";
@@ -50,9 +53,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 function CatalogFallback() {
   return (
     <section className="bg-white pb-16 pt-8 md:pb-24 md:pt-10">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <PageContainer>
         <p className="text-sm text-muted-foreground">Chargement du catalogue…</p>
-      </div>
+      </PageContainer>
     </section>
   );
 }
@@ -86,6 +89,7 @@ export default async function VaisselleJetableCategoryPage({ searchParams }: Pag
         </Suspense>
         <CategorySubnav category={category} variant="compact" />
         <CategoryEditorialSection category={category} />
+        <StatsBand variant="footer" />
         <section className="section-padding border-t border-border/60 bg-white">
           <div className="mx-auto max-w-3xl px-4 md:px-6">
             <SectionHeader
@@ -98,6 +102,7 @@ export default async function VaisselleJetableCategoryPage({ searchParams }: Pag
           </div>
         </section>
         <CategoryReviewsBand categoryLabel={category.label} products={vaisselleJetableProducts} />
+        <BlogPostsBand />
       </div>
     </>
   );

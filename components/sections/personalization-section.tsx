@@ -1,3 +1,4 @@
+import { PageContainer } from "@/components/layout/page-container";
 import dynamic from "next/dynamic";
 
 function PersonalizationProcessSkeleton() {
@@ -17,9 +18,9 @@ const PersonalizationProcessSection = dynamic(
 export function PersonalizationSection() {
   return (
     <section id="personnalisation" className="section-padding scroll-mt-36 bg-white">
-      <div className="mx-auto max-w-6xl px-4 md:px-6">
+      <PageContainer>
         <PersonalizationProcessSection />
-      </div>
+      </PageContainer>
     </section>
   );
 }

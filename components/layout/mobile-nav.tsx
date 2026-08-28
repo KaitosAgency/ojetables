@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronRight, Mail, Phone, X } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   Sheet,
@@ -14,31 +14,24 @@ import {
 import { Button } from "@/components/ui/button";
 import { LinkButton } from "@/components/ui/link-button";
 import { NavHighlightLink } from "@/components/layout/nav-highlight-link";
+import { HeaderTopBarContactLinks } from "@/components/layout/header-top-bar";
+import { HomeLink } from "@/components/layout/home-link";
 import {
   catalogNavCategories,
   logos,
   nav,
   routes,
-  site,
   topBar,
   type CatalogNavCategory,
   type NavLink,
-  type ProductNavGroup,
 } from "@/lib/site";
+import { categoryHasPanel, getCategoryGroups } from "@/lib/catalog-nav-utils";
 import { useMaquetteShop } from "@/lib/maquette-shop-context";
 import { cn } from "@/lib/utils";
 
 type MobileNavProps = {
   trigger: React.ReactElement;
 };
-
-function categoryHasPanel(category: CatalogNavCategory): boolean {
-  return Boolean(category.groups?.length || category.items?.length);
-}
-
-function getCategoryGroups(category: CatalogNavCategory): ProductNavGroup[] {
-  return category.groups ?? [{ title: category.label, items: category.items ?? [] }];
-}
 
 function MobileNavItem({ item }: { item: NavLink }) {
   if (item.children?.length) {
@@ -186,8 +179,7 @@ export function MobileNav({ trigger }: MobileNavProps) {
         className="flex h-full w-[min(100vw-1.5rem,20rem)] flex-col gap-0 overflow-hidden p-0 sm:max-w-xs"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-border/60 px-4 py-3">
-          <Link
-            href="/"
+          <HomeLink
             onClick={() => handleSheetOpenChange(false)}
             className="flex shrink-0 cursor-pointer items-center"
           >
@@ -198,7 +190,7 @@ export function MobileNav({ trigger }: MobileNavProps) {
               height={logos.height}
               className="h-11 w-auto"
             />
-          </Link>
+          </HomeLink>
           <SheetTitle className="sr-only">Menu Ojetables</SheetTitle>
           <SheetClose
             render={
@@ -269,22 +261,7 @@ export function MobileNav({ trigger }: MobileNavProps) {
               ))}
             </div>
             <div className="space-y-2 border-t border-border/60 pt-3">
-              <div className="flex flex-col items-center gap-0.5">
-                <a
-                  href={site.phoneHref}
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-1.5 py-1.5 text-xs font-medium text-brand-navy transition-colors hover:bg-muted"
-                >
-                  <Phone className="h-3.5 w-3.5 shrink-0 text-brand-teal" aria-hidden />
-                  {site.phone}
-                </a>
-                <a
-                  href={`mailto:${site.email}`}
-                  className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-md px-1.5 py-1.5 text-xs font-medium text-brand-navy transition-colors hover:bg-muted"
-                >
-                  <Mail className="h-3.5 w-3.5 shrink-0 text-brand-teal" aria-hidden />
-                  {site.email}
-                </a>
-              </div>
+              <HeaderTopBarContactLinks layout="stacked" />
               <LinkButton
                 href={topBar.contactHref}
                 variant="brand"
