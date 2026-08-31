@@ -11,8 +11,8 @@ export const routes = {
   account: ojetablesLive.account,
   quote: ojetablesLive.quote,
   mariage: ojetablesLive.mariage,
-  /** Page personnalisation prod - TODO: route Next interne à l’intégration Magento. */
-  personalization: "https://www.ojetables.fr/emballage-personnalise/",
+  /** Page personnalisation prod. */
+  personalization: "https://www.ojetables.fr/vaisselle-jetable-personnalisable/",
   /** Page catégorie maquette — toutes les familles catalogue y convergent. */
   category: featuredCategoryPath,
   /** Ancre homepage sections catalogue. */

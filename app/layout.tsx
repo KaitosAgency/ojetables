@@ -42,6 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={cn("h-full", geist.variable, "font-sans")}>
       <head>
         <link rel="describedby" href={`${siteUrl}/llms.txt`} type="text/markdown" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{if("scrollRestoration" in history)history.scrollRestoration="manual";}catch(e){}})();`,
+          }}
+        />
       </head>
       <body className="min-h-full bg-background text-foreground">
         <MaquetteShopProvider>

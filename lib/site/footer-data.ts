@@ -25,7 +25,7 @@ export const footerNav = {
     { label: "Collectivités & cantines", href: "https://www.ojetables.fr/vaisselle-jetable-collectivite/" },
     { label: "Associations & clubs", href: "https://www.ojetables.fr/vaisselle-jetable-association/" },
     { label: "Boulangeries", href: "https://www.ojetables.fr/vaisselle-jetable-boulangerie/" },
-    { label: "Personnalisation logo", href: "https://www.ojetables.fr/emballage-personnalise/" },
+    { label: "Personnalisation logo", href: "https://www.ojetables.fr/vaisselle-jetable-personnalisable/" },
   ],
 } as const satisfies Record<string, readonly FooterLink[]>;
 

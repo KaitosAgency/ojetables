@@ -1,8 +1,12 @@
 "use client";
 
 import { useLayoutEffect } from "react";
+import { usePathname } from "next/navigation";
 
-import { applyPageScrollReset } from "@/lib/scroll-reset";
+import {
+  applyPageScrollReset,
+  applyProductPageScrollReset,
+} from "@/lib/scroll-reset";
 
 type PageScrollResetProps = {
   mode: "home" | "product";
@@ -10,9 +14,16 @@ type PageScrollResetProps = {
 
 /** À l’arrivée sur une page : annule hash / restauration de scroll du navigateur. */
 export function PageScrollReset({ mode }: PageScrollResetProps) {
+  const pathname = usePathname();
+
   useLayoutEffect(() => {
-    applyPageScrollReset({ preserveValidHash: mode === "product" });
-  }, [mode]);
+    if (mode === "product") {
+      applyProductPageScrollReset();
+      return;
+    }
+
+    applyPageScrollReset({ preserveValidHash: false });
+  }, [mode, pathname]);
 
   return null;
 }

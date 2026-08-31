@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ComponentProps } from "react";
 
+import { applyPageScrollReset } from "@/lib/scroll-reset";
+
 type HomeLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
   href?: "/";
 };
@@ -29,8 +31,6 @@ export function HomeLink({ href = "/", onClick, ...props }: HomeLinkProps) {
     />
   );
 }
-
-import { applyPageScrollReset } from "@/lib/scroll-reset";
 
 export function resetHomeScroll() {
   applyPageScrollReset({ preserveValidHash: false });

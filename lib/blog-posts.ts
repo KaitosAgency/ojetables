@@ -52,7 +52,7 @@ export const blogPosts: readonly BlogPost[] = [
     category: "Personnalisation",
     imageSrc: "/products/gobelet-personnalise.jpg",
     imageAlt: "Gobelet carton personnalisé avec logo imprimé",
-    href: "https://www.ojetables.fr/emballage-personnalise/",
+    href: "https://www.ojetables.fr/vaisselle-jetable-personnalisable/",
     readTime: "5 min",
   },
   {
